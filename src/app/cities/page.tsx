@@ -26,16 +26,16 @@ export default function CitiesPage() {
             href={city.status === "live" ? `/${city.slug}` : "/cities"}
             className="rounded-2xl border border-line bg-card p-5"
           >
-            <p className="text-xs font-semibold tracking-[0.16em] text-gold">
-              {city.shortCode} · {city.region}
+            <p className="text-sm text-muted">
+              {city.region}
             </p>
             <p className="mt-2 text-2xl font-semibold">{city.name}</p>
             {city.officialName ? (
               <p className="text-sm text-muted">{city.officialName}</p>
             ) : null}
             <p className="mt-2 text-sm text-ink-soft">{city.tagline}</p>
-            <p className="mt-4 text-xs uppercase tracking-wide text-accent-dark">
-              {city.status === "live" ? "Live" : "Draft"}
+            <p className="mt-4 text-sm text-muted">
+              {city.status === "live" ? "Live" : "Coming later"}
             </p>
           </Link>
         ))}

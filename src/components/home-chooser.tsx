@@ -20,10 +20,9 @@ export function HomeChooser({
   cities: City[];
   services: Service[];
 }) {
-  const [citySlug, setCitySlug] = useState<string | null>(null);
-  const [trip, setTrip] = useState<ServiceKind | null>(null);
+  const [citySlug, setCitySlug] = useState<string | undefined>(undefined);
+  const [trip, setTrip] = useState<ServiceKind>("outstation");
   const city = cities.find((item) => item.slug === citySlug);
-  const service = services.find((item) => item.kind === trip);
   const types = useMemo(
     () =>
       tripOrder
@@ -32,57 +31,9 @@ export function HomeChooser({
     [services],
   );
 
-  const builder = city && trip
-    ? {
-        citySlug: city.slug,
-        initialFromId: cityPlaceId(city.slug),
-        initialToId:
-          trip === "airport"
-            ? airportPlaceId(city.slug)
-            : trip === "local"
-              ? localPlaceId(city.slug)
-              : undefined,
-        mode: trip,
-        initialReturn: trip === "round-trip",
-        heading:
-          trip === "local"
-            ? `Local hours in ${city.name}`
-            : trip === "airport"
-              ? `${city.name} airport transfer`
-              : `Leaving ${city.name}`,
-      }
-    : null;
-
   return (
-    <div>
-      <div className="grid gap-3 sm:grid-cols-5">
-        {cities.map((item) => {
-          const active = citySlug === item.slug;
-          return (
-            <button
-              key={item.slug}
-              type="button"
-              onClick={() => setCitySlug(item.slug)}
-              className={`rounded-2xl border px-4 py-4 text-left transition ${
-                active
-                  ? "border-white bg-white text-navy shadow-lg"
-                  : "border-white/15 bg-white/5 text-white hover:bg-white/10"
-              }`}
-            >
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-gold">
-                {item.shortCode}
-              </p>
-              <p className="mt-1 text-lg font-semibold">{item.name}</p>
-              <p className={`mt-1 text-xs ${active ? "text-muted" : "text-white/60"}`}>
-                {item.region}
-              </p>
-            </button>
-          );
-        })}
-      </div>
-
-      <p className="mt-8 text-sm font-medium text-white/70">2 · Trip type</p>
-      <div className="mt-3 grid gap-3 sm:grid-cols-5">
+    <section className="book-card rounded-[28px] border border-line bg-card p-5 sm:p-8">
+      <div className="flex gap-2 overflow-x-auto pb-1">
         {types.map((item) => {
           const active = trip === item.kind;
           return (
@@ -90,39 +41,63 @@ export function HomeChooser({
               key={item.id}
               type="button"
               onClick={() => setTrip(item.kind)}
-              className={`rounded-2xl border px-4 py-4 text-left transition ${
-                active
-                  ? "border-teal-200 bg-accent text-white"
-                  : "border-white/15 bg-white/5 text-white hover:bg-white/10"
+              className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
+                active ? "bg-ink text-paper" : "bg-paper text-ink-soft hover:bg-paper-deep"
               }`}
             >
-              <p className="font-semibold">{item.shortName}</p>
-              <p className={`mt-1 text-xs leading-5 ${active ? "text-white/80" : "text-white/60"}`}>
-                {item.journey}
-              </p>
+              {item.shortName}
+            </button>
+          );
+        })}
+      </div>
+      <p className="mt-3 text-sm text-muted">
+        {types.find((item) => item.kind === trip)?.journey}
+      </p>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        {cities.map((item) => {
+          const active = citySlug === item.slug;
+          return (
+            <button
+              key={item.slug}
+              type="button"
+              onClick={() => setCitySlug(item.slug)}
+              className={`rounded-full px-3 py-1.5 text-sm ${
+                active ? "bg-ink text-paper" : "text-ink-soft hover:bg-paper"
+              }`}
+            >
+              {item.name}
             </button>
           );
         })}
       </div>
 
-      <div className="mt-8">
-        {builder && city && service ? (
-          <TripBuilder
-            key={`${city.slug}-${trip}`}
-            citySlug={builder.citySlug}
-            initialFromId={builder.initialFromId}
-            initialToId={builder.initialToId}
-            mode={builder.mode}
-            initialReturn={builder.initialReturn}
-            heading={builder.heading}
-          />
-        ) : (
-          <div className="rounded-[28px] border border-white/10 bg-white/5 px-5 py-8 text-center text-white/70">
-            Choose a city and a trip type — including local hours — then the
-            fare appears. Nothing is pre-filled for Bangalore.
-          </div>
-        )}
+      <div className="mt-6 border-t border-line pt-6">
+        <TripBuilder
+          key={`${citySlug ?? "any"}-${trip}`}
+          embedded
+          citySlug={citySlug}
+          initialFromId={citySlug ? cityPlaceId(citySlug) : undefined}
+          initialToId={
+            citySlug && trip === "airport"
+              ? airportPlaceId(citySlug)
+              : citySlug && trip === "local"
+                ? localPlaceId(citySlug)
+                : undefined
+          }
+          mode={trip}
+          initialReturn={trip === "round-trip"}
+          heading={
+            trip === "local"
+              ? city
+                ? `Local hours in ${city.name}`
+                : "Local hours — pick a city"
+              : city
+                ? `${city.name} · ${types.find((item) => item.kind === trip)?.shortName}`
+                : "Where are you going?"
+          }
+        />
       </div>
-    </div>
+    </section>
   );
 }

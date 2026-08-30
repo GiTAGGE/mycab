@@ -8,41 +8,39 @@ export function Footer() {
   const routes = networkRoutes(1);
 
   return (
-    <footer className="mt-auto border-t border-navy-mid bg-navy text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-3">
+    <footer className="mt-auto border-t border-line bg-paper">
+      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 sm:grid-cols-3">
         <div>
           <p className="text-lg font-semibold">{brand.name}</p>
-          <p className="mt-2 max-w-xs text-sm leading-6 text-white/65">
-            Karnataka first: Bangalore, Hubli, Dharwad, Belgaum and Mangalore.
-            Local hours and trip types in every live city.
+          <p className="mt-2 max-w-xs text-sm leading-6 text-ink-soft">
+            Bangalore, Hubli, Dharwad, Belgaum and Mangalore. Local hours and
+            intercity trips in each.
           </p>
         </div>
         <div>
-          <p className="text-sm font-medium text-white/45">Cities</p>
+          <p className="text-sm text-muted">Cities</p>
           <ul className="mt-3 space-y-2 text-sm">
             {cities.map((city) => (
               <li key={city.slug}>
                 <Link className="hover:underline" href={`/${city.slug}`}>
                   {city.name}
-                  {city.officialName ? ` · ${city.officialName}` : ""}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <p className="text-sm font-medium text-white/45">Trip types</p>
+          <p className="text-sm text-muted">Trip types</p>
           <ul className="mt-3 space-y-2 text-sm">
             {services.map((service) => (
               <li key={service.id}>
-                <Link className="hover:underline" href={servicePath("bangalore", service)}>
+                <Link className="hover:underline" href={servicePath("hubli", service)}>
                   {service.name}
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm font-medium text-white/45">Across the network</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <ul className="mt-6 space-y-2 text-sm text-ink-soft">
             {routes.map((route) => (
               <li key={route.id}>
                 <Link className="hover:underline" href={routePath(route)}>
@@ -53,10 +51,10 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl justify-between px-4 py-4 text-xs text-white/45">
-          <span>Karnataka network · live cities</span>
-          <Link href="/ops" className="hover:text-white">
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-5xl justify-between px-4 py-4 text-xs text-muted">
+          <span>Karnataka</span>
+          <Link href="/ops" className="hover:text-ink">
             Ops
           </Link>
         </div>

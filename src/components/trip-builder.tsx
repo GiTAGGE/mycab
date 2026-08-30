@@ -22,6 +22,7 @@ export function TripBuilder({
   heading = "Where are you going?",
   mode,
   initialReturn = false,
+  embedded = false,
 }: {
   initialFromId?: string;
   initialToId?: string;
@@ -29,6 +30,7 @@ export function TripBuilder({
   heading?: string;
   mode?: ServiceKind;
   initialReturn?: boolean;
+  embedded?: boolean;
 }) {
   const isLocal = mode === "local";
   const places = useMemo(() => placesForPicker(citySlug), [citySlug]);
@@ -92,9 +94,11 @@ export function TripBuilder({
   }
 
   return (
-    <section className="rounded-[28px] border border-line bg-card p-5 shadow-sm sm:p-7">
-      <p className="text-sm font-medium text-accent-dark">Plan your ride</p>
-      <h2 className="display mt-1 text-3xl sm:text-4xl">{heading}</h2>
+    <section className={embedded ? "" : "rounded-[28px] border border-line bg-card p-5 shadow-sm sm:p-7"}>
+      {embedded ? null : <p className="text-sm font-medium text-muted">Plan your ride</p>}
+      <h2 className={`display ${embedded ? "text-2xl sm:text-3xl" : "mt-1 text-3xl sm:text-4xl"}`}>
+        {heading}
+      </h2>
 
       <div className="mt-6 space-y-3">
         <PlaceButton

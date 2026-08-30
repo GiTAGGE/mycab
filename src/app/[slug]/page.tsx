@@ -68,8 +68,8 @@ function CityLanding({ citySlug }: { citySlug: string }) {
         {city.status === "draft" ? (
           <p className="mb-3 text-sm font-medium text-accent-dark">Opening soon · same trip builder</p>
         ) : null}
-        <p className="text-xs font-semibold tracking-[0.16em] text-gold">
-          {city.shortCode} · {city.region}
+        <p className="text-sm text-muted">
+          {city.region}
           {city.officialName ? ` · ${city.officialName}` : ""}
         </p>
         <h1 className="display mt-2 text-4xl sm:text-6xl">{city.hero}</h1>

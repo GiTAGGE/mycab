@@ -8,16 +8,13 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
   return (
-    <section className="constellation px-4 py-12 text-white">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="display text-4xl">Tell us the city, then the trip type.</h1>
-        <p className="mt-3 max-w-xl text-white/70">
-          Local hours or an A-to-B trip. Same builder in every live city.
-        </p>
-        <p className="mt-8 text-sm font-medium text-white/70">1 · Your city</p>
-        <div className="mt-3">
-          <HomeChooser cities={liveCities()} services={services} />
-        </div>
+    <section className="mx-auto max-w-3xl px-4 py-14">
+      <h1 className="display text-4xl">Plan your ride</h1>
+      <p className="mt-3 max-w-lg text-ink-soft">
+        Local hours or a trip between cities. Same card as the homepage.
+      </p>
+      <div className="mt-8">
+        <HomeChooser cities={liveCities()} services={services} />
       </div>
     </section>
   );
