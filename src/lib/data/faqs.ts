@@ -100,4 +100,31 @@ export const faqs: Faq[] = [
     answer:
       "Yes. Local is hours in Mangalore with multiple stops. A one-way is A to B. Pick the trip type that matches what you are actually doing.",
   },
+  {
+    id: "f12",
+    citySlug: "hubli",
+    routeId: "hbl-dandeli",
+    service: null,
+    question: "Is Hubli to Dandeli better as a return?",
+    answer:
+      "Usually yes. Most groups raft and come back the same evening. We show both one-way and return — pick the one that matches the stay.",
+  },
+  {
+    id: "f13",
+    citySlug: "hubli",
+    routeId: "hbl-murudeshwar",
+    service: null,
+    question: "Do you cover Murudeshwara as well as Murudeshwar?",
+    answer:
+      "Same place. Temple, beach, and the statue. The page is /hubli-to-murudeshwar-cab — the extra ‘a’ in Murudeshwara still lands here.",
+  },
+  {
+    id: "f14",
+    citySlug: "hubli",
+    routeId: "hbl-hospet",
+    service: null,
+    question: "Should I book Hubli to Hospet or Hubli to Hampi?",
+    answer:
+      "Hospet if you want the town, station or a hotel. Hampi if the drop is the ruins. They are close — tell us the pin on WhatsApp and we keep the same car.",
+  },
 ];

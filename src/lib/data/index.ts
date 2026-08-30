@@ -43,6 +43,25 @@ export function networkRoutes(perCity = 2): Route[] {
   return liveCities().flatMap((city) => routesFromCity(city.slug).slice(0, perCity));
 }
 
+const hubliLeisureSlugs = [
+  "dandeli",
+  "gokarna",
+  "murudeshwar",
+  "hampi",
+  "hospet",
+  "karwar",
+  "sirsi",
+  "badami",
+  "jog-falls",
+];
+
+export function hubliLeisureRoutes(): Route[] {
+  const fromHubli = routesFromCity("hubli");
+  return hubliLeisureSlugs
+    .map((slug) => fromHubli.find((route) => route.destinationSlug === slug))
+    .filter((route): route is Route => Boolean(route));
+}
+
 export function localPackageFrom(citySlug: string, unit: "4hr" | "8hr" = "8hr") {
   return pricingRules.find(
     (rule) =>

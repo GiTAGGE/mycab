@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { HomeChooser } from "@/components/home-chooser";
 import { RouteCard } from "@/components/route-card";
-import { liveCities, localPackageFrom, networkRoutes, services } from "@/lib/data";
+import { hubliLeisureRoutes, liveCities, localPackageFrom, networkRoutes, services } from "@/lib/data";
 import { inrFrom } from "@/lib/format";
 import { servicePath } from "@/lib/urls";
 
@@ -55,8 +55,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 pb-12">
+        <h2 className="display text-3xl">From Hubli</h2>
+        <p className="mt-2 text-ink-soft">
+          Dandeli, Gokarna, Murudeshwar, Hampi, Hospet — and the rest of the
+          North Karnataka runs.
+        </p>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {hubliLeisureRoutes().map((route) => (
+            <RouteCard key={route.id} route={route} />
+          ))}
+        </div>
+        <Link href="/hubli/outstation-cabs" className="mt-6 inline-block text-sm underline">
+          All Hubli outstation trips
+        </Link>
+      </section>
+
       <section className="mx-auto max-w-5xl px-4 pb-20">
-        <h2 className="display text-3xl">Popular trips</h2>
+        <h2 className="display text-3xl">Across the network</h2>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {popular.map((route) => (
             <RouteCard key={route.id} route={route} />

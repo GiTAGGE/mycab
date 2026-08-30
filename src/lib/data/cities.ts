@@ -49,11 +49,18 @@ export const cities: City[] = [
     tagline: "Twin-city hops, HBX airport and North Karnataka routes.",
     hero: "Where in Hubli are you going?",
     trustLine: "Hubli and Hubballi — airport, local hours and outstation.",
-    popularDestinationSlugs: ["dharwad", "belgaum", "goa", "hampi"],
+    popularDestinationSlugs: [
+      "dandeli",
+      "gokarna",
+      "murudeshwar",
+      "hampi",
+      "hospet",
+      "dharwad",
+    ],
     availableServiceIds: [...fullServices],
     seoTitle: "Hubli cabs — airport, local and outstation",
     seoDescription:
-      "Hubli airport taxi, local rental and outstation cabs to Dharwad, Belgaum, Goa and Bangalore.",
+      "Hubli airport taxi, local rental and outstation cabs to Dandeli, Gokarna, Murudeshwar, Hampi, Hospet, Dharwad and Goa.",
   },
   {
     id: "dharwad",
