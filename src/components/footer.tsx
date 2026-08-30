@@ -11,7 +11,7 @@ export function Footer() {
     <footer className="mt-auto border-t border-line bg-paper">
       <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 sm:grid-cols-3">
         <div>
-          <p className="text-lg font-semibold">
+          <p className="text-lg font-semibold" aria-label={brand.name}>
             My<span className="text-accent">Cab</span>
           </p>
           <p className="mt-2 max-w-xs text-sm leading-6 text-ink-soft">

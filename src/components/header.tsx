@@ -7,7 +7,7 @@ export function Header({ citySlug }: { citySlug?: string }) {
   return (
     <header className="sticky top-0 z-30 border-b border-line/70 bg-paper/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
-        <Link href="/" className="text-[17px] font-semibold tracking-tight">
+        <Link href="/" aria-label={brand.name} className="text-[17px] font-semibold tracking-tight">
           My<span className="text-accent">Cab</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm">
