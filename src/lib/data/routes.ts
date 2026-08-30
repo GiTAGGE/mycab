@@ -184,7 +184,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 499,
     status: "live",
-    why: "The twin-city hop. Meetings, college drops, and evening returns.",
+    why: "The twin-city hop at the published ₹1,400 sedan fare. Meetings, college drops, evening returns.",
   },
   {
     id: "hbl-belgaum",
@@ -366,7 +366,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 499,
     status: "live",
-    why: "The other direction of the twin city. Station, airport feeder, or a meeting.",
+    why: "The other direction of the twin city at the same ₹1,400 sedan fare.",
   },
   {
     id: "dwd-belgaum",

@@ -28,7 +28,7 @@ All published fares come from `src/lib/pricing-model.ts`, anchored on Hubli outs
 | Hubli → Gokarna | ₹3,999 |
 | Hubli → Hampi | ₹3,999 |
 
-Formula: twin-city (≤25 km) ₹499; otherwise ₹1,999 + ₹13.5/km, rounded to ×99. Hampi carries a ₹100 tourist premium so it matches Gokarna. Airport and local packages are city rates in the same file. Round trip is 1.75× except day-trip-only routes (Nandi Hills, Jog Falls).
+Formula: twin-city (≤25 km) ₹1,400 (Hubli ↔ Dharwad); otherwise ₹1,999 + ₹13.5/km, rounded to ×99. Hampi carries a ₹100 tourist premium so it matches Gokarna. Airport and local packages are city rates in the same file. Round trip is 1.75× except day-trip-only routes (Nandi Hills, Jog Falls).
 
 Do not run high-volume Google Ads on the Free credit cap forever. Prove conversion, then upgrade.
 

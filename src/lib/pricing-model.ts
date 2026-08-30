@@ -2,6 +2,7 @@ import type { Locality, Route } from "@/types";
 
 /** Hubli commercial anchors — the rest of the book follows this model. */
 export const HUBLI_ANCHORS = {
+  dharwad: 1400,
   dandeli: 2999,
   gokarna: 3999,
   hampi: 3999,
@@ -12,7 +13,7 @@ export const OUTSTATION = {
   perKm: 13.5,
   roundTripMultiplier: 1.75,
   twinMaxKm: 25,
-  twinFare: 499,
+  twinFare: 1400,
   dayTripFactor: 1.45,
 } as const;
 
@@ -125,12 +126,14 @@ export function assertHubliAnchors(routes: Route[]): void {
       ?.sedanFare;
 
   const actual = {
+    dharwad: fare("dharwad"),
     dandeli: fare("dandeli"),
     gokarna: fare("gokarna"),
     hampi: fare("hampi"),
   };
 
   if (
+    actual.dharwad !== HUBLI_ANCHORS.dharwad ||
     actual.dandeli !== HUBLI_ANCHORS.dandeli ||
     actual.gokarna !== HUBLI_ANCHORS.gokarna ||
     actual.hampi !== HUBLI_ANCHORS.hampi
