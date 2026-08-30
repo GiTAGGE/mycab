@@ -58,8 +58,10 @@ function CityLanding({ citySlug }: { citySlug: string }) {
   if (!city) return null;
   const popular = routesFromCity(city.slug);
   const pickups = localitiesInCity(city.slug).filter((item) => item.slug !== "airport");
-  const cityServices = services.filter((service) =>
-    city.availableServiceIds.includes(service.id),
+  const cityServices = services.filter(
+    (service) =>
+      city.availableServiceIds.includes(service.id) &&
+      ["local", "airport", "outstation"].includes(service.id),
   );
 
   return (
@@ -156,7 +158,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-ink-soft">{route.why}</p>
         <div className="mt-5 flex flex-wrap gap-4 text-sm">
-          <span>{inrFrom(route.sedanFare)}</span>
+          <span className="font-medium text-accent">{inrFrom(route.sedanFare)}</span>
           <span>{durationLabel(route.durationMinutes)}</span>
           <span>{route.distanceKm} km</span>
         </div>

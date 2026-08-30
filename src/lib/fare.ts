@@ -1,7 +1,7 @@
 import type { FareQuote, Place, VehicleQuote } from "@/types";
 import { pricingRules, vehicles } from "@/lib/data";
 import { durationLabel } from "@/lib/format";
-import { isDayTrip, oneWaySedan, OUTSTATION, vehicleAmount } from "@/lib/pricing-model";
+import { vehicleAmount } from "@/lib/pricing-model";
 import {
   detectIntent,
   findRoute,
@@ -10,7 +10,7 @@ import {
   tripTitle,
 } from "@/lib/trip-intent";
 
-const OUTSTATION_INCLUDES = ["Fuel", "Driver", "One-way on published routes"];
+const OUTSTATION_INCLUDES = ["Fuel", "Driver", "Published fare"];
 const AIRPORT_INCLUDES = ["Fuel", "Driver", "Door-to-door"];
 const LOCAL_INCLUDES = ["Fuel", "Driver", "Package hours"];
 
@@ -34,27 +34,16 @@ export function quoteTrip(
   }
 
   if (route) {
-    const round = intent === "outstation-round-trip";
     const quotes = vehicles
       .filter((vehicle) => route.vehicleIds.includes(vehicle.id))
       .filter((vehicle) => vehicle.seats >= Math.min(passengers, vehicle.seats))
       .map((vehicle) => {
-        const sedan = isDayTrip(route) && !round
-          ? oneWaySedan(route.distanceKm, route.destinationSlug)
-          : route.sedanFare;
-        const base = vehicleAmount(sedan, vehicle.multiplier);
-        const amount =
-          round && !isDayTrip(route)
-            ? vehicleAmount(base, OUTSTATION.roundTripMultiplier)
-            : base;
+        const amount = vehicleAmount(route.sedanFare, vehicle.multiplier);
         return {
           vehicleId: vehicle.id,
           amount,
-          label: round ? "Round trip estimate" : "One-way estimate",
-          includes: [
-            ...OUTSTATION_INCLUDES,
-            ...(round ? ["Return with same car"] : []),
-          ],
+          label: "Estimated fare",
+          includes: OUTSTATION_INCLUDES,
         } satisfies VehicleQuote;
       });
 
@@ -62,9 +51,7 @@ export function quoteTrip(
       intent,
       title: copy.title,
       subtitle: `${tripTitle(from, to)} · ${route.distanceKm} km`,
-      durationLabel: durationLabel(
-        round ? route.durationMinutes * 2 : route.durationMinutes,
-      ),
+      durationLabel: durationLabel(route.durationMinutes),
       exact: false,
       vehicles: quotes,
       trust: copy.trust,

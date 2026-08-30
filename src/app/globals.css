@@ -1,21 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f6f3ec;
-  --paper-deep: #ece6db;
+  --paper: #f7f1e8;
+  --paper-deep: #ede4d6;
   --card: #ffffff;
-  --ink: #171411;
-  --ink-soft: #3f3a35;
-  --muted: #7a736a;
-  --line: #e6e0d6;
-  --accent: #171411;
-  --accent-dark: #171411;
-  --forest: #1f4d3a;
-  --forest-soft: #e8f0eb;
-  --good: #1f4d3a;
-  --navy: #171411;
-  --navy-mid: #2a2521;
-  --gold: #3f3a35;
+  --ink: #1c1410;
+  --ink-soft: #4a3f38;
+  --muted: #8a7e74;
+  --line: #e5d9cc;
+  --accent: #8b3a2a;
+  --accent-dark: #6f2e22;
+  --accent-soft: #f5e6dc;
+  --forest: #1f6b45;
+  --forest-soft: #e8f3ec;
+  --good: #1f6b45;
 }
 
 @theme inline {
@@ -28,12 +26,10 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-dark: var(--accent-dark);
+  --color-accent-soft: var(--accent-soft);
   --color-forest: var(--forest);
   --color-forest-soft: var(--forest-soft);
   --color-good: var(--good);
-  --color-navy: var(--navy);
-  --color-navy-mid: var(--navy-mid);
-  --color-gold: var(--gold);
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-display);
 }
@@ -58,7 +54,7 @@ h2,
 }
 
 ::selection {
-  background: #ddd6c8;
+  background: var(--accent-soft);
   color: var(--ink);
 }
 
@@ -78,5 +74,6 @@ h2,
 }
 
 .book-card {
-  box-shadow: 0 24px 60px -32px rgba(23, 20, 17, 0.28);
+  border-top: 3px solid var(--accent);
+  box-shadow: 0 24px 60px -32px rgba(139, 58, 42, 0.28);
 }

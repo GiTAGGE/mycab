@@ -7,7 +7,7 @@ export default function NotFound() {
       <p className="mt-3 text-ink-soft">
         We only publish URLs that match a real customer decision.
       </p>
-      <Link href="/" className="mt-6 inline-block rounded-full bg-ink px-5 py-3 text-paper">
+      <Link href="/" className="mt-6 inline-block rounded-full bg-accent px-5 py-3 text-white">
         Plan a ride
       </Link>
     </section>

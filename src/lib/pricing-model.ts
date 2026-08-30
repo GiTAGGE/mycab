@@ -11,7 +11,6 @@ export const HUBLI_ANCHORS = {
 export const OUTSTATION = {
   base: 1999,
   perKm: 13.5,
-  roundTripMultiplier: 1.75,
   twinMaxKm: 25,
   twinFare: 1400,
   dayTripFactor: 1.45,

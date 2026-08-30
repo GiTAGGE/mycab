@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { HomeChooser } from "@/components/home-chooser";
 import { RouteCard } from "@/components/route-card";
-import { hubliLeisureRoutes, liveCities, localPackageFrom, networkRoutes, services } from "@/lib/data";
+import { hubliLeisureRoutes, liveCities, localPackageFrom, networkRoutes, publicServices } from "@/lib/data";
 import { inrFrom } from "@/lib/format";
 import { servicePath } from "@/lib/urls";
 
 export default function HomePage() {
   const cities = liveCities();
   const popular = networkRoutes(2);
-  const tripTypes = services.filter((service) =>
-    ["local", "airport", "outstation", "one-way", "round-trip"].includes(service.id),
-  );
+  const tripTypes = publicServices();
 
   return (
     <>
@@ -48,7 +46,7 @@ export default function HomePage() {
                   <span className="block font-medium">{city.name}</span>
                   <span className="block text-sm text-muted">{city.region}</span>
                 </span>
-                <span className="text-sm">{pack ? `${inrFrom(pack.amount)} / 8 hr` : "Get fare"}</span>
+                <span className="text-sm font-medium text-accent">{pack ? `${inrFrom(pack.amount)} / 8 hr` : "Get fare"}</span>
               </Link>
             );
           })}
@@ -66,7 +64,7 @@ export default function HomePage() {
             <RouteCard key={route.id} route={route} />
           ))}
         </div>
-        <Link href="/hubli/outstation-cabs" className="mt-6 inline-block text-sm underline">
+        <Link href="/hubli/outstation-cabs" className="mt-6 inline-block text-sm text-accent underline decoration-accent/40 underline-offset-4">
           All Hubli outstation trips
         </Link>
       </section>

@@ -82,7 +82,7 @@ export default async function ServicePage({
           <div className="mt-6 flex flex-wrap gap-2">
             <Link
               href={servicePath(city, service)}
-              className="rounded-full bg-ink px-4 py-2 text-sm text-paper"
+              className="rounded-full bg-accent px-4 py-2 text-sm text-white"
             >
               {city.name} → Airport
             </Link>
@@ -128,7 +128,7 @@ export default async function ServicePage({
                   <p className="font-medium">
                     {locality.name} → Airport
                   </p>
-                  <p className="mt-2 text-sm text-accent-dark">
+                  <p className="mt-2 text-sm font-medium text-accent">
                     {inrFrom(locality.airportFareFrom)}
                   </p>
                   <p className="mt-1 text-sm text-muted">~{locality.airportMinutes} min</p>
@@ -142,15 +142,9 @@ export default async function ServicePage({
         <section className="mx-auto max-w-5xl px-4 py-8">
           <h2 className="display text-3xl">Published routes from {city.name}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {outstation
-              .filter((route) =>
-                service.kind === "round-trip"
-                  ? route.services.includes("round-trip")
-                  : route.services.includes("one-way") || route.services.includes("round-trip"),
-              )
-              .map((route) => (
-                <RouteCard key={route.id} route={route} />
-              ))}
+            {outstation.map((route) => (
+              <RouteCard key={route.id} route={route} />
+            ))}
           </div>
         </section>
       ) : null}

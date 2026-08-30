@@ -24,8 +24,8 @@ export const services: Service[] = [
     shortName: "Outstation",
     journey: "I’m going to another city",
     description:
-      "One-way and round-trip intercity cabs with a clear fare before you book. Fuel and driver included.",
-    trust: ["One-way available", "No return fare on selected routes", "Professional drivers"],
+      "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
+    trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
   },
   {
     id: "local",
@@ -44,10 +44,10 @@ export const services: Service[] = [
     slug: "one-way-cabs",
     name: "One-way cab",
     shortName: "One way",
-    journey: "I only need to get there",
+    journey: "I’m going to another city",
     description:
-      "Pay for the trip you are actually taking. No forced return fare on published one-way routes.",
-    trust: ["One-way pricing", "Drop and done", "Sedan to tempo traveller"],
+      "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
+    trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
   },
   {
     id: "round-trip",
@@ -55,9 +55,9 @@ export const services: Service[] = [
     slug: "round-trip-cabs",
     name: "Round trip",
     shortName: "Return",
-    journey: "I’m coming back",
+    journey: "I’m going to another city",
     description:
-      "Same car and driver for the return. Better when you have a meeting, wedding, or a 2–3 day getaway.",
-    trust: ["Same driver both ways", "Waiting as agreed", "Clear day-wise estimate"],
+      "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
+    trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
   },
 ];

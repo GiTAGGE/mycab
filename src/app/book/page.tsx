@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HomeChooser } from "@/components/home-chooser";
-import { liveCities, services } from "@/lib/data";
+import { liveCities, publicServices } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Plan your ride",
@@ -14,7 +14,7 @@ export default function BookPage() {
         Local hours or a trip between cities. Same card as the homepage.
       </p>
       <div className="mt-8">
-        <HomeChooser cities={liveCities()} services={services} />
+        <HomeChooser cities={liveCities()} services={publicServices()} />
       </div>
     </section>
   );

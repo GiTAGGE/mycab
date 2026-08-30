@@ -9,6 +9,14 @@ import { vehicles } from "./vehicles";
 
 export { cities, faqs, localities, pricingRules, routes, services, vehicles };
 
+export const PUBLIC_SERVICE_IDS = ["local", "airport", "outstation"] as const;
+
+export function publicServices(): Service[] {
+  return services.filter((service) =>
+    (PUBLIC_SERVICE_IDS as readonly string[]).includes(service.id),
+  );
+}
+
 export function liveCities(): City[] {
   return cities.filter((city) => city.status === "live");
 }

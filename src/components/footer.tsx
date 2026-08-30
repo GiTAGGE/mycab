@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { brand } from "@/lib/brand";
-import { liveCities, networkRoutes, services } from "@/lib/data";
+import { liveCities, networkRoutes, publicServices } from "@/lib/data";
 import { routePath, servicePath } from "@/lib/urls";
 
 export function Footer() {
@@ -11,7 +11,9 @@ export function Footer() {
     <footer className="mt-auto border-t border-line bg-paper">
       <div className="mx-auto grid max-w-5xl gap-10 px-4 py-14 sm:grid-cols-3">
         <div>
-          <p className="text-lg font-semibold">{brand.name}</p>
+          <p className="text-lg font-semibold" aria-label={brand.name}>
+            My<span className="text-accent">Cab</span>
+          </p>
           <p className="mt-2 max-w-xs text-sm leading-6 text-ink-soft">
             Bangalore, Hubli, Dharwad, Belgaum and Mangalore. Local hours and
             intercity trips in each.
@@ -32,7 +34,7 @@ export function Footer() {
         <div>
           <p className="text-sm text-muted">Trip types</p>
           <ul className="mt-3 space-y-2 text-sm">
-            {services.map((service) => (
+            {publicServices().map((service) => (
               <li key={service.id}>
                 <Link className="hover:underline" href={servicePath("hubli", service)}>
                   {service.name}

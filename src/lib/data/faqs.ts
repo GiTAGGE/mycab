@@ -24,9 +24,9 @@ export const faqs: Faq[] = [
     citySlug: "bangalore",
     routeId: null,
     service: "outstation",
-    question: "Is one-way really one-way?",
+    question: "Is the published fare the fare?",
     answer:
-      "On published routes, yes. You pay the trip you are taking. Tolls that apply on the route are called out before confirmation.",
+      "Yes. The number you see is the fare for that trip — we do not split it into one-way and return. Tolls on the route are called out before confirmation.",
   },
   {
     id: "f4",
@@ -53,7 +53,7 @@ export const faqs: Faq[] = [
     service: null,
     question: "Why are fares shown as a starting price?",
     answer:
-      "Pickup point, time of day, and return plans change the final number. The estimate is real; the last rupees are confirmed before you pay.",
+      "Pickup point and time of day can change the last rupees. The published fare is the fare; we confirm tolls before you pay.",
   },
   {
     id: "f7",
@@ -96,18 +96,18 @@ export const faqs: Faq[] = [
     citySlug: "mangalore",
     routeId: null,
     service: "local",
-    question: "Is local rental different from a one-way drop?",
+    question: "Is local rental different from a drop?",
     answer:
-      "Yes. Local is hours in Mangalore with multiple stops. A one-way is A to B. Pick the trip type that matches what you are actually doing.",
+      "Yes. Local is hours in Mangalore with multiple stops. Outstation is A to B between cities. Pick the trip type that matches what you are actually doing.",
   },
   {
     id: "f12",
     citySlug: "hubli",
     routeId: "hbl-dandeli",
     service: null,
-    question: "Is Hubli to Dandeli better as a return?",
+    question: "Is Hubli to Dandeli usually a same-day trip?",
     answer:
-      "Usually yes. Most groups raft and come back the same evening. We show both one-way and return — pick the one that matches the stay.",
+      "Usually yes. Most groups raft and come back the same evening. The published fare is the fare either way — tell us the stay on WhatsApp.",
   },
   {
     id: "f13",
