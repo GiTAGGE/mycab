@@ -1,0 +1,76 @@
+import type { City } from "@/types";
+
+export const cities: City[] = [
+  {
+    id: "bangalore",
+    name: "Bangalore",
+    slug: "bangalore",
+    state: "Karnataka",
+    status: "live",
+    airport: {
+      name: "Kempegowda International Airport",
+      code: "BLR",
+      slug: "airport",
+    },
+    tagline: "Airport, city and outstation — one trip builder.",
+    hero: "Where in Bangalore are you going?",
+    trustLine: "Door-to-door cabs across Bangalore, 24×7.",
+    popularDestinationSlugs: [
+      "mysore",
+      "coorg",
+      "chennai",
+      "ooty",
+      "pondicherry",
+      "wayanad",
+    ],
+    availableServiceIds: [
+      "airport",
+      "outstation",
+      "local",
+      "one-way",
+      "round-trip",
+    ],
+    seoTitle: "Bangalore cabs — airport, local and outstation",
+    seoDescription:
+      "Book a Bangalore airport taxi, local rental or outstation cab. See an estimated fare, pick a car, continue on WhatsApp.",
+  },
+  {
+    id: "hyderabad",
+    name: "Hyderabad",
+    slug: "hyderabad",
+    state: "Telangana",
+    status: "draft",
+    airport: {
+      name: "Rajiv Gandhi International Airport",
+      code: "HYD",
+      slug: "airport",
+    },
+    tagline: "Same trip builder. Local routes and fares next.",
+    hero: "Hyderabad cabs are being set up.",
+    trustLine: "Airport and intercity from Hyderabad — opening next.",
+    popularDestinationSlugs: ["vijayawada", "warangal"],
+    availableServiceIds: ["airport", "outstation", "local"],
+    seoTitle: "Hyderabad cabs — coming soon",
+    seoDescription:
+      "MyCab is opening Hyderabad airport and outstation cabs. WhatsApp us if you need a trip now.",
+  },
+  {
+    id: "chennai",
+    name: "Chennai",
+    slug: "chennai",
+    state: "Tamil Nadu",
+    status: "draft",
+    airport: {
+      name: "Chennai International Airport",
+      code: "MAA",
+      slug: "airport",
+    },
+    tagline: "Queued after Hyderabad. Architecture already supports it.",
+    hero: "Chennai is on the map — not live yet.",
+    trustLine: "Tell us the trip on WhatsApp in the meantime.",
+    popularDestinationSlugs: ["pondicherry", "bangalore"],
+    availableServiceIds: ["airport", "outstation"],
+    seoTitle: "Chennai cabs — coming soon",
+    seoDescription: "Chennai airport and outstation cabs are next on MyCab.",
+  },
+];

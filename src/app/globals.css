@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f3eee4;
+  --paper-deep: #e8e0d2;
+  --card: #fffaf2;
+  --ink: #16120e;
+  --ink-soft: #3d3832;
+  --muted: #6f675e;
+  --line: #ddd4c6;
+  --accent: #c2410c;
+  --accent-dark: #9a3412;
+  --forest: #1b3a2f;
+  --forest-soft: #e4eee8;
+  --good: #1c6b4a;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-forest: var(--forest);
+  --color-forest-soft: var(--forest-soft);
+  --color-good: var(--good);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-display);
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+.display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  letter-spacing: -0.03em;
+}
+
+::selection {
+  background: #f0c7b0;
+  color: var(--ink);
+}
+
+.sheet-enter {
+  animation: rise 0.22s ease-out;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
