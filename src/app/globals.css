@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f6f3ec;
+  --paper-deep: #ece6db;
+  --card: #ffffff;
+  --ink: #171411;
+  --ink-soft: #3f3a35;
+  --muted: #7a736a;
+  --line: #e6e0d6;
+  --accent: #171411;
+  --accent-dark: #171411;
+  --forest: #1f4d3a;
+  --forest-soft: #e8f0eb;
+  --good: #1f4d3a;
+  --navy: #171411;
+  --navy-mid: #2a2521;
+  --gold: #3f3a35;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-forest: var(--forest);
+  --color-forest-soft: var(--forest-soft);
+  --color-good: var(--good);
+  --color-navy: var(--navy);
+  --color-navy-mid: var(--navy-mid);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-display);
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+.display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 520;
+  letter-spacing: -0.035em;
+}
+
+::selection {
+  background: #ddd6c8;
+  color: var(--ink);
+}
+
+.sheet-enter {
+  animation: rise 0.22s ease-out;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.book-card {
+  box-shadow: 0 24px 60px -32px rgba(23, 20, 17, 0.28);
+}
