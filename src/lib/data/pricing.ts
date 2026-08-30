@@ -1,18 +1,17 @@
 import type { PricingRule } from "@/types";
+import { CITY_PACKAGES } from "@/lib/pricing-model";
 import { vehicles } from "./vehicles";
 
-function cityPricing(
-  citySlug: string,
-  airportSedan: number,
-  local4Sedan: number,
-  local8Sedan: number,
-): PricingRule[] {
+function cityPricing(citySlug: string): PricingRule[] {
+  const pack = CITY_PACKAGES[citySlug];
+  if (!pack) return [];
+
   const airport = vehicles.map((vehicle) => ({
     id: `${citySlug}-airport-${vehicle.id}`,
     citySlug,
     service: "airport" as const,
     vehicleId: vehicle.id,
-    amount: Math.round(airportSedan * vehicle.multiplier),
+    amount: Math.round(pack.airportSedan * vehicle.multiplier),
     unit: "trip" as const,
     label: "Airport transfer",
   }));
@@ -26,7 +25,7 @@ function cityPricing(
     citySlug,
     service: "local" as const,
     vehicleId: vehicle.id,
-    amount: Math.round(local4Sedan * vehicle.multiplier),
+    amount: Math.round(pack.local4 * vehicle.multiplier),
     unit: "4hr" as const,
     label: "4 hours / 40 km",
   }));
@@ -36,7 +35,7 @@ function cityPricing(
     citySlug,
     service: "local" as const,
     vehicleId: vehicle.id,
-    amount: Math.round(local8Sedan * vehicle.multiplier),
+    amount: Math.round(pack.local8 * vehicle.multiplier),
     unit: "8hr" as const,
     label: "8 hours / 80 km",
   }));
@@ -44,10 +43,4 @@ function cityPricing(
   return [...airport, ...local4, ...local8];
 }
 
-export const pricingRules: PricingRule[] = [
-  ...cityPricing("bangalore", 699, 1499, 2199),
-  ...cityPricing("hubli", 449, 1199, 1799),
-  ...cityPricing("dharwad", 799, 1199, 1799),
-  ...cityPricing("belgaum", 499, 1299, 1899),
-  ...cityPricing("mangalore", 549, 1399, 1999),
-];
+export const pricingRules: PricingRule[] = Object.keys(CITY_PACKAGES).flatMap(cityPricing);

@@ -1,8 +1,9 @@
 import type { Route } from "@/types";
+import { applyRouteFares, assertHubliAnchors } from "@/lib/pricing-model";
 
 const cars = ["hatchback", "sedan", "suv", "innova", "tempo"];
 
-export const routes: Route[] = [
+const routeRecords: Route[] = [
   {
     id: "blr-mysore",
     originCitySlug: "bangalore",
@@ -606,3 +607,6 @@ export const routes: Route[] = [
     why: "North coastal run past Udupi. One-way or a same-day return.",
   },
 ];
+
+export const routes = applyRouteFares(routeRecords);
+assertHubliAnchors(routes);

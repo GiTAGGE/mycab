@@ -18,6 +18,18 @@ Yes. Phase 1 runs on **Netlify Free** and does **not** need Netlify Database, Su
 
 When you outgrow Free, swap only the store in `src/lib/db/store.ts` for Postgres. The pages do not change.
 
+## Pricing model
+
+All published fares come from `src/lib/pricing-model.ts`, anchored on Hubli outstation:
+
+| Route | Sedan one-way |
+| --- | --- |
+| Hubli → Dandeli | ₹2,999 |
+| Hubli → Gokarna | ₹3,999 |
+| Hubli → Hampi | ₹3,999 |
+
+Formula: twin-city (≤25 km) ₹499; otherwise ₹1,999 + ₹13.5/km, rounded to ×99. Hampi carries a ₹100 tourist premium so it matches Gokarna. Airport and local packages are city rates in the same file. Round trip is 1.75× except day-trip-only routes (Nandi Hills, Jog Falls).
+
 Do not run high-volume Google Ads on the Free credit cap forever. Prove conversion, then upgrade.
 
 ## What’s in Phase 1

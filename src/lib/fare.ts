@@ -1,6 +1,7 @@
 import type { FareQuote, Place, VehicleQuote } from "@/types";
 import { pricingRules, vehicles } from "@/lib/data";
 import { durationLabel } from "@/lib/format";
+import { isDayTrip, oneWaySedan, OUTSTATION, vehicleAmount } from "@/lib/pricing-model";
 import {
   detectIntent,
   findRoute,
@@ -38,8 +39,14 @@ export function quoteTrip(
       .filter((vehicle) => route.vehicleIds.includes(vehicle.id))
       .filter((vehicle) => vehicle.seats >= Math.min(passengers, vehicle.seats))
       .map((vehicle) => {
-        const base = Math.round(route.sedanFare * vehicle.multiplier);
-        const amount = round ? Math.round(base * 1.75) : base;
+        const sedan = isDayTrip(route) && !round
+          ? oneWaySedan(route.distanceKm, route.destinationSlug)
+          : route.sedanFare;
+        const base = vehicleAmount(sedan, vehicle.multiplier);
+        const amount =
+          round && !isDayTrip(route)
+            ? vehicleAmount(base, OUTSTATION.roundTripMultiplier)
+            : base;
         return {
           vehicleId: vehicle.id,
           amount,

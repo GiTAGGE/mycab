@@ -1,6 +1,7 @@
 import type { Locality } from "@/types";
+import { applyLocalityFares } from "@/lib/pricing-model";
 
-export const localities: Locality[] = [
+const localityRecords: Locality[] = [
   {
     id: "blr-airport",
     citySlug: "bangalore",
@@ -282,3 +283,5 @@ export const localities: Locality[] = [
     airportFareFrom: 699,
   },
 ];
+
+export const localities = applyLocalityFares(localityRecords);
