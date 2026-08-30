@@ -1,12 +1,6 @@
 import type { City } from "@/types";
 
-const fullServices = [
-  "airport",
-  "outstation",
-  "local",
-  "one-way",
-  "round-trip",
-] as const;
+const fullServices = ["airport", "outstation", "local"] as const;
 
 export const cities: City[] = [
   {

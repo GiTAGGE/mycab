@@ -5,13 +5,7 @@ import type { City, Service, ServiceKind } from "@/types";
 import { TripBuilder } from "@/components/trip-builder";
 import { airportPlaceId, cityPlaceId, localPlaceId } from "@/lib/places";
 
-const tripOrder: ServiceKind[] = [
-  "local",
-  "airport",
-  "outstation",
-  "one-way",
-  "round-trip",
-];
+const tripOrder: ServiceKind[] = ["local", "airport", "outstation"];
 
 export function HomeChooser({
   cities,
@@ -42,7 +36,9 @@ export function HomeChooser({
               type="button"
               onClick={() => setTrip(item.kind)}
               className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
-                active ? "bg-ink text-paper" : "bg-paper text-ink-soft hover:bg-paper-deep"
+                active
+                  ? "bg-accent text-white"
+                  : "bg-paper text-ink-soft hover:bg-accent-soft"
               }`}
             >
               {item.shortName}
@@ -63,7 +59,9 @@ export function HomeChooser({
               type="button"
               onClick={() => setCitySlug(item.slug)}
               className={`rounded-full px-3 py-1.5 text-sm ${
-                active ? "bg-ink text-paper" : "text-ink-soft hover:bg-paper"
+                active
+                  ? "bg-accent text-white"
+                  : "text-ink-soft hover:bg-accent-soft"
               }`}
             >
               {item.name}
@@ -86,7 +84,6 @@ export function HomeChooser({
                 : undefined
           }
           mode={trip}
-          initialReturn={trip === "round-trip"}
           heading={
             trip === "local"
               ? city

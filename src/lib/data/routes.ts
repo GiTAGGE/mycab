@@ -16,7 +16,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 2499,
     status: "live",
-    why: "The most booked one-way from Bangalore. Palace, weekend, or a drop for family.",
+    why: "The most booked Bangalore outstation. Palace, weekend, or a drop for family.",
   },
   {
     id: "blr-coorg",
@@ -30,7 +30,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 3799,
     status: "live",
-    why: "Hill roads, extra luggage, often an SUV. One-way or a 2-day return.",
+    why: "Hill roads, extra luggage, often an SUV. Stay over or come back — same published fare.",
   },
   {
     id: "blr-chennai",
@@ -44,7 +44,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 5999,
     status: "live",
-    why: "A full-day intercity drive. One-way so you are not paying for an empty return.",
+    why: "A full-day intercity drive. Published fare, fuel and driver included.",
   },
   {
     id: "blr-ooty",
@@ -72,7 +72,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 4999,
     status: "live",
-    why: "Weekend drop. One-way if you stay over; round trip if you return the same night.",
+    why: "Weekend drop. Stay over or come back the same night — same published fare.",
   },
   {
     id: "blr-wayanad",
@@ -114,7 +114,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 7999,
     status: "live",
-    why: "A long one-way. Better than paying two air tickets when you are a family of 4+.",
+    why: "A long intercity run. Better than two air tickets when you are a family of 4+.",
   },
   {
     id: "blr-goa",
@@ -142,7 +142,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 5299,
     status: "live",
-    why: "Business drop or family travel on a published one-way fare.",
+    why: "Business drop or family travel on a published fare.",
   },
   {
     id: "blr-kochi",
@@ -198,7 +198,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 1899,
     status: "live",
-    why: "North Karnataka business run. One-way so you are not paying an empty return.",
+    why: "North Karnataka business run. Published fare, fuel and driver included.",
   },
   {
     id: "hbl-goa",
@@ -226,7 +226,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 6499,
     status: "live",
-    why: "The long North–South one-way. Better than two last-minute air tickets for a family.",
+    why: "The long North–South run. Better than two last-minute air tickets for a family.",
   },
   {
     id: "hbl-hampi",
@@ -240,7 +240,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 2499,
     status: "live",
-    why: "Ruin weekend. Round trip if you return the same day.",
+    why: "Ruin weekend. Come back the same day or stay — same published fare.",
   },
   {
     id: "hbl-gokarna",
@@ -268,7 +268,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 1599,
     status: "live",
-    why: "Resort and river-rafting drop. Most groups come back the same evening — we price a return too.",
+    why: "Resort and river-rafting drop. Most groups come back the same evening.",
   },
   {
     id: "hbl-murudeshwar",
@@ -310,7 +310,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova"],
     sedanFare: 3299,
     status: "live",
-    why: "Coastal one-way via Yellapur. Quieter than the Goa run, same ghat roads.",
+    why: "Coastal run via Yellapur. Quieter than the Goa run, same ghat roads.",
   },
   {
     id: "hbl-sirsi",
@@ -352,7 +352,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 3999,
     status: "live",
-    why: "A day trip, almost always return. We price the car for the day, not a one-way dump at the viewpoint.",
+    why: "A day trip. We price the car for the day at the viewpoint, not a dump-and-leave.",
   },
   {
     id: "dwd-hubli",
@@ -408,7 +408,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 6699,
     status: "live",
-    why: "Early start recommended. One-way priced as one-way.",
+    why: "Early start recommended. Published fare for the run.",
   },
   {
     id: "dwd-hampi",
@@ -422,7 +422,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 2699,
     status: "live",
-    why: "Campus to ruins. Round trip if the group returns at night.",
+    why: "Campus to ruins. Come back at night or stay — same published fare.",
   },
   {
     id: "bgm-goa",
@@ -478,7 +478,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 5499,
     status: "live",
-    why: "A full-day one-way. We do not pretend it is a Bangalore route.",
+    why: "A full-day intercity drive. We do not pretend it is a Bangalore route.",
   },
   {
     id: "bgm-bangalore",
@@ -492,7 +492,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 7499,
     status: "live",
-    why: "Long one-way overnight or early start. SUV for 5+ with luggage.",
+    why: "Long overnight or early start. SUV for 5+ with luggage.",
   },
   {
     id: "bgm-gokarna",
@@ -548,7 +548,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 5499,
     status: "live",
-    why: "Ghat-and-highway mix. One-way so you are not paying an empty return.",
+    why: "Ghat-and-highway mix. Published fare, fuel and driver included.",
   },
   {
     id: "mlr-coorg",
@@ -576,7 +576,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 5999,
     status: "live",
-    why: "Coastal highway one-way. Overnight start if you want dawn in Goa.",
+    why: "Coastal highway run. Overnight start if you want dawn in Goa.",
   },
   {
     id: "mlr-kasargod",
@@ -604,7 +604,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 1899,
     status: "live",
-    why: "North coastal run past Udupi. One-way or a same-day return.",
+    why: "North coastal run past Udupi. Same published fare either way.",
   },
 ];
 

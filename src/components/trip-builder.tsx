@@ -21,7 +21,6 @@ export function TripBuilder({
   citySlug,
   heading = "Where are you going?",
   mode,
-  initialReturn = false,
   embedded = false,
 }: {
   initialFromId?: string;
@@ -29,7 +28,6 @@ export function TripBuilder({
   citySlug?: string;
   heading?: string;
   mode?: ServiceKind;
-  initialReturn?: boolean;
   embedded?: boolean;
 }) {
   const isLocal = mode === "local";
@@ -39,8 +37,6 @@ export function TripBuilder({
     initialToId ?? (isLocal && citySlug ? localPlaceId(citySlug) : ""),
   );
   const [date, setDate] = useState(tomorrowISO());
-  const [returnOn, setReturnOn] = useState(initialReturn || mode === "round-trip");
-  const [returnDate, setReturnDate] = useState("");
   const [localUnit, setLocalUnit] = useState<"4hr" | "8hr">("8hr");
   const [passengers, setPassengers] = useState(2);
   const [vehicleId, setVehicleId] = useState<string | null>(null);
@@ -53,7 +49,7 @@ export function TripBuilder({
   const ready = Boolean(from && to && (isLocal || from.id !== to.id));
   const quote =
     from && to && (isLocal || from.id !== to.id)
-      ? quoteTrip(from, to, isLocal ? null : returnOn ? returnDate || date : null, passengers, {
+      ? quoteTrip(from, to, null, passengers, {
           localUnit,
         })
       : null;
@@ -73,7 +69,7 @@ export function TripBuilder({
           fromId: from.id,
           toId: to.id,
           date,
-          returnDate: isLocal ? null : returnOn ? returnDate || date : null,
+          returnDate: null,
           passengers,
           vehicleId: selectedVehicle?.vehicleId ?? null,
           landingPage: window.location.pathname,
@@ -129,7 +125,7 @@ export function TripBuilder({
           <p className="text-sm text-muted">{quote.title}</p>
           <p className="mt-1 text-xl font-semibold">{tripTitle(from as Place, to as Place)}</p>
           <div className="mt-3 flex flex-wrap gap-3 text-sm text-ink-soft">
-            {start ? <span>{inr(start)}*</span> : <span>Exact fare on WhatsApp</span>}
+            {start ? <span className="font-semibold text-accent">{inr(start)}*</span> : <span>Exact fare on WhatsApp</span>}
             {quote.durationLabel ? (
               <span className="inline-flex items-center gap-1">
                 <ClockIcon className="h-4 w-4" />
@@ -175,33 +171,6 @@ export function TripBuilder({
         </div>
       ) : null}
 
-      {ready && !isLocal ? (
-        <div className="mt-4 flex gap-2">
-          <Toggle
-            active={!returnOn}
-            onClick={() => setReturnOn(false)}
-            label="One way"
-          />
-          <Toggle
-            active={returnOn}
-            onClick={() => setReturnOn(true)}
-            label="Return"
-          />
-        </div>
-      ) : null}
-
-      {ready && returnOn ? (
-        <label className="mt-3 block">
-          <span className="mb-1.5 block text-sm text-muted">Return date</span>
-          <input
-            type="date"
-            value={returnDate}
-            onChange={(event) => setReturnDate(event.target.value)}
-            className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base"
-          />
-        </label>
-      ) : null}
-
       {quote && quote.vehicles.length > 0 ? (
         <div className="mt-6 space-y-3">
           <p className="text-sm font-medium text-muted">Choose your ride</p>
@@ -215,7 +184,7 @@ export function TripBuilder({
                 type="button"
                 onClick={() => setVehicleId(item.vehicleId)}
                 className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left ${
-                  active ? "border-ink bg-paper" : "border-line bg-card"
+                  active ? "border-accent bg-accent-soft" : "border-line bg-card"
                 }`}
               >
                 <span>
@@ -227,7 +196,7 @@ export function TripBuilder({
                     {vehicle.seats} passengers · {item.label}
                   </span>
                 </span>
-                <span className="text-lg font-semibold">{inr(item.amount)}</span>
+                <span className="text-lg font-semibold text-accent">{inr(item.amount)}</span>
               </button>
             );
           })}
@@ -323,7 +292,7 @@ function Toggle({
       type="button"
       onClick={onClick}
       className={`flex-1 rounded-full px-4 py-2.5 text-sm font-medium ${
-        active ? "bg-ink text-paper" : "bg-paper text-ink-soft"
+        active ? "bg-accent text-white" : "bg-paper text-ink-soft hover:bg-accent-soft"
       }`}
     >
       {label}

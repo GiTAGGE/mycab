@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
         destination: "/hubli-to-hospet-cab",
         permanent: true,
       },
+      {
+        source: "/:city/one-way-cabs",
+        destination: "/:city/outstation-cabs",
+        permanent: true,
+      },
+      {
+        source: "/:city/round-trip-cabs",
+        destination: "/:city/outstation-cabs",
+        permanent: true,
+      },
     ];
   },
 };

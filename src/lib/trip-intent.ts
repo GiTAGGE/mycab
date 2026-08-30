@@ -55,14 +55,10 @@ export function intentCopy(kind: TripKind): { title: string; trust: string[] } {
         trust: ["Same driver for the package", "4 hr or 8 hr", "Extra km published"],
       };
     case "outstation-round-trip":
-      return {
-        title: "Round-trip outstation",
-        trust: ["Same car both ways", "Waiting as agreed", "Fuel & driver included"],
-      };
     default:
       return {
-        title: "One-way intercity taxi",
-        trust: ["One-way available", "Fuel & driver included", "24×7 booking"],
+        title: "Intercity taxi",
+        trust: ["Published fare", "Fuel & driver included", "24×7 booking"],
       };
   }
 }
