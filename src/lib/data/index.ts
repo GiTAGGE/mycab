@@ -39,6 +39,20 @@ export function routesFromCity(citySlug: string): Route[] {
   );
 }
 
+export function networkRoutes(perCity = 2): Route[] {
+  return liveCities().flatMap((city) => routesFromCity(city.slug).slice(0, perCity));
+}
+
+export function localPackageFrom(citySlug: string, unit: "4hr" | "8hr" = "8hr") {
+  return pricingRules.find(
+    (rule) =>
+      rule.citySlug === citySlug &&
+      rule.service === "local" &&
+      rule.unit === unit &&
+      rule.vehicleId === "sedan",
+  );
+}
+
 export function getVehicle(id: string): Vehicle | undefined {
   return vehicles.find((vehicle) => vehicle.id === id);
 }

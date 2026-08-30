@@ -7,12 +7,12 @@ export function detectIntent(
   returnDate: string | null,
 ): TripKind {
   const airportInvolved = from.kind === "airport" || to.kind === "airport";
+  const localHours = from.id.startsWith("local:") || to.id.startsWith("local:");
   const sameCity = from.citySlug === to.citySlug;
-  const fromIsLocal = from.kind === "locality" || from.kind === "airport";
-  const toIsLocal = to.kind === "locality" || to.kind === "airport";
 
+  if (localHours) return "local";
   if (airportInvolved && sameCity) return "airport";
-  if (sameCity && fromIsLocal && toIsLocal) return "local";
+  if (sameCity) return "local";
   if (returnDate) return "outstation-round-trip";
   return "outstation-one-way";
 }
@@ -32,6 +32,9 @@ export function findRoute(from: Place, to: Place) {
 }
 
 export function tripTitle(from: Place, to: Place): string {
+  if (from.id.startsWith("local:") || to.id.startsWith("local:")) {
+    return `Local in ${cityName(from.citySlug)}`;
+  }
   return `${from.label} → ${to.label}`;
 }
 

@@ -17,6 +17,10 @@ export function destinationPlaceId(routeId: string): string {
   return `destination:${routeId}`;
 }
 
+export function localPlaceId(citySlug: string): string {
+  return `local:${citySlug}`;
+}
+
 export function allPlaces(): Place[] {
   const places: Place[] = [];
 
@@ -28,11 +32,19 @@ export function allPlaces(): Place[] {
       kind: "city",
       citySlug: city.slug,
     });
+    places.push({
+      id: localPlaceId(city.slug),
+      label: `Local in ${city.name}`,
+      hint: "4 hr or 8 hr in the city",
+      kind: "locality",
+      citySlug: city.slug,
+      localitySlug: "local-hours",
+    });
     if (city.airport) {
       places.push({
         id: airportPlaceId(city.slug),
-        label: `${city.name} Airport`,
-        hint: `${city.airport.code} · ${city.airport.name}`,
+        label: city.airport.name,
+        hint: `${city.airport.code} · from ${city.name}`,
         kind: "airport",
         citySlug: city.slug,
       });
@@ -74,6 +86,19 @@ export function getPlace(id: string | null | undefined): Place | undefined {
   if (!id) return undefined;
   const found = allPlaces().find((place) => place.id === id);
   if (found) return found;
+  if (id.startsWith("local:")) {
+    const citySlug = id.slice("local:".length);
+    const city = cities.find((item) => item.slug === citySlug);
+    if (!city) return undefined;
+    return {
+      id,
+      label: `Local in ${city.name}`,
+      hint: "4 hr or 8 hr in the city",
+      kind: "locality",
+      citySlug,
+      localitySlug: "local-hours",
+    };
+  }
   if (id.startsWith("destination:")) {
     const route = routes.find((item) => item.id === id.slice("destination:".length));
     if (!route) return undefined;

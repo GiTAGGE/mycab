@@ -3,10 +3,11 @@
 import { useMemo, useState } from "react";
 import type { Place } from "@/types";
 import { readAttribution } from "@/lib/attribution";
+import type { ServiceKind } from "@/types";
 import { getVehicle, vehicles } from "@/lib/data";
 import { quoteTrip, startingFare } from "@/lib/fare";
 import { inr, prettyDate, tomorrowISO } from "@/lib/format";
-import { getPlace, placesForPicker } from "@/lib/places";
+import { getPlace, localPlaceId, placesForPicker } from "@/lib/places";
 import { tripTitle } from "@/lib/trip-intent";
 import { PlacePicker } from "@/components/place-picker";
 import { TrustPills } from "@/components/trust-pills";
@@ -19,18 +20,26 @@ export function TripBuilder({
   initialToId,
   citySlug,
   heading = "Where are you going?",
+  mode,
+  initialReturn = false,
 }: {
   initialFromId?: string;
   initialToId?: string;
   citySlug?: string;
   heading?: string;
+  mode?: ServiceKind;
+  initialReturn?: boolean;
 }) {
+  const isLocal = mode === "local";
   const places = useMemo(() => placesForPicker(citySlug), [citySlug]);
   const [fromId, setFromId] = useState(initialFromId ?? "");
-  const [toId, setToId] = useState(initialToId ?? "");
+  const [toId, setToId] = useState(
+    initialToId ?? (isLocal && citySlug ? localPlaceId(citySlug) : ""),
+  );
   const [date, setDate] = useState(tomorrowISO());
-  const [returnOn, setReturnOn] = useState(false);
+  const [returnOn, setReturnOn] = useState(initialReturn || mode === "round-trip");
   const [returnDate, setReturnDate] = useState("");
+  const [localUnit, setLocalUnit] = useState<"4hr" | "8hr">("8hr");
   const [passengers, setPassengers] = useState(2);
   const [vehicleId, setVehicleId] = useState<string | null>(null);
   const [picker, setPicker] = useState<PickerSide>(null);
@@ -39,10 +48,13 @@ export function TripBuilder({
 
   const from = getPlace(fromId);
   const to = getPlace(toId);
-  const ready = Boolean(from && to && from.id !== to.id);
-  const quote = from && to && from.id !== to.id
-    ? quoteTrip(from, to, returnOn ? returnDate || date : null, passengers)
-    : null;
+  const ready = Boolean(from && to && (isLocal || from.id !== to.id));
+  const quote =
+    from && to && (isLocal || from.id !== to.id)
+      ? quoteTrip(from, to, isLocal ? null : returnOn ? returnDate || date : null, passengers, {
+          localUnit,
+        })
+      : null;
   const start = quote ? startingFare(quote) : null;
   const selectedVehicle = quote?.vehicles.find((item) => item.vehicleId === vehicleId) ?? quote?.vehicles[0];
 
@@ -59,10 +71,11 @@ export function TripBuilder({
           fromId: from.id,
           toId: to.id,
           date,
-          returnDate: returnOn ? returnDate || date : null,
+          returnDate: isLocal ? null : returnOn ? returnDate || date : null,
           passengers,
           vehicleId: selectedVehicle?.vehicleId ?? null,
           landingPage: window.location.pathname,
+          localUnit: isLocal ? localUnit : undefined,
           attribution,
         }),
       });
@@ -89,12 +102,22 @@ export function TripBuilder({
           place={from}
           onClick={() => setPicker("from")}
         />
-        <PlaceButton
-          label="To"
-          place={to}
-          placeholder="Airport, city or another city"
-          onClick={() => setPicker("to")}
-        />
+        {isLocal ? (
+          <div className="rounded-2xl border border-line bg-paper px-4 py-4">
+            <p className="text-xs uppercase tracking-wide text-muted">Trip type</p>
+            <p className="mt-1 text-lg font-medium">Local hours in this city</p>
+            <p className="mt-1 text-sm text-muted">
+              Same driver, multiple stops. Not an A-to-B drop.
+            </p>
+          </div>
+        ) : (
+          <PlaceButton
+            label="To"
+            place={to}
+            placeholder="Airport, city or another city"
+            onClick={() => setPicker("to")}
+          />
+        )}
       </div>
 
       {ready && quote ? (
@@ -141,7 +164,14 @@ export function TripBuilder({
         </div>
       ) : null}
 
-      {ready ? (
+      {ready && isLocal ? (
+        <div className="mt-4 flex gap-2">
+          <Toggle active={localUnit === "4hr"} onClick={() => setLocalUnit("4hr")} label="4 hours" />
+          <Toggle active={localUnit === "8hr"} onClick={() => setLocalUnit("8hr")} label="8 hours" />
+        </div>
+      ) : null}
+
+      {ready && !isLocal ? (
         <div className="mt-4 flex gap-2">
           <Toggle
             active={!returnOn}

@@ -18,6 +18,7 @@ export async function POST(request: Request) {
     passengers?: number;
     vehicleId?: string | null;
     landingPage?: string | null;
+    localUnit?: "4hr" | "8hr";
     attribution?: Attribution;
   };
 
@@ -28,7 +29,9 @@ export async function POST(request: Request) {
   }
 
   const passengers = body.passengers ?? 2;
-  const quote = quoteTrip(from, to, body.returnDate ?? null, passengers);
+  const quote = quoteTrip(from, to, body.returnDate ?? null, passengers, {
+    localUnit: body.localUnit,
+  });
   const selected =
     quote.vehicles.find((item) => item.vehicleId === body.vehicleId) ??
     quote.vehicles[0];

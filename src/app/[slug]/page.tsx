@@ -68,7 +68,11 @@ function CityLanding({ citySlug }: { citySlug: string }) {
         {city.status === "draft" ? (
           <p className="mb-3 text-sm font-medium text-accent-dark">Opening soon · same trip builder</p>
         ) : null}
-        <h1 className="display text-4xl sm:text-6xl">{city.hero}</h1>
+        <p className="text-xs font-semibold tracking-[0.16em] text-gold">
+          {city.shortCode} · {city.region}
+          {city.officialName ? ` · ${city.officialName}` : ""}
+        </p>
+        <h1 className="display mt-2 text-4xl sm:text-6xl">{city.hero}</h1>
         <p className="mt-4 max-w-2xl text-lg text-ink-soft">{city.trustLine}</p>
         <div className="mt-6">
           <TrustPills items={["Door-to-door", "Professional drivers", "24×7 booking"]} />

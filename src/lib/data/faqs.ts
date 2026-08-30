@@ -64,4 +64,40 @@ export const faqs: Faq[] = [
     answer:
       "Yes. Choose Whitefield as pickup on the airport page. The fare is higher than a Hebbal pickup because it is a longer run — we show that up front.",
   },
+  {
+    id: "f8",
+    citySlug: "dharwad",
+    routeId: null,
+    service: "airport",
+    question: "Does Dharwad have its own airport?",
+    answer:
+      "No. Flights use Hubballi Airport (HBX). We price Dharwad → HBX as a real transfer, not a Hubli fare with the name swapped.",
+  },
+  {
+    id: "f9",
+    citySlug: "hubli",
+    routeId: null,
+    service: "local",
+    question: "Can I keep a car for a few hours in Hubli?",
+    answer:
+      "Yes. Local is a 4-hour or 8-hour package with the same driver — not a one-drop city taxi. Extra kilometres are published before you confirm.",
+  },
+  {
+    id: "f10",
+    citySlug: "belgaum",
+    routeId: "bgm-goa",
+    service: null,
+    question: "How long is Belgaum to Goa?",
+    answer:
+      "Usually about 3 hours 30 minutes, depending on the ghat stretch. We quote door-to-door, not a highway-only fantasy.",
+  },
+  {
+    id: "f11",
+    citySlug: "mangalore",
+    routeId: null,
+    service: "local",
+    question: "Is local rental different from a one-way drop?",
+    answer:
+      "Yes. Local is hours in Mangalore with multiple stops. A one-way is A to B. Pick the trip type that matches what you are actually doing.",
+  },
 ];

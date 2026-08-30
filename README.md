@@ -1,6 +1,6 @@
 # MyCab
 
-A conversion-first transportation platform. Bangalore is live. The next cities are data, not a redesign.
+A conversion-first transportation platform. Live in Bangalore, Hubli, Dharwad, Belgaum and Mangalore. Each city is its own data — routes, airport, local hours — not a renamed Bangalore page.
 
 This is **not** another cab brochure site. Google traffic lands on a city or trip page, the trip builder names the journey in a few seconds, and WhatsApp continues with a structured message plus first-party attribution.
 
@@ -22,15 +22,14 @@ Do not run high-volume Google Ads on the Free credit cap forever. Prove conversi
 
 ## What’s in Phase 1
 
-- Homepage that converts, instead of ranking for everything
-- `/bangalore` city hub
-- Journey pages: airport, outstation, local, one-way, round-trip
-- Route pages such as `/bangalore-to-mysore-cab` with the trip already filled
+- Homepage is a Karnataka network: city first, then trip type (local hours included)
+- Live cities: Bangalore, Hubli, Dharwad, Belgaum, Mangalore
+- Each city: airport, local 4/8 hr, outstation, one-way, round-trip
+- Route pages such as `/hubli-to-dharwad-cab` and `/belgaum-to-goa-cab`
 - One trip builder for every product
-- Progressive disclosure: from → to → understanding → date → passengers → cars
 - Structured WhatsApp (not a blank chat)
 - `/ops` inventory of cities, routes, landing pages, leads
-- Hyderabad and Chennai as **draft** cities so the next city is a data row
+- Hyderabad and Chennai remain **draft**
 
 ## URL rules
 

@@ -1,6 +1,6 @@
 export const brand = {
   name: "MyCab",
-  tagline: "Tell us the trip. We’ll handle the rest.",
+  tagline: "Karnataka network. Tell us the trip.",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919900112233",
   cityDefault: "bangalore",
   supportHours: "24×7",

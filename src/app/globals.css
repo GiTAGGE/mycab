@@ -1,21 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f3eee4;
-  --paper-deep: #e8e0d2;
-  --card: #fffaf2;
-  --ink: #16120e;
-  --ink-soft: #3d3832;
-  --muted: #6f675e;
-  --line: #ddd4c6;
-  --accent: #c2410c;
-  --accent-dark: #9a3412;
-  --forest: #1b3a2f;
-  --forest-soft: #e4eee8;
-  --good: #1c6b4a;
+  --navy: #0b1c2c;
+  --navy-mid: #16324a;
+  --paper: #f4f6f8;
+  --paper-deep: #e8edf2;
+  --card: #ffffff;
+  --ink: #102033;
+  --ink-soft: #3d4f61;
+  --muted: #5c6b7a;
+  --line: #d9e0e7;
+  --accent: #0d6e6a;
+  --accent-dark: #0a5552;
+  --forest: #0d6e6a;
+  --forest-soft: #e4f3f2;
+  --good: #0f6b4c;
+  --gold: #9a7340;
 }
 
 @theme inline {
+  --color-navy: var(--navy);
+  --color-navy-mid: var(--navy-mid);
   --color-paper: var(--paper);
   --color-paper-deep: var(--paper-deep);
   --color-card: var(--card);
@@ -28,6 +33,7 @@
   --color-forest: var(--forest);
   --color-forest-soft: var(--forest-soft);
   --color-good: var(--good);
+  --color-gold: var(--gold);
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-display);
 }
@@ -51,7 +57,7 @@ h2,
 }
 
 ::selection {
-  background: #f0c7b0;
+  background: #c9e8e6;
   color: var(--ink);
 }
 
@@ -68,4 +74,11 @@ h2,
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.constellation {
+  background-image:
+    radial-gradient(circle at 12% 40%, rgba(196, 163, 90, 0.16), transparent 28%),
+    radial-gradient(circle at 78% 30%, rgba(13, 110, 106, 0.18), transparent 32%),
+    linear-gradient(180deg, #0b1c2c 0%, #10283d 100%);
 }

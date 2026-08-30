@@ -31,6 +31,9 @@ export type City = {
   availableServiceIds: string[];
   seoTitle: string;
   seoDescription: string;
+  region: string;
+  shortCode: string;
+  officialName?: string;
 };
 
 export type Service = {

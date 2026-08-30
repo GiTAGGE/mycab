@@ -15,7 +15,7 @@ export function RouteCard({ route }: { route: Route }) {
         {cityName(route.originCitySlug)} → {route.destinationName}
       </p>
       <div className="mt-3 flex items-center justify-between text-sm">
-        <span className="text-accent-dark">{inrFrom(route.sedanFare)}</span>
+        <span className="text-gold">{inrFrom(route.sedanFare)}</span>
         <span className="text-muted">{durationLabel(route.durationMinutes)}</span>
       </div>
     </Link>

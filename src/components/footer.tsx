@@ -1,43 +1,52 @@
 import Link from "next/link";
 import { brand } from "@/lib/brand";
-import { liveCities, routesFromCity, services } from "@/lib/data";
+import { liveCities, networkRoutes, services } from "@/lib/data";
 import { routePath, servicePath } from "@/lib/urls";
 
 export function Footer() {
-  const city = liveCities()[0];
-  const routes = city ? routesFromCity(city.slug).slice(0, 8) : [];
+  const cities = liveCities();
+  const routes = networkRoutes(1);
 
   return (
-    <footer className="mt-auto border-t border-line bg-ink text-paper">
-      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 sm:grid-cols-3">
+    <footer className="mt-auto border-t border-navy-mid bg-navy text-white">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-3">
         <div>
           <p className="text-lg font-semibold">{brand.name}</p>
-          <p className="mt-2 max-w-xs text-sm leading-6 text-paper/70">
-            A transportation platform that starts as a conversion page — not a
-            directory of unused keywords.
+          <p className="mt-2 max-w-xs text-sm leading-6 text-white/65">
+            Karnataka first: Bangalore, Hubli, Dharwad, Belgaum and Mangalore.
+            Local hours and trip types in every live city.
           </p>
         </div>
-        {city ? (
-          <div>
-            <p className="text-sm font-medium text-paper/50">From {city.name}</p>
-            <ul className="mt-3 space-y-2 text-sm">
-              {services.map((service) => (
-                <li key={service.id}>
-                  <Link className="hover:underline" href={servicePath(city, service)}>
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
         <div>
-          <p className="text-sm font-medium text-paper/50">Useful trips</p>
+          <p className="text-sm font-medium text-white/45">Cities</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {cities.map((city) => (
+              <li key={city.slug}>
+                <Link className="hover:underline" href={`/${city.slug}`}>
+                  {city.name}
+                  {city.officialName ? ` · ${city.officialName}` : ""}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="text-sm font-medium text-white/45">Trip types</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {services.map((service) => (
+              <li key={service.id}>
+                <Link className="hover:underline" href={servicePath("bangalore", service)}>
+                  {service.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm font-medium text-white/45">Across the network</p>
           <ul className="mt-3 space-y-2 text-sm">
             {routes.map((route) => (
               <li key={route.id}>
                 <Link className="hover:underline" href={routePath(route)}>
-                  {city?.name} → {route.destinationName}
+                  {route.originCitySlug} → {route.destinationName}
                 </Link>
               </li>
             ))}
@@ -45,9 +54,9 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-5xl justify-between px-4 py-4 text-xs text-paper/50">
-          <span>Phase 1 · {city?.name ?? "One city"} first</span>
-          <Link href="/ops" className="hover:text-paper">
+        <div className="mx-auto flex max-w-6xl justify-between px-4 py-4 text-xs text-white/45">
+          <span>Karnataka network · live cities</span>
+          <Link href="/ops" className="hover:text-white">
             Ops
           </Link>
         </div>

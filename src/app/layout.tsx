@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${brand.name}`,
   },
   description:
-    "Airport, local and outstation cabs. See an estimated fare in seconds, then confirm on WhatsApp.",
+    "Cabs in Bangalore, Hubli, Dharwad, Belgaum and Mangalore. Local hours, airport and outstation — see a fare, then WhatsApp.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

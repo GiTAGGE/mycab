@@ -18,6 +18,7 @@ export function quoteTrip(
   to: Place,
   returnDate: string | null,
   passengers: number,
+  options?: { localUnit?: "4hr" | "8hr" },
 ): FareQuote {
   const intent = detectIntent(from, to, returnDate);
   const copy = intentCopy(intent);
@@ -28,7 +29,7 @@ export function quoteTrip(
   }
 
   if (intent === "local") {
-    return localQuote(from, passengers, copy);
+    return localQuote(from, passengers, copy, options?.localUnit ?? "8hr");
   }
 
   if (route) {
@@ -82,14 +83,15 @@ function airportQuote(from: Place, to: Place, title: string): FareQuote {
   const rules = pricingRules.filter(
     (rule) => rule.citySlug === citySlug && rule.service === "airport",
   );
-  const sedanBase = area?.airportFareFrom ?? 699;
+  const areaFare = area && area.slug !== "airport" ? area.airportFareFrom : null;
 
   const quotes = rules.map((rule) => {
     const vehicle = vehicles.find((item) => item.id === rule.vehicleId);
-    const amount =
-      rule.vehicleId === "sedan"
-        ? sedanBase
-        : Math.round(sedanBase * (vehicle?.multiplier ?? 1));
+    const amount = areaFare
+      ? rule.vehicleId === "sedan"
+        ? areaFare
+        : Math.round(areaFare * (vehicle?.multiplier ?? 1))
+      : rule.amount;
 
     return {
       vehicleId: rule.vehicleId,
@@ -121,18 +123,19 @@ function localQuote(
   from: Place,
   passengers: number,
   copy: { title: string; trust: string[] },
+  unit: "4hr" | "8hr",
 ): FareQuote {
   const rules = pricingRules.filter(
     (rule) =>
       rule.citySlug === from.citySlug &&
       rule.service === "local" &&
-      rule.unit === "8hr",
+      rule.unit === unit,
   );
 
   const quotes = rules
     .filter((rule) => {
       const vehicle = vehicles.find((item) => item.id === rule.vehicleId);
-      return vehicle ? vehicle.seats >= Math.min(passengers, 4) || passengers <= vehicle.seats : false;
+      return vehicle ? passengers <= vehicle.seats : false;
     })
     .map((rule) => ({
       vehicleId: rule.vehicleId,
@@ -144,8 +147,8 @@ function localQuote(
   return {
     intent: "local",
     title: copy.title,
-    subtitle: `Around ${from.label}`,
-    durationLabel: "8 hr package",
+    subtitle: `Around ${from.label.replace(/^Local in /, "")}`,
+    durationLabel: unit === "4hr" ? "4 hr / 40 km" : "8 hr / 80 km",
     exact: false,
     vehicles: quotes,
     trust: copy.trust,
