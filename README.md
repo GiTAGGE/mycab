@@ -75,7 +75,9 @@ Set `NEXT_PUBLIC_WHATSAPP_NUMBER` to your business number, country code, no plus
 
 ## Deploy on Netlify Free
 
-Connect this GitHub repo. Build command `npm run build`, Next.js runtime. Add the same env vars in the Netlify UI.
+`netlify.toml` uses `@netlify/plugin-nextjs` so the site is served as a Next.js app, not as a static dump of the `.next` folder (that produces Netlify’s “Page not found” on `/`).
+
+Connect this GitHub repo. Auto-publish `main`. Add `NEXT_PUBLIC_WHATSAPP_NUMBER` in the Netlify UI.
 
 ## Stack
 
