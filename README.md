@@ -1,4 +1,4 @@
-# MyCab
+# SeeCabs
 
 A conversion-first transportation platform. Live in Bangalore, Hubli, Dharwad, Belgaum and Mangalore. Each city is its own data — routes, airport, local hours — not a renamed Bangalore page.
 

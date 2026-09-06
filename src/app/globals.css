@@ -82,15 +82,120 @@ h2,
 }
 
 .book-card {
-  border-top: 3px solid var(--accent);
+  position: relative;
+  border-top: 0;
   box-shadow: 0 24px 60px -32px rgba(139, 58, 42, 0.28);
 }
 
 .book-card-ready {
-  border-top-color: var(--confirm);
   box-shadow:
     0 24px 60px -28px rgba(124, 79, 29, 0.32),
     0 0 0 1px rgba(212, 162, 74, 0.18);
+}
+
+.book-card-ready .brand-ribbon {
+  background: var(--accent);
+}
+
+.brand-ribbon {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 999px;
+}
+
+.brand-ribbon-card {
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 5px;
+  background: var(--accent);
+}
+
+.brand-ribbon-header {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 0;
+  background: var(--accent);
+}
+
+.brand-ribbon-run {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -46%;
+  width: 46%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ready) 36%,
+    color-mix(in srgb, #fff 62%, var(--ready)) 50%,
+    var(--ready) 64%,
+    transparent 100%
+  );
+  animation: brand-travel 2.8s ease-in-out infinite;
+}
+
+.site-header {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ready) 8%, var(--paper)) 0%,
+      var(--paper) 46%,
+      color-mix(in srgb, var(--accent) 9%, var(--paper)) 100%
+    );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.wordmark {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 560;
+}
+
+.wordmark-see {
+  color: var(--ready);
+}
+
+.wordmark-cabs {
+  color: var(--accent);
+}
+
+.title-dual {
+  color: var(--ink);
+}
+
+.title-dual-mark {
+  color: var(--ready);
+}
+
+@keyframes brand-travel {
+  0% {
+    left: -46%;
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-ribbon-run {
+    left: 27%;
+    opacity: 0.85;
+    animation: none;
+  }
 }
 
 .hero-wash {

@@ -151,7 +151,7 @@ export const cities: City[] = [
     availableServiceIds: ["airport", "outstation", "local"],
     seoTitle: "Hyderabad cabs — coming soon",
     seoDescription:
-      "MyCab is opening Hyderabad airport and outstation cabs. WhatsApp us if you need a trip now.",
+      "SeeCabs is opening Hyderabad airport and outstation cabs. WhatsApp us if you need a trip now.",
   },
   {
     id: "chennai",
@@ -172,6 +172,6 @@ export const cities: City[] = [
     popularDestinationSlugs: ["pondicherry", "bangalore"],
     availableServiceIds: ["airport", "outstation"],
     seoTitle: "Chennai cabs — coming soon",
-    seoDescription: "Chennai airport and outstation cabs are next on MyCab.",
+    seoDescription: "Chennai airport and outstation cabs are next on SeeCabs.",
   },
 ];
