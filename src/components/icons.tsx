@@ -62,6 +62,33 @@ export function CheckIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
+export function StarIcon({
+  className = "h-4 w-4",
+  filled = true,
+}: {
+  className?: string;
+  filled?: boolean;
+}) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} aria-hidden>
+      <path
+        d="m12 3.6 2.3 4.7 5.2.8-3.8 3.6.9 5.2L12 15.5 7.4 17.9l.9-5.2L4.5 9.1l5.2-.8L12 3.6Z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function CloseIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M6 6 18 18M18 6 6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>

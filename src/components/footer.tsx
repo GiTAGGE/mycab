@@ -34,13 +34,24 @@ export function Footer() {
         <div>
           <p className="text-sm text-muted">Trip types</p>
           <ul className="mt-3 space-y-2 text-sm">
-            {publicServices().map((service) => (
-              <li key={service.id}>
-                <Link className="hover:underline" href={servicePath("hubli", service)}>
-                  {service.name}
-                </Link>
-              </li>
-            ))}
+            {[...publicServices(), ...["car-rental", "tours", "tempo-traveller"]].map((service) => {
+              const slug = typeof service === "string" ? service : service.slug;
+              const name =
+                typeof service === "string"
+                  ? service === "car-rental"
+                    ? "Car rental"
+                    : service === "tours"
+                      ? "Tours"
+                      : "Tempo traveller"
+                  : service.name;
+              return (
+                <li key={slug}>
+                  <Link className="hover:underline" href={servicePath("hubli", slug)}>
+                    {name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <ul className="mt-6 space-y-2 text-sm text-ink-soft">
             {routes.map((route) => (

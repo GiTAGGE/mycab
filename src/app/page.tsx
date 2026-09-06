@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { HomeChooser } from "@/components/home-chooser";
+import { PageHero } from "@/components/page-hero";
+import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
-import { hubliLeisureRoutes, liveCities, localPackageFrom, networkRoutes, publicServices } from "@/lib/data";
+import {
+  hubliLeisureRoutes,
+  liveCities,
+  localPackageFrom,
+  networkReviews,
+  networkRoutes,
+  publicServices,
+  reviewStats,
+} from "@/lib/data";
 import { inrFrom } from "@/lib/format";
 import { servicePath } from "@/lib/urls";
 
@@ -9,26 +19,30 @@ export default function HomePage() {
   const cities = liveCities();
   const popular = networkRoutes(2);
   const tripTypes = publicServices();
+  const reviews = networkReviews(2);
+  const stats = reviewStats(reviews);
 
   return (
     <>
-      <section className="mx-auto max-w-3xl px-4 pb-8 pt-14 sm:pt-20">
-        <p className="text-sm text-muted">
-          {cities.map((city) => city.name).join(" · ")}
-        </p>
-        <h1 className="display mt-4 text-[2.35rem] leading-[1.12] sm:text-6xl">
-          Tell us the trip.
-        </h1>
-        <p className="mt-4 max-w-lg text-lg leading-7 text-ink-soft">
-          Local hours or a ride to another city. Five Karnataka cities, one
-          fare card — then WhatsApp.
-        </p>
-        <div className="mt-8">
-          <HomeChooser cities={cities} services={tripTypes} />
-        </div>
-      </section>
+      <PageHero
+        compact
+        rating={stats.average}
+        reviewCount={stats.count}
+        copy={{
+          eyebrow: "Karnataka cabs",
+          title: "Tell us the trip.",
+          lead: "Local hours or a ride to another city. Five live cities — Hubli, Dharwad, Belgaum, Bangalore and Mangalore. Fare on the card, then WhatsApp.",
+          stats: [
+            { value: "5", label: "Live cities" },
+            { value: "24×7", label: "Booking" },
+            { value: "WhatsApp", label: "To confirm" },
+          ],
+        }}
+      >
+        <HomeChooser cities={cities} services={tripTypes} />
+      </PageHero>
 
-      <section className="mx-auto max-w-5xl px-4 py-16">
+      <section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="display text-3xl">Local, in every city</h2>
         <p className="mt-2 text-ink-soft">
           4 or 8 hours. Same driver. Not an A-to-B drop.
@@ -46,30 +60,37 @@ export default function HomePage() {
                   <span className="block font-medium">{city.name}</span>
                   <span className="block text-sm text-muted">{city.region}</span>
                 </span>
-                <span className="text-sm font-medium text-accent">{pack ? `${inrFrom(pack.amount)} / 8 hr` : "Get fare"}</span>
+                <span className="text-sm font-medium text-accent">
+                  {pack ? `${inrFrom(pack.amount)} / 8 hr` : "Get fare"}
+                </span>
               </Link>
             );
           })}
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-12">
+      <section className="mx-auto max-w-6xl px-4 pb-12">
         <h2 className="display text-3xl">From Hubli</h2>
         <p className="mt-2 text-ink-soft">
-          Dandeli, Gokarna, Murudeshwar, Hampi, Hospet — and the rest of the
-          North Karnataka runs.
+          Dandeli, Gokarna, Murudeshwar, Hampi, Hospet — the North Karnataka runs
+          people actually book.
         </p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {hubliLeisureRoutes().map((route) => (
             <RouteCard key={route.id} route={route} />
           ))}
         </div>
-        <Link href="/hubli/outstation-cabs" className="mt-6 inline-block text-sm text-accent underline decoration-accent/40 underline-offset-4">
+        <Link
+          href="/hubli/outstation-cabs"
+          className="mt-6 inline-block text-sm text-accent underline decoration-accent/40 underline-offset-4"
+        >
           All Hubli outstation trips
         </Link>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-20">
+      <ReviewRail title="Reviews across the network" reviews={reviews} preview={6} />
+
+      <section className="mx-auto max-w-6xl px-4 pb-20">
         <h2 className="display text-3xl">Across the network</h2>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {popular.map((route) => (

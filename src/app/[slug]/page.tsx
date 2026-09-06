@@ -2,11 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaqList } from "@/components/faq-list";
+import { PageHero } from "@/components/page-hero";
+import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import { TripBuilder } from "@/components/trip-builder";
-import { TrustPills } from "@/components/trust-pills";
-import { cities, faqsFor, getCity, getRouteByPageSlug, localitiesInCity, routes, routesFromCity, services } from "@/lib/data";
+import {
+  cities,
+  faqsFor,
+  getCity,
+  getRouteByPageSlug,
+  localitiesInCity,
+  reviewStats,
+  reviewsForCity,
+  routes,
+  routesFromCity,
+  services,
+} from "@/lib/data";
 import { durationLabel, inrFrom } from "@/lib/format";
+import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
 import { cityName } from "@/lib/trip-intent";
 import { isRouteSlug, servicePath } from "@/lib/urls";
@@ -61,41 +74,30 @@ function CityLanding({ citySlug }: { citySlug: string }) {
   const cityServices = services.filter(
     (service) =>
       city.availableServiceIds.includes(service.id) &&
-      ["local", "airport", "outstation"].includes(service.id),
+      !["one-way", "round-trip"].includes(service.id),
   );
+  const cityReviews = reviewsForCity(city.slug);
+  const stats = reviewStats(cityReviews);
+  const copy = cityLandingCopy(city);
 
   return (
     <>
-      <section className="mx-auto max-w-5xl px-4 pb-6 pt-10">
-        {city.status === "draft" ? (
-          <p className="mb-3 text-sm font-medium text-accent-dark">Opening soon · same trip builder</p>
-        ) : null}
-        <p className="text-sm text-muted">
-          {city.region}
-          {city.officialName ? ` · ${city.officialName}` : ""}
-        </p>
-        <h1 className="display mt-2 text-4xl sm:text-6xl">{city.hero}</h1>
-        <p className="mt-4 max-w-2xl text-lg text-ink-soft">{city.trustLine}</p>
-        <div className="mt-6">
-          <TrustPills items={["Door-to-door", "Professional drivers", "24×7 booking"]} />
-        </div>
-        <div className="mt-8">
-          <TripBuilder
-            citySlug={city.slug}
-            initialFromId={cityPlaceId(city.slug)}
-            heading="Tell us the trip"
-          />
-        </div>
-      </section>
+      <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
+        <TripBuilder
+          citySlug={city.slug}
+          initialFromId={cityPlaceId(city.slug)}
+          heading="Tell us the trip"
+        />
+      </PageHero>
 
-      <section className="mx-auto max-w-5xl px-4 py-8">
+      <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="display text-3xl">What are you trying to do?</h2>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {cityServices.map((service) => (
             <Link
               key={service.id}
               href={servicePath(city, service)}
-              className="rounded-2xl border border-line bg-card p-5"
+              className="rounded-2xl border border-line bg-card p-5 transition hover:border-accent/30"
             >
               <p className="text-sm text-muted">{service.journey}</p>
               <p className="mt-1 text-xl font-semibold">{service.name}</p>
@@ -106,7 +108,7 @@ function CityLanding({ citySlug }: { citySlug: string }) {
       </section>
 
       {popular.length > 0 ? (
-        <section className="mx-auto max-w-5xl px-4 py-8">
+        <section className="mx-auto max-w-6xl px-4 py-8">
           <h2 className="display text-3xl">Popular trips from {city.name}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {popular.map((route) => (
@@ -117,7 +119,7 @@ function CityLanding({ citySlug }: { citySlug: string }) {
       ) : null}
 
       {pickups.length > 0 ? (
-        <section className="mx-auto max-w-5xl px-4 py-8">
+        <section className="mx-auto max-w-6xl px-4 py-8">
           <h2 className="display text-3xl">Popular pickups in {city.name}</h2>
           <p className="mt-2 text-ink-soft">Near-me without pretending we know your GPS pin.</p>
           <div className="mt-5 flex flex-wrap gap-2">
@@ -134,6 +136,7 @@ function CityLanding({ citySlug }: { citySlug: string }) {
         </section>
       ) : null}
 
+      <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
       <FaqList items={faqsFor({ citySlug: city.slug })} />
     </>
   );
@@ -146,33 +149,32 @@ function RouteLanding({ routeId }: { routeId: string }) {
   const fromId = cityPlaceId(route.originCitySlug);
   const toId = destinationPlaceId(route.id);
   const related = routesFromCity(route.originCitySlug).filter((item) => item.id !== route.id).slice(0, 4);
+  const cityReviews = reviewsForCity(route.originCitySlug);
+  const matched = cityReviews.filter((review) => review.routeId === route.id);
+  const rail = matched.length >= 2 ? matched : cityReviews;
+  const stats = reviewStats(rail);
+  const copy = {
+    ...routeLandingLead(origin, route.destinationName, route.why),
+    stats: [
+      { value: inrFrom(route.sedanFare), label: "Sedan from" },
+      { value: durationLabel(route.durationMinutes), label: "Door to door" },
+      { value: `${route.distanceKm} km`, label: "Distance" },
+    ],
+  };
 
   return (
     <>
-      <section className="mx-auto max-w-5xl px-4 pb-6 pt-10">
-        <p className="text-sm font-medium text-accent-dark">
-          {origin} → {route.destinationName}
-        </p>
-        <h1 className="display mt-2 text-4xl sm:text-6xl">
-          {origin} to {route.destinationName} cab
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg text-ink-soft">{route.why}</p>
-        <div className="mt-5 flex flex-wrap gap-4 text-sm">
-          <span className="font-medium text-accent">{inrFrom(route.sedanFare)}</span>
-          <span>{durationLabel(route.durationMinutes)}</span>
-          <span>{route.distanceKm} km</span>
-        </div>
-        <div className="mt-8">
-          <TripBuilder
-            citySlug={route.originCitySlug}
-            initialFromId={fromId}
-            initialToId={toId}
-            heading="This trip is already filled in"
-          />
-        </div>
-      </section>
+      <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
+        <TripBuilder
+          citySlug={route.originCitySlug}
+          initialFromId={fromId}
+          initialToId={toId}
+          mode="outstation"
+          heading="This trip is already filled in"
+        />
+      </PageHero>
       {related.length > 0 ? (
-        <section className="mx-auto max-w-5xl px-4 py-8">
+        <section className="mx-auto max-w-6xl px-4 py-8">
           <h2 className="display text-3xl">Other trips from {origin}</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {related.map((item) => (
@@ -181,6 +183,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
           </div>
         </section>
       ) : null}
+      <ReviewRail title={`Reviews from ${origin}`} reviews={rail} />
       <FaqList items={faqsFor({ citySlug: route.originCitySlug, routeId: route.id })} />
     </>
   );

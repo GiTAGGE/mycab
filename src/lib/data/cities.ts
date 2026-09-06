@@ -1,6 +1,13 @@
 import type { City } from "@/types";
 
-const fullServices = ["airport", "outstation", "local"] as const;
+const fullServices = [
+  "airport",
+  "outstation",
+  "local",
+  "car-rental",
+  "tours",
+  "tempo",
+] as const;
 
 export const cities: City[] = [
   {
@@ -18,13 +25,13 @@ export const cities: City[] = [
       slug: "airport",
     },
     tagline: "Airport, local hours and outstation — one trip builder.",
-    hero: "Where in Bangalore are you going?",
-    trustLine: "Door-to-door cabs across Bangalore, 24×7.",
+    hero: "A cab in Bangalore — fare first.",
+    trustLine: "Airport, local hours and outstation across Bengaluru, 24×7.",
     popularDestinationSlugs: ["mysore", "coorg", "chennai", "ooty"],
     availableServiceIds: [...fullServices],
-    seoTitle: "Bangalore cabs — airport, local and outstation",
+    seoTitle: "Cab service in Bangalore — taxi, airport and outstation",
     seoDescription:
-      "Book a Bangalore airport taxi, local rental or outstation cab. See an estimated fare, pick a car, continue on WhatsApp.",
+      "Book a Bangalore cab. Airport taxi to BLR, local hours, and outstation to Mysore, Coorg and Chennai. Published fare, then WhatsApp.",
   },
   {
     id: "hubli",
@@ -41,8 +48,8 @@ export const cities: City[] = [
       slug: "airport",
     },
     tagline: "Twin-city hops, HBX airport and North Karnataka routes.",
-    hero: "Where in Hubli are you going?",
-    trustLine: "Hubli and Hubballi — airport, local hours and outstation.",
+    hero: "A cab in Hubli — fare first.",
+    trustLine: "Hubli and Hubballi — airport, local hours and North Karnataka runs.",
     popularDestinationSlugs: [
       "dandeli",
       "gokarna",
@@ -52,9 +59,9 @@ export const cities: City[] = [
       "dharwad",
     ],
     availableServiceIds: [...fullServices],
-    seoTitle: "Hubli cabs — airport, local and outstation",
+    seoTitle: "Cab service in Hubli — taxi, car rental and outstation",
     seoDescription:
-      "Hubli airport taxi, local rental and outstation cabs to Dandeli, Gokarna, Murudeshwar, Hampi, Hospet, Dharwad and Goa.",
+      "Book a cab in Hubli. Local taxi, HBX airport, car rental with driver, and outstation to Dandeli, Gokarna, Hampi and Dharwad.",
   },
   {
     id: "dharwad",
@@ -70,13 +77,13 @@ export const cities: City[] = [
       slug: "airport",
     },
     tagline: "University town. Airport is Hubballi — we price that honestly.",
-    hero: "Where in Dharwad are you going?",
-    trustLine: "Local Dharwad hours, Hubli hops, and HBX airport transfers.",
+    hero: "Taxi in Dharwad. Twin-city fare to Hubli.",
+    trustLine: "Dharwad taxi, Hubli hops, and honest HBX airport transfers.",
     popularDestinationSlugs: ["hubli", "belgaum", "goa", "hampi"],
     availableServiceIds: [...fullServices],
-    seoTitle: "Dharwad cabs — local, Hubli and Hubballi airport",
+    seoTitle: "Cab service in Dharwad — taxi booking and Hubballi airport",
     seoDescription:
-      "Dharwad local rental, Dharwad to Hubli, and taxis to Hubballi Airport. Outstation to Belgaum, Goa and Bangalore.",
+      "Book a Dharwad taxi. Twin-city fare to Hubli, transfers to Hubballi Airport, local hours and outstation. Published fare, then WhatsApp.",
   },
   {
     id: "belgaum",
@@ -93,13 +100,13 @@ export const cities: City[] = [
       slug: "airport",
     },
     tagline: "IXG airport, Goa drops and local Belagavi hours.",
-    hero: "Where in Belgaum are you going?",
-    trustLine: "Belgaum and Belagavi — airport, city hours and outstation.",
+    hero: "A cab in Belgaum — fare first.",
+    trustLine: "Belgaum and Belagavi — IXG airport, city hours and Goa runs.",
     popularDestinationSlugs: ["goa", "hubli", "kolhapur", "pune"],
     availableServiceIds: [...fullServices],
-    seoTitle: "Belgaum cabs — airport, local and outstation",
+    seoTitle: "Cab service in Belgaum — taxi, airport and outstation",
     seoDescription:
-      "Belgaum airport taxi, local rental and outstation cabs to Goa, Hubli, Kolhapur and Bangalore.",
+      "Book a Belgaum cab. IXG airport taxi, local hours, and outstation to Goa, Hubli and Kolhapur. Published fare, then WhatsApp.",
   },
   {
     id: "mangalore",
@@ -116,13 +123,13 @@ export const cities: City[] = [
       slug: "airport",
     },
     tagline: "Coast airport, Udupi runs and local Mangaluru hours.",
-    hero: "Where in Mangalore are you going?",
-    trustLine: "Mangalore and Mangaluru — IXE, local hours and coastal routes.",
+    hero: "A cab in Mangalore — fare first.",
+    trustLine: "Mangalore and Mangaluru — IXE, local hours and the coast.",
     popularDestinationSlugs: ["udupi", "manipal", "bangalore", "coorg"],
     availableServiceIds: [...fullServices],
-    seoTitle: "Mangalore cabs — airport, local and outstation",
+    seoTitle: "Cab service in Mangalore — taxi, airport and outstation",
     seoDescription:
-      "Mangalore airport taxi, local rental and outstation cabs to Udupi, Manipal, Bangalore and Goa.",
+      "Book a Mangalore cab. IXE airport taxi, local hours, and outstation to Udupi, Manipal and Bangalore. Published fare, then WhatsApp.",
   },
   {
     id: "hyderabad",

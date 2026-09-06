@@ -1,3 +1,4 @@
+import { campaignLandingMap } from "@/lib/campaign-landings";
 import { cities, routes, services } from "@/lib/data";
 import { listLeads } from "@/lib/db/store";
 
@@ -61,6 +62,32 @@ export default async function OpsPage() {
                 <td className="px-4 py-3">{route.status}</td>
                 <td className="px-4 py-3">₹{route.sedanFare}</td>
                 <td className="px-4 py-3">/{route.pageSlug}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="mt-10 text-lg font-semibold">Google Ads final URLs</h2>
+      <p className="mt-2 max-w-2xl text-sm text-ink-soft">
+        We do not place ads on this site. When we run our own Google Ads, the
+        click should open the matching city or route page — not the homepage.
+      </p>
+      <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-card">
+        <table className="w-full min-w-[640px] text-left text-sm">
+          <thead className="border-b border-line text-muted">
+            <tr>
+              <th className="px-4 py-3">Keyword</th>
+              <th className="px-4 py-3">Open this page</th>
+              <th className="px-4 py-3">Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            {campaignLandingMap().map((row) => (
+              <tr key={`${row.keyword}-${row.path}`} className="border-b border-line/70 last:border-0">
+                <td className="px-4 py-3">{row.keyword}</td>
+                <td className="px-4 py-3 font-medium">{row.path}</td>
+                <td className="px-4 py-3 text-ink-soft">{row.why}</td>
               </tr>
             ))}
           </tbody>

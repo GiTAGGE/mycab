@@ -77,3 +77,18 @@ h2,
   border-top: 3px solid var(--accent);
   box-shadow: 0 24px 60px -32px rgba(139, 58, 42, 0.28);
 }
+
+.hero-wash {
+  background:
+    radial-gradient(900px 420px at 8% -20%, rgba(139, 58, 42, 0.09), transparent 58%),
+    linear-gradient(180deg, #f3ebe0 0%, var(--paper) 72%);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

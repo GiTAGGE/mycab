@@ -4,7 +4,10 @@ export type ServiceKind =
   | "outstation"
   | "local"
   | "one-way"
-  | "round-trip";
+  | "round-trip"
+  | "car-rental"
+  | "tours"
+  | "tempo";
 export type PlaceKind = "city" | "airport" | "locality";
 export type TripKind =
   | "airport"

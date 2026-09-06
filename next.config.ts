@@ -23,6 +23,31 @@ const nextConfig: NextConfig = {
         destination: "/:city/outstation-cabs",
         permanent: true,
       },
+      {
+        source: "/cab-service-in-:city",
+        destination: "/:city",
+        permanent: true,
+      },
+      {
+        source: "/:city-tours-and-travels",
+        destination: "/:city/tours",
+        permanent: true,
+      },
+      {
+        source: "/tempo-traveller-rental-:city",
+        destination: "/:city/tempo-traveller",
+        permanent: true,
+      },
+      {
+        source: "/:city-car-rental",
+        destination: "/:city/car-rental",
+        permanent: true,
+      },
+      {
+        source: "/hubli-to-goa-taxi",
+        destination: "/hubli-to-goa-cab",
+        permanent: true,
+      },
     ];
   },
 };
