@@ -39,7 +39,9 @@ export function PageHero({
               <div className="mt-5 flex flex-wrap items-center gap-2 text-sm">
                 <StarRating value={rating ?? 5} />
                 <span className="font-semibold text-ink">{rating?.toFixed(1)}</span>
-                <span className="text-muted">· {reviewCount} reviews in this city</span>
+                <span className="text-muted">
+                  · {reviewCount} reviews{compact ? "" : " in this city"}
+                </span>
               </div>
             ) : null}
             <dl className="mt-6 grid grid-cols-3 gap-2 sm:max-w-md">
