@@ -82,15 +82,108 @@ h2,
 }
 
 .book-card {
-  border-top: 3px solid var(--accent);
+  position: relative;
+  border-top: 0;
   box-shadow: 0 24px 60px -32px rgba(139, 58, 42, 0.28);
 }
 
+.book-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ready) 18%,
+    var(--accent) 50%,
+    var(--ready) 82%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: brand-line 5.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .book-card-ready {
-  border-top-color: var(--confirm);
   box-shadow:
     0 24px 60px -28px rgba(124, 79, 29, 0.32),
     0 0 0 1px rgba(212, 162, 74, 0.18);
+}
+
+.book-card-ready::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ready) 16%,
+    var(--confirm-glow) 50%,
+    var(--accent) 84%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+}
+
+.site-header {
+  background:
+    linear-gradient(90deg, rgba(239, 68, 68, 0.06), rgba(247, 241, 232, 0.92) 42%, rgba(139, 58, 42, 0.07));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-header::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ready) 22%,
+    var(--accent) 50%,
+    var(--ready) 78%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: brand-line 7s ease-in-out infinite;
+}
+
+.wordmark {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 560;
+}
+
+.wordmark-see {
+  color: var(--ready);
+}
+
+.wordmark-cabs {
+  color: var(--ink);
+}
+
+.title-dual {
+  color: var(--ink);
+}
+
+.title-dual-mark {
+  color: var(--ready);
+}
+
+@keyframes brand-line {
+  0% {
+    background-position: 0% 50%;
+    opacity: 0.72;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.72;
+  }
 }
 
 .hero-wash {

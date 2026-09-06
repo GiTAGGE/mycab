@@ -24,13 +24,13 @@ export function PageHero({
               {copy.eyebrow}
             </p>
             <h1
-              className={`display mt-3 text-ink ${
+              className={`display title-dual mt-3 ${
                 compact
                   ? "text-[2.05rem] leading-[1.08] sm:text-5xl"
                   : "text-[2.2rem] leading-[1.08] sm:text-5xl lg:text-[3.35rem]"
               }`}
             >
-              {copy.title}
+              <DualTitle title={copy.title} />
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-ink-soft sm:text-lg">
               {copy.lead}
@@ -61,5 +61,17 @@ export function PageHero({
         </div>
       </div>
     </section>
+  );
+}
+
+function DualTitle({ title }: { title: string }) {
+  const parts = title.split(" — ");
+  if (parts.length < 2) return title;
+  const lead = parts.slice(0, -1).join(" — ");
+  const mark = parts[parts.length - 1];
+  return (
+    <>
+      {lead} — <span className="title-dual-mark">{mark}</span>
+    </>
   );
 }
