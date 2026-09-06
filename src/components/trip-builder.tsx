@@ -11,6 +11,7 @@ import { getPlace, localPlaceId, placesForPicker } from "@/lib/places";
 import { tripTitle } from "@/lib/trip-intent";
 import { PlacePicker } from "@/components/place-picker";
 import { TrustPills } from "@/components/trust-pills";
+import { BrandRibbon } from "@/components/brand-ribbon";
 import { CarIcon, ClockIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
 
 type PickerSide = "from" | "to" | null;
@@ -101,6 +102,7 @@ export function TripBuilder({
             }`
       }
     >
+      {embedded ? null : <BrandRibbon />}
       {embedded ? null : (
         <p className="text-sm font-medium text-muted">Plan your ride — choose from and to</p>
       )}

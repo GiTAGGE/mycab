@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { City, Service, ServiceKind } from "@/types";
+import { BrandRibbon } from "@/components/brand-ribbon";
 import { TripBuilder } from "@/components/trip-builder";
 import { airportPlaceId, cityPlaceId, localPlaceId } from "@/lib/places";
 
@@ -31,6 +32,7 @@ export function HomeChooser({
         citySlug && (trip === "local" || trip === "airport") ? "book-card-ready" : ""
       }`}
     >
+      <BrandRibbon />
       <div className="flex gap-2 overflow-x-auto pb-1">
         {types.map((item) => {
           const active = trip === item.kind;

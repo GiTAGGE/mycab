@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandRibbon } from "@/components/brand-ribbon";
 import { Wordmark } from "@/components/wordmark";
 import { rawWhatsAppUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "@/components/icons";
@@ -6,6 +7,7 @@ import { WhatsAppIcon } from "@/components/icons";
 export function Header({ citySlug }: { citySlug?: string }) {
   return (
     <header className="site-header sticky top-0 z-30">
+      <BrandRibbon placement="header" />
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         <Wordmark />
         <nav className="flex items-center gap-4 text-sm">
