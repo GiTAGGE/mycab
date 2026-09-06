@@ -19,11 +19,11 @@ const display = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: `${brand.name} — tell us the trip`,
+    default: `${brand.name} — fare first`,
     template: `%s · ${brand.name}`,
   },
   description:
-    "Cabs in Hubli, Dharwad, Belgaum, Bangalore and Mangalore. Local hours, airport, car rental with driver and outstation — see a fare, then WhatsApp.",
+    "Local cabs, airport transfers, car rentals and outstation trips from Hubli, Dharwad, Belgaum, Bangalore and Mangalore. See the fare before you confirm.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

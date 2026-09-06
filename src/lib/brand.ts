@@ -1,6 +1,6 @@
 export const brand = {
   name: "MyCab",
-  tagline: "Karnataka network. Tell us the trip.",
+  tagline: "Karnataka cabs. See the fare before you confirm.",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919900112233",
   cityDefault: "bangalore",
   supportHours: "24×7",

@@ -9,25 +9,16 @@ export type LandingCopy = {
   stats: Array<{ value: string; label: string }>;
 };
 
-const CITY_LEAD: Record<string, string> = {
-  bangalore:
-    "Airport, a few hours in the city, or an outstation run. The fare is on the card before WhatsApp.",
-  hubli:
-    "The searches that actually convert here: a cab in Hubli, car rental with a driver, and outstation to Dandeli, Gokarna or Dharwad.",
-  dharwad:
-    "Taxi in Dharwad is not a renamed Hubli page. Twin-city fare to Hubli. Airport is Hubballi — we price that run.",
-  belgaum:
-    "IXG airport, local Belagavi hours, and the Goa ghat. Same trip builder as Hubli — this city’s fares.",
-  mangalore:
-    "IXE, local Mangaluru hours, and the Udupi coast. Tell us the trip; we do not invent a brochure.",
-};
+export function cityServicesLead(cityName: string): string {
+  return `Local cabs, airport transfers, car rentals and outstation trips from ${cityName}. See the fare before you confirm.`;
+}
 
 export function cityLandingCopy(city: City): LandingCopy {
   const local = localPackageFrom(city.slug, "8hr");
   return {
     eyebrow: `Cab service in ${city.name}`,
     title: city.hero,
-    lead: CITY_LEAD[city.slug] ?? city.trustLine,
+    lead: cityServicesLead(city.name),
     stats: [
       { value: "24×7", label: "Booking" },
       { value: local ? inrFrom(local.amount) : "Fare first", label: local ? "Local / 8 hr" : "On the card" },
@@ -38,13 +29,14 @@ export function cityLandingCopy(city: City): LandingCopy {
 
 export function serviceLandingCopy(city: City, service: Service): LandingCopy {
   const local = localPackageFrom(city.slug, "8hr");
+  const name = city.officialName ?? city.name;
   const byKind: Partial<Record<ServiceKind, LandingCopy>> = {
     airport: {
       eyebrow: `${city.name} airport taxi`,
       title: `${city.airport?.code ?? "Airport"} runs, door to door.`,
       lead: city.airport
-        ? `To and from ${city.airport.name}. Flight-aware pickup. No terminal guessing after you confirm.`
-        : service.description,
+        ? `Airport transfers to and from ${city.airport.name}. See the fare before you confirm.`
+        : cityServicesLead(name),
       stats: [
         { value: city.airport?.code ?? "—", label: "Airport" },
         { value: "Tracked", label: "On delay" },
@@ -54,7 +46,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     local: {
       eyebrow: `${city.name} local taxi`,
       title: `Hours in ${city.name}, not a drop.`,
-      lead: "4 or 8 hours with the same driver. Meetings, errands, family stops — without booking a new cab each time.",
+      lead: `4 or 8 hours in ${name} with the same driver. Meetings, errands, family stops. See the fare before you confirm.`,
       stats: [
         { value: local ? inrFrom(local.amount) : "8 hr", label: local ? "Sedan / 8 hr" : "Package" },
         { value: "4 / 8 hr", label: "Packages" },
@@ -64,7 +56,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     outstation: {
       eyebrow: `${city.name} outstation taxi`,
       title: `Outstation from ${city.name}.`,
-      lead: service.description,
+      lead: `Intercity cabs from ${name}. Fuel and driver included. See the fare before you confirm.`,
       stats: [
         { value: "Published", label: "Fare" },
         { value: "Fuel + driver", label: "Included" },
@@ -74,7 +66,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     "car-rental": {
       eyebrow: `${city.name} car rental`,
       title: `Car rental in ${city.name} — with a driver.`,
-      lead: "Not a self-drive desk. Sedan, SUV, Innova or tempo. The published fare is the fare.",
+      lead: `A car with a driver in ${name} — not a self-drive desk. Sedan to tempo. See the fare before you confirm.`,
       stats: [
         { value: "Driver", label: "Included" },
         { value: "Sedan–tempo", label: "Fleet" },
@@ -84,9 +76,10 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     tours: {
       eyebrow: `${city.name} tours and travels`,
       title: `Tours from ${city.name} — same car, your days.`,
-      lead: city.slug === "hubli"
-        ? "Dandeli, Gokarna, Murudeshwar, Hampi. Multi-day with one driver. We do not invent a brochure you did not ask for."
-        : `Multi-stop trips from ${city.name}. Same driver for the days you actually want.`,
+      lead:
+        city.slug === "hubli"
+          ? "Dandeli, Gokarna, Murudeshwar, Hampi. Multi-day with one driver. See the fare before you confirm."
+          : `Multi-stop trips from ${name}. Same driver for the days you want. See the fare before you confirm.`,
       stats: [
         { value: "Same car", label: "All days" },
         { value: "Your days", label: "Not a package trap" },
@@ -96,7 +89,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     tempo: {
       eyebrow: `Tempo traveller in ${city.name}`,
       title: `12 seats. One driver. ${city.name}.`,
-      lead: "Airport lots, family functions, and multi-day tours. Tell us the headcount — we will not put twelve people in an Innova.",
+      lead: `A 12-seater with a driver from ${name}. Airport lots, family functions, multi-day tours. See the fare before you confirm.`,
       stats: [
         { value: "12", label: "Seats" },
         { value: "Driver", label: "Included" },
@@ -109,7 +102,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     byKind[service.kind] ?? {
       eyebrow: `${city.name} ${service.shortName.toLowerCase()}`,
       title: `${city.name} ${service.name.toLowerCase()}`,
-      lead: service.description,
+      lead: cityServicesLead(name),
       stats: service.trust.slice(0, 3).map((item) => ({ value: item, label: "" })),
     }
   );
@@ -119,7 +112,7 @@ export function routeLandingLead(origin: string, destination: string, why: strin
   return {
     eyebrow: `${origin} to ${destination} cab`,
     title: `${origin} to ${destination}.`,
-    lead: why,
+    lead: `${why} See the fare before you confirm.`,
     stats: [
       { value: "Published", label: "Fare" },
       { value: "Fuel + driver", label: "Included" },

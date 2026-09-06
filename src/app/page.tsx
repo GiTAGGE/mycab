@@ -10,6 +10,7 @@ import {
   networkReviews,
   networkRoutes,
   publicServices,
+  reviewsForCity,
   reviewStats,
 } from "@/lib/data";
 import { inrFrom } from "@/lib/format";
@@ -20,7 +21,7 @@ export default function HomePage() {
   const popular = networkRoutes(2);
   const tripTypes = publicServices();
   const reviews = networkReviews(2);
-  const stats = reviewStats(reviews);
+  const stats = reviewStats(cities.flatMap((city) => reviewsForCity(city.slug)));
 
   return (
     <>
@@ -30,8 +31,8 @@ export default function HomePage() {
         reviewCount={stats.count}
         copy={{
           eyebrow: "Karnataka cabs",
-          title: "Tell us the trip.",
-          lead: "Local hours or a ride to another city. Five live cities — Hubli, Dharwad, Belgaum, Bangalore and Mangalore. Fare on the card, then WhatsApp.",
+          title: "A cab in Karnataka — fare first.",
+          lead: "Local cabs, airport transfers, car rentals and outstation trips from Hubli, Dharwad, Belgaum, Bangalore and Mangalore. See the fare before you confirm.",
           stats: [
             { value: "5", label: "Live cities" },
             { value: "24×7", label: "Booking" },

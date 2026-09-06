@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaqList } from "@/components/faq-list";
+import { JourneyGuide } from "@/components/journey-guide";
+import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
 import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
@@ -15,6 +17,7 @@ import {
   hubliLeisureRoutes,
   localitiesInCity,
   reviewStats,
+  reviewsForCity,
   reviewsForService,
   routesFromCity,
   services,
@@ -22,6 +25,7 @@ import {
 import { inrFrom } from "@/lib/format";
 import { serviceLandingCopy } from "@/lib/landing-copy";
 import { airportPlaceId, cityPlaceId, localityPlaceId } from "@/lib/places";
+import { breadcrumbJsonLd, faqJsonLd, taxiServiceJsonLd } from "@/lib/seo";
 import type { ServiceKind } from "@/types";
 import { servicePath } from "@/lib/urls";
 
@@ -84,8 +88,10 @@ export default async function ServicePage({
     citySlug: city.slug,
     service: service.kind,
   });
+  const allCityReviews = reviewsForCity(city.slug);
   const cityReviews = reviewsForService(city.slug, service.kind);
-  const stats = reviewStats(cityReviews);
+  const stats = reviewStats(allCityReviews);
+  const faqSchema = faqJsonLd(serviceFaqs);
   const copy = serviceLandingCopy(city, service);
   const showRoutes =
     service.kind === "outstation" ||
@@ -97,6 +103,15 @@ export default async function ServicePage({
 
   return (
     <>
+      <JsonLd data={taxiServiceJsonLd(city, allCityReviews, `/${city.slug}/${service.slug}`)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: city.name, path: `/${city.slug}` },
+          { name: service.name, path: `/${city.slug}/${service.slug}` },
+        ])}
+      />
+      {faqSchema ? <JsonLd data={faqSchema} /> : null}
       <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
         <TripBuilder
           citySlug={city.slug}
@@ -179,6 +194,7 @@ export default async function ServicePage({
       ) : null}
 
       <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
+      <JourneyGuide citySlug={city.slug} />
       <FaqList items={serviceFaqs} />
     </>
   );

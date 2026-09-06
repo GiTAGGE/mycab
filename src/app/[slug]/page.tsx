@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaqList } from "@/components/faq-list";
+import { JourneyGuide } from "@/components/journey-guide";
+import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
 import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
@@ -21,6 +23,7 @@ import {
 import { durationLabel, inrFrom } from "@/lib/format";
 import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
+import { breadcrumbJsonLd, faqJsonLd, taxiServiceJsonLd } from "@/lib/seo";
 import { cityName } from "@/lib/trip-intent";
 import { isRouteSlug, servicePath } from "@/lib/urls";
 
@@ -79,9 +82,19 @@ function CityLanding({ citySlug }: { citySlug: string }) {
   const cityReviews = reviewsForCity(city.slug);
   const stats = reviewStats(cityReviews);
   const copy = cityLandingCopy(city);
+  const cityFaqs = faqsFor({ citySlug: city.slug });
+  const faqSchema = faqJsonLd(cityFaqs);
 
   return (
     <>
+      <JsonLd data={taxiServiceJsonLd(city, cityReviews, `/${city.slug}`)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: city.name, path: `/${city.slug}` },
+        ])}
+      />
+      {faqSchema ? <JsonLd data={faqSchema} /> : null}
       <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
         <TripBuilder
           citySlug={city.slug}
@@ -137,7 +150,8 @@ function CityLanding({ citySlug }: { citySlug: string }) {
       ) : null}
 
       <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
-      <FaqList items={faqsFor({ citySlug: city.slug })} />
+      <JourneyGuide citySlug={city.slug} />
+      <FaqList items={cityFaqs} />
     </>
   );
 }
@@ -149,10 +163,11 @@ function RouteLanding({ routeId }: { routeId: string }) {
   const fromId = cityPlaceId(route.originCitySlug);
   const toId = destinationPlaceId(route.id);
   const related = routesFromCity(route.originCitySlug).filter((item) => item.id !== route.id).slice(0, 4);
+  const originCity = getCity(route.originCitySlug);
   const cityReviews = reviewsForCity(route.originCitySlug);
   const matched = cityReviews.filter((review) => review.routeId === route.id);
-  const rail = matched.length >= 2 ? matched : cityReviews;
-  const stats = reviewStats(rail);
+  const rail = matched.length >= 8 ? matched : cityReviews;
+  const stats = reviewStats(cityReviews);
   const copy = {
     ...routeLandingLead(origin, route.destinationName, route.why),
     stats: [
@@ -164,6 +179,18 @@ function RouteLanding({ routeId }: { routeId: string }) {
 
   return (
     <>
+      {originCity ? (
+        <>
+          <JsonLd data={taxiServiceJsonLd(originCity, cityReviews, `/${route.pageSlug}`)} />
+          <JsonLd
+            data={breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: origin, path: `/${route.originCitySlug}` },
+              { name: `${origin} to ${route.destinationName}`, path: `/${route.pageSlug}` },
+            ])}
+          />
+        </>
+      ) : null}
       <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
         <TripBuilder
           citySlug={route.originCitySlug}
@@ -184,6 +211,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
         </section>
       ) : null}
       <ReviewRail title={`Reviews from ${origin}`} reviews={rail} />
+      <JourneyGuide citySlug={route.originCitySlug} />
       <FaqList items={faqsFor({ citySlug: route.originCitySlug, routeId: route.id })} />
     </>
   );
