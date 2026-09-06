@@ -22,6 +22,7 @@ export function TripBuilder({
   heading = "Where are you going?",
   mode,
   embedded = false,
+  initialPassengers = 2,
 }: {
   initialFromId?: string;
   initialToId?: string;
@@ -29,6 +30,7 @@ export function TripBuilder({
   heading?: string;
   mode?: ServiceKind;
   embedded?: boolean;
+  initialPassengers?: number;
 }) {
   const isLocal = mode === "local";
   const places = useMemo(() => placesForPicker(citySlug), [citySlug]);
@@ -38,7 +40,7 @@ export function TripBuilder({
   );
   const [date, setDate] = useState(tomorrowISO());
   const [localUnit, setLocalUnit] = useState<"4hr" | "8hr">("8hr");
-  const [passengers, setPassengers] = useState(2);
+  const [passengers, setPassengers] = useState(initialPassengers);
   const [vehicleId, setVehicleId] = useState<string | null>(null);
   const [picker, setPicker] = useState<PickerSide>(null);
   const [submitting, setSubmitting] = useState(false);

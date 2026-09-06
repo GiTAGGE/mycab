@@ -2,12 +2,27 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaqList } from "@/components/faq-list";
+import { PageHero } from "@/components/page-hero";
+import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import { TripBuilder } from "@/components/trip-builder";
 import { TrustPills } from "@/components/trust-pills";
-import { cities, faqsFor, getCity, getService, localitiesInCity, routesFromCity, services } from "@/lib/data";
+import {
+  cities,
+  faqsFor,
+  getCity,
+  getService,
+  hubliLeisureRoutes,
+  localitiesInCity,
+  reviewStats,
+  reviewsForService,
+  routesFromCity,
+  services,
+} from "@/lib/data";
 import { inrFrom } from "@/lib/format";
+import { serviceLandingCopy } from "@/lib/landing-copy";
 import { airportPlaceId, cityPlaceId, localityPlaceId } from "@/lib/places";
+import type { ServiceKind } from "@/types";
 import { servicePath } from "@/lib/urls";
 
 type Params = { slug: string; service: string };
@@ -29,10 +44,17 @@ export async function generateMetadata({
   const city = getCity(slug);
   const service = getService(serviceSlug);
   if (!city || !service) return { title: "Trip" };
+  const copy = serviceLandingCopy(city, service);
   return {
-    title: `${city.name} ${service.name.toLowerCase()}`,
-    description: service.description,
+    title: copy.eyebrow,
+    description: copy.lead,
   };
+}
+
+function builderMode(kind: ServiceKind): ServiceKind | undefined {
+  if (kind === "local" || kind === "airport" || kind === "outstation") return kind;
+  if (kind === "tours" || kind === "tempo") return "outstation";
+  return undefined;
 }
 
 export default async function ServicePage({
@@ -56,29 +78,49 @@ export default async function ServicePage({
   const initialToId =
     service.kind === "airport" ? airportPlaceId(city.slug) : undefined;
   const outstation = routesFromCity(city.slug);
+  const leisure =
+    city.slug === "hubli" ? hubliLeisureRoutes() : outstation.slice(0, 6);
   const serviceFaqs = faqsFor({
     citySlug: city.slug,
     service: service.kind,
   });
+  const cityReviews = reviewsForService(city.slug, service.kind);
+  const stats = reviewStats(cityReviews);
+  const copy = serviceLandingCopy(city, service);
+  const showRoutes =
+    service.kind === "outstation" ||
+    service.kind === "one-way" ||
+    service.kind === "round-trip" ||
+    service.kind === "car-rental" ||
+    service.kind === "tours" ||
+    service.kind === "tempo";
 
   return (
     <>
-      <section className="mx-auto max-w-5xl px-4 pb-6 pt-10">
-        <p className="text-sm font-medium text-accent-dark">{service.journey}</p>
-        <h1 className="display mt-2 text-4xl sm:text-6xl">
-          {city.name} {service.name.toLowerCase()}
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg text-ink-soft">{service.description}</p>
-        {city.airport && service.kind === "airport" ? (
-          <p className="mt-3 text-ink-soft">
-            To / from {city.airport.name} ({city.airport.code})
-          </p>
-        ) : null}
-        <div className="mt-5">
-          <TrustPills items={service.trust} />
-        </div>
+      <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
+        <TripBuilder
+          citySlug={city.slug}
+          initialFromId={
+            query.from === "airport" ? airportPlaceId(city.slug) : initialFromId
+          }
+          initialToId={
+            query.from === "airport" ? cityPlaceId(city.slug) : initialToId
+          }
+          mode={builderMode(service.kind)}
+          initialPassengers={service.kind === "tempo" ? 8 : 2}
+          heading={
+            service.kind === "airport"
+              ? "Airport, or a neighbourhood first"
+              : service.kind === "tempo"
+                ? "Group trip"
+                : "Tell us the trip"
+          }
+        />
+      </PageHero>
 
-        {service.kind === "airport" ? (
+      <section className="mx-auto max-w-6xl px-4 pt-4">
+        <TrustPills items={service.trust} />
+        {city.airport && service.kind === "airport" ? (
           <div className="mt-6 flex flex-wrap gap-2">
             <Link
               href={servicePath(city, service)}
@@ -94,27 +136,10 @@ export default async function ServicePage({
             </Link>
           </div>
         ) : null}
-
-        <div className="mt-8">
-          <TripBuilder
-            citySlug={city.slug}
-            initialFromId={
-              query.from === "airport" ? airportPlaceId(city.slug) : initialFromId
-            }
-            initialToId={
-              query.from === "airport" ? cityPlaceId(city.slug) : initialToId
-            }
-            heading={
-              service.kind === "airport"
-                ? "Airport, or a neighbourhood first"
-                : "Tell us the trip"
-            }
-          />
-        </div>
       </section>
 
       {service.kind === "airport" ? (
-        <section className="mx-auto max-w-5xl px-4 py-8">
+        <section className="mx-auto max-w-6xl px-4 py-10">
           <h2 className="display text-3xl">Choose a pickup area</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {pickups
@@ -138,17 +163,22 @@ export default async function ServicePage({
         </section>
       ) : null}
 
-      {service.kind === "outstation" || service.kind === "one-way" || service.kind === "round-trip" ? (
-        <section className="mx-auto max-w-5xl px-4 py-8">
-          <h2 className="display text-3xl">Published routes from {city.name}</h2>
+      {showRoutes && (service.kind === "tours" ? leisure : outstation).length > 0 ? (
+        <section className="mx-auto max-w-6xl px-4 py-10">
+          <h2 className="display text-3xl">
+            {service.kind === "tours"
+              ? `Trips people book from ${city.name}`
+              : `Published routes from ${city.name}`}
+          </h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {outstation.map((route) => (
+            {(service.kind === "tours" ? leisure : outstation).map((route) => (
               <RouteCard key={route.id} route={route} />
             ))}
           </div>
         </section>
       ) : null}
 
+      <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
       <FaqList items={serviceFaqs} />
     </>
   );

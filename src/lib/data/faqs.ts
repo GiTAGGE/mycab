@@ -127,4 +127,58 @@ export const faqs: Faq[] = [
     answer:
       "Hospet if you want the town, station or a hotel. Hampi if the drop is the ruins. They are close — tell us the pin on WhatsApp and we keep the same car.",
   },
+  {
+    id: "f15",
+    citySlug: "hubli",
+    routeId: null,
+    service: "car-rental",
+    question: "Is Hubli car rental self-drive?",
+    answer:
+      "No. The car comes with a driver. If you searched “Hubli car rental”, this is the page — not a self-drive counter.",
+  },
+  {
+    id: "f16",
+    citySlug: "hubli",
+    routeId: null,
+    service: "tours",
+    question: "Do you sell fixed Hubli tour packages?",
+    answer:
+      "We run the days you name — Dandeli, Gokarna, Murudeshwar, Hampi — with the same car. We do not lock you into a brochure itinerary.",
+  },
+  {
+    id: "f17",
+    citySlug: "hubli",
+    routeId: null,
+    service: "tempo",
+    question: "When should I book a tempo traveller in Hubli?",
+    answer:
+      "When you are more than six or seven with bags. Airport lots, family functions, and multi-day coast runs. A sedan will not pretend to be a 12-seater.",
+  },
+  {
+    id: "f18",
+    citySlug: "dharwad",
+    routeId: null,
+    service: "car-rental",
+    question: "Can I book a Dharwad taxi from a Hubli search?",
+    answer:
+      "Yes, but start on the Dharwad page if pickup is Dharwad. Twin-city fare to Hubli is published. Airport is still Hubballi.",
+  },
+  {
+    id: "f19",
+    citySlug: "belgaum",
+    routeId: null,
+    service: "airport",
+    question: "Is Belgaum airport the same as Hubballi?",
+    answer:
+      "No. Belgaum uses IXG. Hubli and Dharwad use HBX. We do not mix those fares.",
+  },
+  {
+    id: "f20",
+    citySlug: "mangalore",
+    routeId: null,
+    service: "tours",
+    question: "Do you do coastal days from Mangalore?",
+    answer:
+      "Yes — Udupi, Manipal, and longer coast runs. Tell us the days. Same driver throughout.",
+  },
 ];

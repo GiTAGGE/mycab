@@ -3,11 +3,31 @@ import { cities } from "./cities";
 import { faqs } from "./faqs";
 import { localities } from "./localities";
 import { pricingRules } from "./pricing";
+import {
+  networkReviews,
+  reviewStats,
+  reviews,
+  reviewsForCity,
+  reviewsForService,
+} from "./reviews";
 import { routes } from "./routes";
 import { services } from "./services";
 import { vehicles } from "./vehicles";
 
-export { cities, faqs, localities, pricingRules, routes, services, vehicles };
+export {
+  cities,
+  faqs,
+  localities,
+  networkReviews,
+  pricingRules,
+  reviewStats,
+  reviews,
+  reviewsForCity,
+  reviewsForService,
+  routes,
+  services,
+  vehicles,
+};
 
 export const PUBLIC_SERVICE_IDS = ["local", "airport", "outstation"] as const;
 

@@ -60,4 +60,37 @@ export const services: Service[] = [
       "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
     trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
   },
+  {
+    id: "car-rental",
+    kind: "car-rental",
+    slug: "car-rental",
+    name: "Car rental",
+    shortName: "Car rental",
+    journey: "I need a car with a driver",
+    description:
+      "Car rental with a driver — not a self-drive desk. Sedan to tempo traveller. The published fare is the fare.",
+    trust: ["Driver included", "Sedan to tempo", "Published fare"],
+  },
+  {
+    id: "tours",
+    kind: "tours",
+    slug: "tours",
+    name: "Tours and travels",
+    shortName: "Tours",
+    journey: "I want a multi-stop trip",
+    description:
+      "Same car for a coast, ruins or forest run. Tell us the days — we do not invent a brochure itinerary you did not ask for.",
+    trust: ["Same driver all days", "Published route fares", "Tempo if the group is large"],
+  },
+  {
+    id: "tempo",
+    kind: "tempo",
+    slug: "tempo-traveller",
+    name: "Tempo traveller",
+    shortName: "Tempo",
+    journey: "We are a group",
+    description:
+      "12-seater tempo traveller with a driver. Airport lots, family functions, and multi-day tours.",
+    trust: ["12 seats", "Driver included", "Airport and outstation"],
+  },
 ];
