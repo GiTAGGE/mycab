@@ -93,7 +93,9 @@ export function TripBuilder({
 
   return (
     <section className={embedded ? "" : "rounded-[28px] border border-line bg-card p-5 shadow-sm sm:p-7"}>
-      {embedded ? null : <p className="text-sm font-medium text-muted">Plan your ride</p>}
+      {embedded ? null : (
+        <p className="text-sm font-medium text-muted">Plan your ride — choose from and to</p>
+      )}
       <h2 className={`display ${embedded ? "text-2xl sm:text-3xl" : "mt-1 text-3xl sm:text-4xl"}`}>
         {heading}
       </h2>
@@ -218,12 +220,33 @@ export function TripBuilder({
 
       <button
         type="button"
-        onClick={continueWhatsApp}
-        disabled={!ready || submitting}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-4 text-base font-semibold text-white disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
+        onClick={() => {
+          if (!ready) {
+            setPicker(from ? "to" : "from");
+            return;
+          }
+          void continueWhatsApp();
+        }}
+        disabled={submitting}
+        className={`mt-6 flex w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-base font-semibold ${
+          ready
+            ? "bg-accent text-white"
+            : "ready-book uppercase tracking-[0.06em]"
+        }`}
       >
-        <WhatsAppIcon className="h-5 w-5" />
-        {submitting ? "Opening WhatsApp…" : ready ? "Confirm on WhatsApp" : "Choose from and to"}
+        {ready ? (
+          <>
+            <WhatsAppIcon className="h-5 w-5" />
+            {submitting ? "Opening WhatsApp…" : "Confirm on WhatsApp"}
+          </>
+        ) : (
+          <>
+            <span className="ready-live" aria-hidden>
+              <span className="ready-live-core" />
+            </span>
+            Ready to book • Cab waiting
+          </>
+        )}
       </button>
       {ready && selectedVehicle ? (
         <p className="mt-3 text-center text-sm text-muted">

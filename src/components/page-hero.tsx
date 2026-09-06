@@ -40,7 +40,8 @@ export function PageHero({
                 <StarRating value={rating ?? 5} />
                 <span className="font-semibold text-ink">{rating?.toFixed(1)}</span>
                 <span className="text-muted">
-                  · {reviewCount} reviews{compact ? "" : " in this city"}
+                  · {reviewCount.toLocaleString("en-IN")} reviews
+                  {compact ? "" : " in this city"}
                 </span>
               </div>
             ) : null}

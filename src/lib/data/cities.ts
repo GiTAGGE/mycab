@@ -77,7 +77,7 @@ export const cities: City[] = [
       slug: "airport",
     },
     tagline: "University town. Airport is Hubballi — we price that honestly.",
-    hero: "Taxi in Dharwad. Twin-city fare to Hubli.",
+    hero: "A cab in Dharwad — fare first.",
     trustLine: "Dharwad taxi, Hubli hops, and honest HBX airport transfers.",
     popularDestinationSlugs: ["hubli", "belgaum", "goa", "hampi"],
     availableServiceIds: [...fullServices],

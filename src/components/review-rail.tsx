@@ -26,7 +26,7 @@ export function ReviewRail({
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="text-sm text-muted">
-            {stats.average.toFixed(1)} · {stats.count} reviews
+            {stats.average.toFixed(1)} · {stats.count.toLocaleString("en-IN")} reviews
           </p>
           <h2 className="display mt-1 text-3xl">{title}</h2>
         </div>
@@ -88,6 +88,27 @@ function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }
   );
 }
 
+function ModalList({ reviews }: { reviews: Review[] }) {
+  const [shown, setShown] = useState(24);
+  const visible = reviews.slice(0, shown);
+  return (
+    <div className="space-y-3 overflow-y-auto px-5 py-5">
+      {visible.map((review) => (
+        <ReviewCard key={review.id} review={review} wide />
+      ))}
+      {shown < reviews.length ? (
+        <button
+          type="button"
+          onClick={() => setShown((count) => count + 24)}
+          className="w-full rounded-full border border-line bg-card py-3 text-sm font-medium text-accent"
+        >
+          Show more reviews
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 function ReviewModal({
   title,
   titleId,
@@ -138,11 +159,7 @@ function ReviewModal({
             <CloseIcon />
           </button>
         </div>
-        <div className="space-y-3 overflow-y-auto px-5 py-5">
-          {reviews.map((review) => (
-            <ReviewCard key={review.id} review={review} wide />
-          ))}
-        </div>
+        <ModalList reviews={reviews} />
       </div>
     </div>
   );

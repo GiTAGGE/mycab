@@ -1,4 +1,5 @@
 import type { ServiceKind } from "@/types";
+import { generateCityReviews } from "./review-factory";
 
 export type Review = {
   id: string;
@@ -20,7 +21,7 @@ export type Review = {
  * Names are not copied from the lead export.
  * Photos are optional and mixed on purpose — most cards are name-only.
  */
-export const reviews: Review[] = [
+export const featuredReviews: Review[] = [
   {
     id: "hbl-1",
     citySlug: "hubli",
@@ -445,6 +446,8 @@ export const reviews: Review[] = [
     service: "local",
   },
 ];
+
+export const reviews: Review[] = [...featuredReviews, ...generateCityReviews(featuredReviews)];
 
 export function reviewsForCity(citySlug: string): Review[] {
   return reviews.filter((review) => review.citySlug === citySlug);
