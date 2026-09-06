@@ -26,7 +26,11 @@ export function HomeChooser({
   );
 
   return (
-    <section className="book-card rounded-[28px] border border-line bg-card p-5 sm:p-8">
+    <section
+      className={`book-card rounded-[28px] border border-line bg-card p-5 sm:p-8 transition ${
+        citySlug && (trip === "local" || trip === "airport") ? "book-card-ready" : ""
+      }`}
+    >
       <div className="flex gap-2 overflow-x-auto pb-1">
         {types.map((item) => {
           const active = trip === item.kind;

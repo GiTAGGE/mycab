@@ -92,7 +92,15 @@ export function TripBuilder({
   }
 
   return (
-    <section className={embedded ? "" : "rounded-[28px] border border-line bg-card p-5 shadow-sm sm:p-7"}>
+    <section
+      className={
+        embedded
+          ? ""
+          : `book-card rounded-[28px] border border-line bg-card p-5 shadow-sm sm:p-7 ${
+              ready ? "book-card-ready" : ""
+            }`
+      }
+    >
       {embedded ? null : (
         <p className="text-sm font-medium text-muted">Plan your ride — choose from and to</p>
       )}
@@ -125,7 +133,7 @@ export function TripBuilder({
       </div>
 
       {ready && quote ? (
-        <div className="mt-5 rounded-2xl bg-paper px-4 py-4">
+        <div className="fare-lock mt-5 rounded-2xl px-4 py-4">
           <p className="text-sm text-muted">{quote.title}</p>
           <p className="mt-1 text-xl font-semibold">{tripTitle(from as Place, to as Place)}</p>
           <div className="mt-3 flex flex-wrap gap-3 text-sm text-ink-soft">
@@ -151,7 +159,7 @@ export function TripBuilder({
               type="date"
               value={date}
               onChange={(event) => setDate(event.target.value)}
-              className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base"
+              className="field-premium w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base"
             />
           </label>
           <label className="block">
@@ -162,7 +170,7 @@ export function TripBuilder({
               max={12}
               value={passengers}
               onChange={(event) => setPassengers(Number(event.target.value) || 1)}
-              className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base"
+              className="field-premium w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base"
             />
           </label>
         </div>
@@ -187,8 +195,10 @@ export function TripBuilder({
                 key={item.vehicleId}
                 type="button"
                 onClick={() => setVehicleId(item.vehicleId)}
-                className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left ${
-                  active ? "border-accent bg-accent-soft" : "border-line bg-card"
+                className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left transition ${
+                  active
+                    ? "border-[rgba(124,79,29,0.45)] bg-[rgba(255,248,230,0.7)]"
+                    : "border-line bg-card hover:border-[rgba(124,79,29,0.22)]"
                 }`}
               >
                 <span>
@@ -228,28 +238,24 @@ export function TripBuilder({
           void continueWhatsApp();
         }}
         disabled={submitting}
-        className={`mt-6 flex w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-base font-semibold ${
-          ready
-            ? "bg-accent text-white"
-            : "ready-book uppercase tracking-[0.06em]"
+        className={`live-cta mt-6 flex w-full items-center justify-center gap-2 rounded-full px-5 py-4 text-base font-semibold ${
+          ready ? "confirm-book" : "ready-book"
         }`}
       >
+        <span className="ready-live" aria-hidden>
+          <span className="ready-live-core" />
+        </span>
         {ready ? (
           <>
             <WhatsAppIcon className="h-5 w-5" />
             {submitting ? "Opening WhatsApp…" : "Confirm on WhatsApp"}
           </>
         ) : (
-          <>
-            <span className="ready-live" aria-hidden>
-              <span className="ready-live-core" />
-            </span>
-            Ready to book • Cab waiting
-          </>
+          "Ready to book • Cab waiting"
         )}
       </button>
       {ready && selectedVehicle ? (
-        <p className="mt-3 text-center text-sm text-muted">
+        <p className="mt-3 text-center text-sm tracking-wide text-muted">
           {tripTitle(from as Place, to as Place)} · {prettyDate(date)} ·{" "}
           {vehicles.find((item) => item.id === selectedVehicle.vehicleId)?.name} ·{" "}
           {inr(selectedVehicle.amount)}
@@ -290,7 +296,9 @@ function PlaceButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-2xl border border-line bg-paper px-4 py-4 text-left"
+      className={`flex w-full items-center gap-3 rounded-2xl border px-4 py-4 text-left transition ${
+        place ? "place-set border-line" : "border-line bg-paper hover:border-[rgba(124,79,29,0.22)]"
+      }`}
     >
       <PinIcon className="h-5 w-5 text-accent" />
       <span>
