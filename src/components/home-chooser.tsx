@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { City, Service, ServiceKind } from "@/types";
 import { BrandRibbon } from "@/components/brand-ribbon";
+import { CitySelect } from "@/components/city-select";
 import { TripBuilder } from "@/components/trip-builder";
 import { airportPlaceId, cityPlaceId, localPlaceId } from "@/lib/places";
 
@@ -28,7 +29,7 @@ export function HomeChooser({
 
   return (
     <section
-      className={`book-card rounded-[28px] border border-line bg-card p-5 sm:p-8 transition ${
+      className={`book-card rounded-[28px] border border-line bg-card p-4 transition sm:p-7 ${
         citySlug && (trip === "local" || trip === "airport") ? "book-card-ready" : ""
       }`}
     >
@@ -52,28 +53,9 @@ export function HomeChooser({
           );
         })}
       </div>
-      <p className="mt-3 text-sm text-muted">
-        {types.find((item) => item.kind === trip)?.journey}
-      </p>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {cities.map((item) => {
-          const active = citySlug === item.slug;
-          return (
-            <button
-              key={item.slug}
-              type="button"
-              onClick={() => setCitySlug(item.slug)}
-              className={`rounded-full px-3 py-1.5 text-sm ${
-                active
-                  ? "bg-accent text-white"
-                  : "text-ink-soft hover:bg-accent-soft"
-              }`}
-            >
-              {item.name}
-            </button>
-          );
-        })}
+      <div className="journey-row">
+        <p>{types.find((item) => item.kind === trip)?.journey}</p>
+        <CitySelect cities={cities} value={citySlug} onChange={setCitySlug} />
       </div>
 
       <div className="mt-6 border-t border-line pt-6">
