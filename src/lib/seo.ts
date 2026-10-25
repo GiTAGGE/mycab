@@ -22,7 +22,7 @@ export function taxiServiceJsonLd(city: City, reviews: Review[], path: string) {
       name: city.officialName ?? city.name,
       containedInPlace: { "@type": "State", name: city.state },
     },
-    telephone: `+${brand.whatsappNumber}`,
+    telephone: `+${brand.phoneNumber}`,
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: stats.average.toFixed(1),

@@ -2,6 +2,10 @@ export const brand = {
   name: "SeeCabs",
   tagline: "Karnataka cabs. See the fare before you confirm.",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919900112233",
+  phoneNumber:
+    process.env.NEXT_PUBLIC_PHONE_NUMBER ||
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ||
+    "919900112233",
   cityDefault: "bangalore",
   supportHours: "24×7",
 };

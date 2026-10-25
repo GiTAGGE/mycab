@@ -4,15 +4,17 @@ import { useMemo, useState } from "react";
 import type { Place } from "@/types";
 import { readAttribution } from "@/lib/attribution";
 import type { ServiceKind } from "@/types";
-import { getVehicle, vehicles } from "@/lib/data";
+import { vehicles } from "@/lib/data";
 import { quoteTrip, startingFare } from "@/lib/fare";
 import { inr, prettyDate, tomorrowISO } from "@/lib/format";
 import { getPlace, localPlaceId, placesForPicker } from "@/lib/places";
 import { tripTitle } from "@/lib/trip-intent";
+import { CallLink } from "@/components/call-link";
 import { PlacePicker } from "@/components/place-picker";
+import { preferredVehicleId, RidePicker, RideTrigger } from "@/components/ride-picker";
 import { TrustPills } from "@/components/trust-pills";
 import { BrandRibbon } from "@/components/brand-ribbon";
-import { CarIcon, ClockIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
+import { ClockIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
 
 type PickerSide = "from" | "to" | null;
 
@@ -42,8 +44,9 @@ export function TripBuilder({
   const [date, setDate] = useState(tomorrowISO());
   const [localUnit, setLocalUnit] = useState<"4hr" | "8hr">("8hr");
   const [passengers, setPassengers] = useState(initialPassengers);
-  const [vehicleId, setVehicleId] = useState<string | null>(null);
+  const [vehicleId, setVehicleId] = useState("sedan");
   const [picker, setPicker] = useState<PickerSide>(null);
+  const [rideOpen, setRideOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,7 +60,8 @@ export function TripBuilder({
         })
       : null;
   const start = quote ? startingFare(quote) : null;
-  const selectedVehicle = quote?.vehicles.find((item) => item.vehicleId === vehicleId) ?? quote?.vehicles[0];
+  const selectedVehicleId = quote ? preferredVehicleId(quote.vehicles, vehicleId) : "sedan";
+  const selectedVehicle = quote?.vehicles.find((item) => item.vehicleId === selectedVehicleId);
 
   async function continueWhatsApp() {
     if (!from || !to) return;
@@ -185,37 +189,9 @@ export function TripBuilder({
         </div>
       ) : null}
 
-      {quote && quote.vehicles.length > 0 ? (
-        <div className="mt-6 space-y-3">
-          <p className="text-sm font-medium text-muted">Choose your ride</p>
-          {quote.vehicles.map((item) => {
-            const vehicle = getVehicle(item.vehicleId);
-            if (!vehicle) return null;
-            const active = (selectedVehicle?.vehicleId ?? "") === item.vehicleId;
-            return (
-              <button
-                key={item.vehicleId}
-                type="button"
-                onClick={() => setVehicleId(item.vehicleId)}
-                className={`flex w-full items-center justify-between rounded-2xl border px-4 py-4 text-left transition ${
-                  active
-                    ? "border-[rgba(124,79,29,0.45)] bg-[rgba(255,248,230,0.7)]"
-                    : "border-line bg-card hover:border-[rgba(124,79,29,0.22)]"
-                }`}
-              >
-                <span>
-                  <span className="flex items-center gap-2 font-medium">
-                    <CarIcon className="h-4 w-4" />
-                    {vehicle.name}
-                  </span>
-                  <span className="mt-1 block text-sm text-muted">
-                    {vehicle.seats} passengers · {item.label}
-                  </span>
-                </span>
-                <span className="text-lg font-semibold text-accent">{inr(item.amount)}</span>
-              </button>
-            );
-          })}
+      {quote && quote.vehicles.length > 0 && selectedVehicle ? (
+        <div className="mt-5 space-y-3">
+          <RideTrigger quote={selectedVehicle} onClick={() => setRideOpen(true)} />
           <p className="text-xs leading-5 text-muted">
             Final fare depends on pickup, drop and travel date. Tolls on the
             route are confirmed before you pay.
@@ -256,6 +232,7 @@ export function TripBuilder({
           "Ready to book • Cab waiting"
         )}
       </button>
+      <CallLink variant="form" />
       {ready && selectedVehicle ? (
         <p className="mt-3 text-center text-sm tracking-wide text-muted">
           {tripTitle(from as Place, to as Place)} · {prettyDate(date)} ·{" "}
@@ -265,6 +242,13 @@ export function TripBuilder({
       ) : null}
       {error ? <p className="mt-3 text-center text-sm text-accent">{error}</p> : null}
 
+      <RidePicker
+        open={rideOpen}
+        quotes={quote?.vehicles ?? []}
+        selectedId={selectedVehicleId}
+        onClose={() => setRideOpen(false)}
+        onSelect={setVehicleId}
+      />
       <PlacePicker
         open={picker === "from"}
         title="Where from?"

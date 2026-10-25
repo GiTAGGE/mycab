@@ -89,6 +89,54 @@ export function CloseIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
+export function PhoneIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M8.2 3.8c.4-.4 1.1-.5 1.6-.2l2 1.3c.5.3.7.9.5 1.5l-.7 2.1a1.2 1.2 0 0 1-.7.8c-.6.2-1.5.7-1.4 1.4.2 1.4 2.2 3.4 3.6 3.6.7.1 1.2-.8 1.4-1.4a1.2 1.2 0 0 1 .8-.7l2.1-.7c.6-.2 1.2 0 1.5.5l1.3 2c.3.5.2 1.2-.2 1.6l-1.3 1.3c-.5.5-1.2.8-1.9.7-2.1-.2-5.2-1.5-7.6-3.9S4.6 9.1 4.4 7c-.1-.7.2-1.4.7-1.9l1.3-1.3Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ChevronIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="m6 9 6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function UsersIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="9" cy="8" r="2.6" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M4.5 17.2c.5-2.4 2.3-3.7 4.5-3.7s4 1.3 4.5 3.7"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+      <circle cx="16.2" cy="8.6" r="2.1" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M19.6 16.8c-.3-1.8-1.5-2.9-3.2-3.2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function WhatsAppIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>

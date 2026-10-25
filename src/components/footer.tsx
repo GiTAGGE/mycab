@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CallLink } from "@/components/call-link";
 import { Wordmark } from "@/components/wordmark";
 import { liveCities, networkRoutes, publicServices } from "@/lib/data";
 import { routePath, servicePath } from "@/lib/urls";
@@ -15,6 +16,9 @@ export function Footer() {
           <p className="mt-2 max-w-xs text-sm leading-6 text-ink-soft">
             Bangalore, Hubli, Dharwad, Belgaum and Mangalore. Local hours and
             intercity trips in each.
+          </p>
+          <p className="mt-4">
+            <CallLink variant="footer" />
           </p>
         </div>
         <div>
