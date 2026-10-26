@@ -11,7 +11,9 @@ export function JourneyGuide(query: GuideQuery) {
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <h2 className="display text-3xl">{heading}</h2>
-      <p className="mt-2 max-w-3xl text-ink-soft">{guide.lead}</p>
+      {guide.article && guide.article.length > 0 ? null : (
+        <p className="mt-2 max-w-3xl text-ink-soft">{guide.lead}</p>
+      )}
 
       {guide.article && guide.article.length > 0 ? (
         <div className="mt-6 max-w-3xl space-y-4 text-[0.95rem] leading-7 text-ink-soft">

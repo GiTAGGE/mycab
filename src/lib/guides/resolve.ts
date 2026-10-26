@@ -40,7 +40,7 @@ function enrichRouteGuide(route: Route, guide: PageGuide): PageGuide {
     .slice(0, 3)
     .map((link) => link.label);
   const article = [
-    `A ${origin} to ${dest} cab is ${route.distanceKm} km and usually about ${time} door to door. ${guide.lead} Published sedan fares start ${inrFrom(route.sedanFare)}; fuel and driver sit in that number, and tolls on this ${origin}–${dest} taxi run are called out before you pay.`,
+    `A ${origin} to ${dest} cab is ${route.distanceKm} km and usually about ${time} door to door. Published sedan fares start ${inrFrom(route.sedanFare)}; fuel and driver sit in that number, and tolls on this ${origin}–${dest} taxi run are called out before you pay. ${guide.lead}`,
     typeProse
       ? `${typeProse} That is the ${origin} to ${dest} taxi people actually sit in — not a brochure copied from another corridor.`
       : `${route.why} Book a ${origin} to ${dest} one way cab or a return on the same published fare family.`,
