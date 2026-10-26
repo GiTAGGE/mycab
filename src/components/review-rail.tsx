@@ -72,6 +72,8 @@ function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }
             alt=""
             width={44}
             height={44}
+            loading="lazy"
+            decoding="async"
             className="mt-0.5 h-11 w-11 rounded-full object-cover"
           />
         ) : null}

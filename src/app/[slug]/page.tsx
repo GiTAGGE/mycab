@@ -5,6 +5,7 @@ import { FaqList } from "@/components/faq-list";
 import { JourneyGuide } from "@/components/journey-guide";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
+import { RelatedNav } from "@/components/related-nav";
 import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import { TripBuilder } from "@/components/trip-builder";
@@ -13,7 +14,10 @@ import {
   faqsFor,
   getCity,
   getRouteByPageSlug,
+  getService,
+  liveCities,
   localitiesInCity,
+  networkServices,
   reviewStats,
   reviewsForCity,
   routes,
@@ -21,12 +25,19 @@ import {
   services,
 } from "@/lib/data";
 import { durationLabel, inrFrom } from "@/lib/format";
-import { guideFaqs } from "@/lib/guides";
+import { guideFaqs, serviceLinkGroups } from "@/lib/guides";
 import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
 import { breadcrumbJsonLd, faqJsonLd, routeServiceJsonLd, taxiServiceJsonLd } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site";
 import { cityName } from "@/lib/trip-intent";
-import { isRouteSlug, servicePath } from "@/lib/urls";
+import {
+  isNetworkServiceSlug,
+  isRouteSlug,
+  networkServicePath,
+  routePath,
+  servicePath,
+} from "@/lib/urls";
 
 type Params = { slug: string };
 
@@ -34,6 +45,7 @@ export function generateStaticParams() {
   return [
     ...cities.map((city) => ({ slug: city.slug })),
     ...routes.filter((route) => route.status === "live").map((route) => ({ slug: route.pageSlug })),
+    ...networkServices().map((service) => ({ slug: service.slug })),
   ];
 }
 
@@ -45,14 +57,32 @@ export async function generateMetadata({
   const { slug } = await params;
   const city = getCity(slug);
   if (city) {
-    return { title: city.seoTitle, description: city.seoDescription };
+    return {
+      title: city.seoTitle,
+      description: city.seoDescription,
+      alternates: { canonical: `/${city.slug}` },
+    };
+  }
+  const network = isNetworkServiceSlug(slug) ? getService(slug) : undefined;
+  if (network) {
+    const title = `${network.name} in Karnataka — SeeCabs`;
+    const description = `${network.description} Live in ${liveCities().map((item) => item.name).join(", ")}.`;
+    return {
+      title,
+      description,
+      alternates: { canonical: networkServicePath(network) },
+      openGraph: { title, description, url: absoluteUrl(networkServicePath(network)) },
+    };
   }
   const route = getRouteByPageSlug(slug);
   if (route) {
     const origin = cityName(route.originCitySlug);
+    const title = `${origin} to ${route.destinationName} cab — taxi fare, time`;
+    const description = `Book a ${origin} to ${route.destinationName} taxi. ${route.distanceKm} km, ${durationLabel(route.durationMinutes)}, sedan ${inrFrom(route.sedanFare)}. Fuel and driver included. ${route.why}`;
     return {
-      title: `${origin} to ${route.destinationName} cab — taxi fare, time`,
-      description: `Book a ${origin} to ${route.destinationName} taxi. ${route.distanceKm} km, ${durationLabel(route.durationMinutes)}, sedan ${inrFrom(route.sedanFare)}. Fuel and driver included. ${route.why}`,
+      title,
+      description,
+      alternates: { canonical: `/${route.pageSlug}` },
     };
   }
   return { title: "Trip" };
@@ -60,6 +90,11 @@ export async function generateMetadata({
 
 export default async function SlugPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
+  if (isNetworkServiceSlug(slug)) {
+    const service = getService(slug);
+    if (!service) notFound();
+    return <NetworkServiceLanding serviceSlug={service.slug} />;
+  }
   if (isRouteSlug(slug)) {
     const route = getRouteByPageSlug(slug);
     if (!route) notFound();
@@ -68,6 +103,53 @@ export default async function SlugPage({ params }: { params: Promise<Params> }) 
   const city = getCity(slug);
   if (!city) notFound();
   return <CityLanding citySlug={city.slug} />;
+}
+
+function NetworkServiceLanding({ serviceSlug }: { serviceSlug: string }) {
+  const service = getService(serviceSlug);
+  if (!service) return null;
+  const listed = liveCities().filter((city) => city.availableServiceIds.includes(service.id));
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-12">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: service.name, path: networkServicePath(service) },
+        ])}
+      />
+      <p className="text-sm text-muted">SeeCabs network</p>
+      <h1 className="display mt-2 text-4xl sm:text-5xl">{service.name} in Karnataka</h1>
+      <p className="mt-4 max-w-2xl text-lg text-ink-soft">{service.description}</p>
+      <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {listed.map((city) => (
+          <Link
+            key={city.slug}
+            href={servicePath(city, service)}
+            className="rounded-2xl border border-line bg-card p-5 transition hover:border-accent/30"
+          >
+            <p className="text-sm text-muted">{city.region}</p>
+            <p className="mt-1 text-xl font-semibold">
+              {service.kind === "tempo"
+                ? `Tempo traveller in ${city.name}`
+                : service.kind === "tours"
+                  ? `Tours from ${city.name}`
+                  : service.kind === "car-rental"
+                    ? `Car rental in ${city.name}`
+                    : service.kind === "outstation"
+                      ? `Outstation cab from ${city.name}`
+                      : service.kind === "airport"
+                        ? `${city.name} airport taxi`
+                        : `${city.name} local taxi`}
+            </p>
+            <p className="mt-2 text-sm text-ink-soft">{city.tagline}</p>
+            {city.airport ? (
+              <p className="mt-3 text-xs text-muted">{city.airport.code}</p>
+            ) : null}
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 function CityLanding({ citySlug }: { citySlug: string }) {
@@ -151,7 +233,10 @@ function CityLanding({ citySlug }: { citySlug: string }) {
       ) : null}
 
       <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
-      <JourneyGuide citySlug={city.slug} />
+      <JourneyGuide citySlug={city.slug} hideLinks />
+      <RelatedNav
+        groups={serviceLinkGroups(city.slug, null).filter((group) => group.title === "Other cities")}
+      />
       <FaqList items={cityFaqs} />
     </>
   );
@@ -235,7 +320,10 @@ function RouteLanding({ routeId }: { routeId: string }) {
         </section>
       ) : null}
       <ReviewRail title={`${origin} to ${route.destinationName} cab reviews`} reviews={rail} />
-      <JourneyGuide routeId={route.id} />
+      <JourneyGuide
+        routeId={route.id}
+        omitHrefs={related.map((item) => routePath(item))}
+      />
       <FaqList items={faqItems} />
     </>
   );

@@ -66,6 +66,22 @@ const OUTSTATION_LEAD: Record<string, string> = {
   mangalore: "Udupi and Manipal are the short coast. Kasargod is Kerala. Coorg is hills. Bangalore and Goa are long sits.",
 };
 
+const TEMPO_LEAD: Record<string, string> = {
+  bangalore: "BLR lots, Mysore family runs, wedding vans. 12 seats, one driver, published fare.",
+  hubli: "HBX lots, Dandeli and Gokarna groups, function houses. 12 seats from Hubballi.",
+  dharwad: "Campus groups and the HBX transfer with bags. Tempo fares start from the Dharwad pin.",
+  belgaum: "IXG lots, Goa groups, Kolhapur functions. One van from Camp.",
+  mangalore: "IXE drizzle, Udupi and Manipal groups, temple bags. 12 seats on the coast.",
+};
+
+const RENTAL_LEAD: Record<string, string> = {
+  bangalore: "Sedan to tempo with a driver. Whitefield days, BLR, Mysore — pick the vehicle on the card.",
+  hubli: "Sedan to tempo with a driver. Local hours, HBX, and North Karnataka roads.",
+  dharwad: "A car with a driver from Saptapur or University. Twin-city and HBX use the same fleet.",
+  belgaum: "Sedan to tempo from Camp. IXG, Goa, function week.",
+  mangalore: "Sedan to tempo in drizzle. Kadri hours, IXE, Udupi roads.",
+};
+
 const TOURS_LEAD: Record<string, string> = {
   bangalore: "Mysore–Coorg, Ooty with a night, or a temple circuit. Same car. You name the days.",
   hubli: "Dandeli then Gokarna, or Hampi with a night in Hospet. Same car for the days you name.",
@@ -115,7 +131,9 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     "car-rental": {
       eyebrow: `${city.name} car rental`,
       title: `Car rental in ${city.name} — with a driver.`,
-      lead: `A car with a driver in ${name} — not a self-drive desk. Sedan to tempo. See the fare before you confirm.`,
+      lead:
+        RENTAL_LEAD[city.slug] ??
+        `A car with a driver in ${name} — not a self-drive desk. Sedan to tempo. See the fare before you confirm.`,
       stats: [
         { value: "Driver", label: "Included" },
         { value: "Sedan–tempo", label: "Fleet" },
@@ -137,11 +155,13 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     tempo: {
       eyebrow: `Tempo traveller in ${city.name}`,
       title: `12 seats. One driver. ${city.name}.`,
-      lead: `A 12-seater with a driver from ${name}. Airport lots, family functions, multi-day tours. See the fare before you confirm.`,
+      lead:
+        TEMPO_LEAD[city.slug] ??
+        `A 12-seater with a driver from ${name}. Airport lots, family functions, multi-day tours. See the fare before you confirm.`,
       stats: [
         { value: "12", label: "Seats" },
         { value: "Driver", label: "Included" },
-        { value: "Airport + tour", label: "Usual jobs" },
+        { value: city.airport?.code ?? "Group", label: city.airport ? "Airport lots" : "Usual jobs" },
       ],
     },
   };
@@ -154,6 +174,22 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
       stats: service.trust.slice(0, 3).map((item) => ({ value: item, label: "" })),
     }
   );
+}
+
+export function serviceSeo(city: City, service: Service): { title: string; description: string } {
+  const copy = serviceLandingCopy(city, service);
+  const byKind: Partial<Record<ServiceKind, string>> = {
+    tempo: `Tempo traveller in ${city.name} — 12 seater taxi with driver`,
+    "car-rental": `Car rental in ${city.name} with driver — sedan to tempo`,
+    tours: `Tours from ${city.name} — same car, your days`,
+    local: `${city.name} local taxi — 4 hr and 8 hr packages`,
+    airport: `${city.name} airport taxi${city.airport ? ` ${city.airport.code}` : ""} — door to door`,
+    outstation: `Outstation cab from ${city.name} — published taxi fares`,
+  };
+  return {
+    title: byKind[service.kind] ?? copy.eyebrow,
+    description: copy.lead,
+  };
 }
 
 export function routeLandingLead(origin: string, destination: string, why: string): LandingCopy {
