@@ -9,7 +9,7 @@ export function Header({ citySlug }: { citySlug?: string }) {
   return (
     <header className="site-header sticky top-0 z-30">
       <BrandRibbon placement="header" />
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:h-16">
+      <div className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-3 px-4 sm:h-16">
         <Wordmark />
         <nav className="flex items-center gap-2 sm:gap-3">
           <Link href="/cities" className="hidden text-sm text-ink-soft hover:text-ink sm:inline">

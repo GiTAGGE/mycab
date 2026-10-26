@@ -17,7 +17,7 @@ export function PageHero({
 }) {
   return (
     <section className="hero-wash">
-      <div className="mx-auto max-w-6xl px-4 pb-8 pt-4 sm:pb-14 sm:pt-8">
+      <div className="mx-auto max-w-6xl px-4 pb-5 pt-3 sm:pb-14 sm:pt-8">
         <div className="hero-layout">
           <div className="hero-copy">
             <div className="hero-intro">
