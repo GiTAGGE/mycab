@@ -167,7 +167,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
   const originCity = getCity(route.originCitySlug);
   const cityReviews = reviewsForCity(route.originCitySlug);
   const matched = cityReviews.filter((review) => review.routeId === route.id);
-  const rail = matched.length >= 8 ? matched : cityReviews;
+  const rail = matched.length > 0 ? matched : cityReviews;
   const stats = reviewStats(cityReviews);
   const copy = {
     ...routeLandingLead(origin, route.destinationName, route.why),

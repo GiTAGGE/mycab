@@ -38,7 +38,7 @@ export function OverlaySheet({
   return (
     <BodyPortal>
       <div className="overlay-root" role="presentation">
-        <button type="button" className="overlay-backdrop" aria-label="Close" onClick={onClose} />
+        <button type="button" className="overlay-backdrop" aria-label="Dismiss overlay" onClick={onClose} />
         <div
           className="overlay-sheet"
           role="dialog"
