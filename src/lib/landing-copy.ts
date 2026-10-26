@@ -159,10 +159,10 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
 export function routeLandingLead(origin: string, destination: string, why: string): LandingCopy {
   return {
     eyebrow: `${origin} to ${destination} cab`,
-    title: `${origin} to ${destination}.`,
-    lead: `${why} See the fare before you confirm.`,
+    title: `${origin} to ${destination} taxi.`,
+    lead: `${why} See the ${origin} to ${destination} cab fare before you confirm.`,
     stats: [
-      { value: "Published", label: "Fare" },
+      { value: "Published", label: "Taxi fare" },
       { value: "Fuel + driver", label: "Included" },
       { value: "WhatsApp", label: "To confirm" },
     ],

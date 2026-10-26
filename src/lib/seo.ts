@@ -58,6 +58,36 @@ export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
   };
 }
 
+export function routeServiceJsonLd(
+  originCity: City,
+  destination: string,
+  path: string,
+  details: { distanceKm: number; durationMinutes: number; fare: number; why: string },
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    name: `${brand.name} ${originCity.name} to ${destination} cab`,
+    description: details.why,
+    url: absoluteUrl(path),
+    areaServed: [
+      {
+        "@type": "City",
+        name: originCity.officialName ?? originCity.name,
+        containedInPlace: { "@type": "State", name: originCity.state },
+      },
+      { "@type": "Place", name: destination },
+    ],
+    telephone: `+${brand.phoneNumber}`,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "INR",
+      price: details.fare,
+      description: `${originCity.name} to ${destination} taxi, ${details.distanceKm} km`,
+    },
+  };
+}
+
 export function faqJsonLd(items: Array<{ question: string; answer: string }>) {
   if (items.length === 0) return null;
   return {

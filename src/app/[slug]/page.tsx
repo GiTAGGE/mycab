@@ -24,7 +24,7 @@ import { durationLabel, inrFrom } from "@/lib/format";
 import { guideFaqs } from "@/lib/guides";
 import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
-import { breadcrumbJsonLd, faqJsonLd, taxiServiceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, routeServiceJsonLd, taxiServiceJsonLd } from "@/lib/seo";
 import { cityName } from "@/lib/trip-intent";
 import { isRouteSlug, servicePath } from "@/lib/urls";
 
@@ -51,8 +51,8 @@ export async function generateMetadata({
   if (route) {
     const origin = cityName(route.originCitySlug);
     return {
-      title: `${origin} to ${route.destinationName} cab`,
-      description: `${origin} → ${route.destinationName} · ${inrFrom(route.sedanFare)} · ${durationLabel(route.durationMinutes)}. ${route.why}`,
+      title: `${origin} to ${route.destinationName} cab — taxi fare, time`,
+      description: `Book a ${origin} to ${route.destinationName} taxi. ${route.distanceKm} km, ${durationLabel(route.durationMinutes)}, sedan ${inrFrom(route.sedanFare)}. Fuel and driver included. ${route.why}`,
     };
   }
   return { title: "Trip" };
@@ -123,7 +123,7 @@ function CityLanding({ citySlug }: { citySlug: string }) {
 
       {popular.length > 0 ? (
         <section className="mx-auto max-w-6xl px-4 py-8">
-          <h2 className="display text-3xl">Popular trips from {city.name}</h2>
+          <h2 className="display text-3xl">{city.name} outstation cab routes</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {popular.map((route) => (
               <RouteCard key={route.id} route={route} />
@@ -163,7 +163,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
   const origin = cityName(route.originCitySlug);
   const fromId = cityPlaceId(route.originCitySlug);
   const toId = destinationPlaceId(route.id);
-  const related = routesFromCity(route.originCitySlug).filter((item) => item.id !== route.id).slice(0, 4);
+  const related = routesFromCity(route.originCitySlug).filter((item) => item.id !== route.id).slice(0, 6);
   const originCity = getCity(route.originCitySlug);
   const cityReviews = reviewsForCity(route.originCitySlug);
   const matched = cityReviews.filter((review) => review.routeId === route.id);
@@ -177,6 +177,16 @@ function RouteLanding({ routeId }: { routeId: string }) {
       { value: `${route.distanceKm} km`, label: "Distance" },
     ],
   };
+  const faqItems = (() => {
+    const generated = guideFaqs(route.id);
+    const seen = new Set(generated.map((item) => item.question.toLowerCase()));
+    const extra = faqsFor({
+      citySlug: route.originCitySlug,
+      routeId: route.id,
+    }).filter((item) => !seen.has(item.question.toLowerCase()));
+    return [...generated, ...extra];
+  })();
+  const faqSchema = faqJsonLd(faqItems);
 
   return (
     <>
@@ -184,14 +194,23 @@ function RouteLanding({ routeId }: { routeId: string }) {
         <>
           <JsonLd data={taxiServiceJsonLd(originCity, cityReviews, `/${route.pageSlug}`)} />
           <JsonLd
+            data={routeServiceJsonLd(originCity, route.destinationName, `/${route.pageSlug}`, {
+              distanceKm: route.distanceKm,
+              durationMinutes: route.durationMinutes,
+              fare: route.sedanFare,
+              why: route.why,
+            })}
+          />
+          <JsonLd
             data={breadcrumbJsonLd([
               { name: "Home", path: "/" },
               { name: origin, path: `/${route.originCitySlug}` },
-              { name: `${origin} to ${route.destinationName}`, path: `/${route.pageSlug}` },
+              { name: `${origin} to ${route.destinationName} cab`, path: `/${route.pageSlug}` },
             ])}
           />
         </>
       ) : null}
+      {faqSchema ? <JsonLd data={faqSchema} /> : null}
       <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
         <TripBuilder
           citySlug={route.originCitySlug}
@@ -203,7 +222,11 @@ function RouteLanding({ routeId }: { routeId: string }) {
       </PageHero>
       {related.length > 0 ? (
         <section className="mx-auto max-w-6xl px-4 py-8">
-          <h2 className="display text-3xl">Other trips from {origin}</h2>
+          <h2 className="display text-3xl">Other {origin} taxi routes</h2>
+          <p className="mt-2 text-ink-soft">
+            Same origin, different road — each {origin} to destination cab has its own
+            fare and notes.
+          </p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {related.map((item) => (
               <RouteCard key={item.id} route={item} />
@@ -211,19 +234,9 @@ function RouteLanding({ routeId }: { routeId: string }) {
           </div>
         </section>
       ) : null}
-      <ReviewRail title={`Reviews from ${origin}`} reviews={rail} />
+      <ReviewRail title={`${origin} to ${route.destinationName} cab reviews`} reviews={rail} />
       <JourneyGuide routeId={route.id} />
-      <FaqList
-        items={(() => {
-          const generated = guideFaqs(route.id);
-          const seen = new Set(generated.map((item) => item.question.toLowerCase()));
-          const extra = faqsFor({
-            citySlug: route.originCitySlug,
-            routeId: route.id,
-          }).filter((item) => !seen.has(item.question.toLowerCase()));
-          return [...generated, ...extra];
-        })()}
-      />
+      <FaqList items={faqItems} />
     </>
   );
 }

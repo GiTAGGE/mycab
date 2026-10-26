@@ -9,10 +9,19 @@ export type GuideStop = {
   body: string;
 };
 
+export type SiteLink = {
+  href: string;
+  label: string;
+  hint?: string;
+};
+
 export type PageGuide = {
   title: string;
   lead: string;
   types: GuideBlock[];
   stops: GuideStop[];
   stopsHeading?: string;
+  seoHeading?: string;
+  article?: string[];
+  links?: SiteLink[];
 };
