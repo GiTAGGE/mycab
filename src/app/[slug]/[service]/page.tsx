@@ -182,8 +182,8 @@ export default async function ServicePage({
         <section className="mx-auto max-w-6xl px-4 py-10">
           <h2 className="display text-3xl">
             {service.kind === "tours"
-              ? `Trips people book from ${city.name}`
-              : `Published routes from ${city.name}`}
+              ? `Tours and ${city.name} taxi routes people book`
+              : `${city.name} outstation cab routes`}
           </h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {(service.kind === "tours" ? leisure : outstation).map((route) => (

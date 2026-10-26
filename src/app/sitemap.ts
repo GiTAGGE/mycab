@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { cities, routes, services } from "@/lib/data";
 
-const site = process.env.NEXT_PUBLIC_SITE_URL || "https://mycab.example.com";
+const site = process.env.NEXT_PUBLIC_SITE_URL || "https://seacab.netlify.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = ["", "/cities", "/book"].map((path) => ({
