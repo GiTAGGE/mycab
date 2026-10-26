@@ -114,6 +114,13 @@ export function faqsFor(options: {
   service?: Faq["service"];
 }): Faq[] {
   return faqs.filter((faq) => {
+    if (options.routeId) {
+      if (faq.routeId === options.routeId) return true;
+      if (faq.routeId) return false;
+      if (faq.service) return false;
+      if (faq.citySlug && faq.citySlug !== options.citySlug) return false;
+      return !faq.citySlug || faq.citySlug === options.citySlug;
+    }
     if (faq.routeId && faq.routeId !== options.routeId) return false;
     if (faq.service && faq.service !== options.service) return false;
     if (faq.citySlug && faq.citySlug !== options.citySlug) return false;

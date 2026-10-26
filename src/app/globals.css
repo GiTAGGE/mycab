@@ -87,7 +87,7 @@ h2,
 .overlay-root {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 80;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -476,7 +476,7 @@ h2,
 @media (min-width: 640px) {
   .overlay-root {
     align-items: center;
-    padding: 1.5rem;
+    padding: 5.5rem 1.5rem 1.5rem;
   }
 
   .overlay-sheet {

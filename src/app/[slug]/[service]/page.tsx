@@ -194,7 +194,7 @@ export default async function ServicePage({
       ) : null}
 
       <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
-      <JourneyGuide citySlug={city.slug} />
+      <JourneyGuide citySlug={city.slug} service={service.kind} />
       <FaqList items={serviceFaqs} />
     </>
   );
