@@ -36,7 +36,14 @@ export function TripBuilder({
   initialPassengers?: number;
 }) {
   const isLocal = mode === "local";
-  const places = useMemo(() => placesForPicker(citySlug), [citySlug]);
+  const fromPlaces = useMemo(
+    () => placesForPicker({ citySlug, mode, side: "from" }),
+    [citySlug, mode],
+  );
+  const toPlaces = useMemo(
+    () => placesForPicker({ citySlug, mode, side: "to" }),
+    [citySlug, mode],
+  );
   const [fromId, setFromId] = useState(initialFromId ?? "");
   const [toId, setToId] = useState(
     initialToId ?? (isLocal && citySlug ? localPlaceId(citySlug) : ""),
@@ -271,14 +278,14 @@ export function TripBuilder({
       <PlacePicker
         open={picker === "from"}
         title="Where from?"
-        places={places}
+        places={fromPlaces}
         onClose={() => setPicker(null)}
         onSelect={(place) => setFromId(place.id)}
       />
       <PlacePicker
         open={picker === "to"}
         title="Where to?"
-        places={places}
+        places={toPlaces}
         onClose={() => setPicker(null)}
         onSelect={(place) => setToId(place.id)}
       />

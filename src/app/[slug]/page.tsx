@@ -21,6 +21,7 @@ import {
   services,
 } from "@/lib/data";
 import { durationLabel, inrFrom } from "@/lib/format";
+import { guideFaqs } from "@/lib/guides";
 import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
 import { breadcrumbJsonLd, faqJsonLd, taxiServiceJsonLd } from "@/lib/seo";
@@ -166,7 +167,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
   const originCity = getCity(route.originCitySlug);
   const cityReviews = reviewsForCity(route.originCitySlug);
   const matched = cityReviews.filter((review) => review.routeId === route.id);
-  const rail = matched.length >= 8 ? matched : cityReviews;
+  const rail = matched.length > 0 ? matched : cityReviews;
   const stats = reviewStats(cityReviews);
   const copy = {
     ...routeLandingLead(origin, route.destinationName, route.why),
@@ -211,8 +212,18 @@ function RouteLanding({ routeId }: { routeId: string }) {
         </section>
       ) : null}
       <ReviewRail title={`Reviews from ${origin}`} reviews={rail} />
-      <JourneyGuide citySlug={route.originCitySlug} />
-      <FaqList items={faqsFor({ citySlug: route.originCitySlug, routeId: route.id })} />
+      <JourneyGuide routeId={route.id} />
+      <FaqList
+        items={(() => {
+          const generated = guideFaqs(route.id);
+          const seen = new Set(generated.map((item) => item.question.toLowerCase()));
+          const extra = faqsFor({
+            citySlug: route.originCitySlug,
+            routeId: route.id,
+          }).filter((item) => !seen.has(item.question.toLowerCase()));
+          return [...generated, ...extra];
+        })()}
+      />
     </>
   );
 }

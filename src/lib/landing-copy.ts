@@ -27,16 +27,65 @@ export function cityLandingCopy(city: City): LandingCopy {
   };
 }
 
+const LOCAL_LEAD: Record<string, { title: string; lead: string }> = {
+  bangalore: {
+    title: "Hours in Bengaluru — Koramangala, Whitefield, the same sedan.",
+    lead: "4 or 8 hours across Koramangala, Indiranagar, HSR and Whitefield. Filter coffee, a client, a house. Not a Hubli page with the name swapped.",
+  },
+  hubli: {
+    title: "Hours in Hubballi — Gokul Road, Unkal, Keshwapur.",
+    lead: "4 or 8 hours with the same driver. Clinic, college gate, Unkal pause. This is not an outstation to Belgaum or Gokarna.",
+  },
+  dharwad: {
+    title: "Hours in Dharwad — university lanes, not a renamed Hubli local.",
+    lead: "Saptapur, Malamaddi, University, a pedha stop. Narrow lanes. Same driver. HBX is a different booking.",
+  },
+  belgaum: {
+    title: "Hours in Belagavi — Camp, Tilakwadi, Shahapur.",
+    lead: "Cantonment shade, fort, thali, a wedding house. The Goa ghat belongs on the Goa page.",
+  },
+  mangalore: {
+    title: "Hours in Mangaluru — Kadri, drizzle, ghee roast.",
+    lead: "Temple, Hampankatta, a house in Bejai. The car waits in rain. Udupi is a different road.",
+  },
+};
+
+const AIRPORT_LEAD: Record<string, string> = {
+  bangalore: "Hebbal is not Whitefield. Electronic City is not Yelahanka. BLR fares follow the neighbourhood.",
+  hubli: "HBX is a short city hop. Navanagar is not Vidyanagar in the morning school rush. Share the flight number.",
+  dharwad: "There is no Dharwad airport. HBX is a real transfer, with morning fog on that road.",
+  belgaum: "IXG is close. If you actually landed at HBX, that is a different city and a different fare.",
+  mangalore: "IXE in drizzle. Kadri is close. Surathkal is the longer city run. Red mud on the tyres is normal.",
+};
+
+const OUTSTATION_LEAD: Record<string, string> = {
+  bangalore: "Mysore is the usual. Coorg and Ooty are hills. Tirupati is a temple dawn. Each route page is the real article — not a Hubli poem.",
+  hubli: "Belgaum is the north business road. Dandeli is forest. Gokarna is coast. Hampi is stone. Open the destination — do not read a generic Hubli brochure.",
+  dharwad: "Hubli next door, Belgaum shorter from this side, Hampi and Goa as full sits. The start pin is Dharwad.",
+  belgaum: "Goa is the ghat. Hubli is the straight road. Kolhapur and Pune go north. Gokarna is a beach without changing cars in Hubli.",
+  mangalore: "Udupi and Manipal are the short coast. Kasargod is Kerala. Coorg is hills. Bangalore and Goa are long sits.",
+};
+
+const TOURS_LEAD: Record<string, string> = {
+  bangalore: "Mysore–Coorg, Ooty with a night, or a temple circuit. Same car. You name the days.",
+  hubli: "Dandeli then Gokarna, or Hampi with a night in Hospet. One driver. No brochure you did not ask for.",
+  dharwad: "Campus to Hampi, or coast via Goa. Multi-day from this pin, not a Hubli stand.",
+  belgaum: "Goa nights, or Gokarna, or a Kolhapur function. Same car from Camp.",
+  mangalore: "Temple, Udupi, a beach, maybe Coorg. Same car. Ghee roast stays in town.",
+};
+
 export function serviceLandingCopy(city: City, service: Service): LandingCopy {
   const local = localPackageFrom(city.slug, "8hr");
   const name = city.officialName ?? city.name;
+  const localCopy = LOCAL_LEAD[city.slug];
   const byKind: Partial<Record<ServiceKind, LandingCopy>> = {
     airport: {
       eyebrow: `${city.name} airport taxi`,
       title: `${city.airport?.code ?? "Airport"} runs, door to door.`,
-      lead: city.airport
-        ? `Airport transfers to and from ${city.airport.name}. See the fare before you confirm.`
-        : cityServicesLead(name),
+      lead: AIRPORT_LEAD[city.slug] ??
+        (city.airport
+          ? `Airport transfers to and from ${city.airport.name}. See the fare before you confirm.`
+          : cityServicesLead(name)),
       stats: [
         { value: city.airport?.code ?? "—", label: "Airport" },
         { value: "Tracked", label: "On delay" },
@@ -45,8 +94,8 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     },
     local: {
       eyebrow: `${city.name} local taxi`,
-      title: `Hours in ${city.name}, not a drop.`,
-      lead: `4 or 8 hours in ${name} with the same driver. Meetings, errands, family stops. See the fare before you confirm.`,
+      title: localCopy?.title ?? `Hours in ${city.name}, not a drop.`,
+      lead: localCopy?.lead ?? `4 or 8 hours in ${name} with the same driver. Meetings, errands, family stops. See the fare before you confirm.`,
       stats: [
         { value: local ? inrFrom(local.amount) : "8 hr", label: local ? "Sedan / 8 hr" : "Package" },
         { value: "4 / 8 hr", label: "Packages" },
@@ -56,7 +105,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
     outstation: {
       eyebrow: `${city.name} outstation taxi`,
       title: `Outstation from ${city.name}.`,
-      lead: `Intercity cabs from ${name}. Fuel and driver included. See the fare before you confirm.`,
+      lead: OUTSTATION_LEAD[city.slug] ?? `Intercity cabs from ${name}. Fuel and driver included. See the fare before you confirm.`,
       stats: [
         { value: "Published", label: "Fare" },
         { value: "Fuel + driver", label: "Included" },
@@ -77,9 +126,8 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
       eyebrow: `${city.name} tours and travels`,
       title: `Tours from ${city.name} — same car, your days.`,
       lead:
-        city.slug === "hubli"
-          ? "Dandeli, Gokarna, Murudeshwar, Hampi. Multi-day with one driver. See the fare before you confirm."
-          : `Multi-stop trips from ${name}. Same driver for the days you want. See the fare before you confirm.`,
+        TOURS_LEAD[city.slug] ??
+        `Multi-stop trips from ${name}. Same driver for the days you want. See the fare before you confirm.`,
       stats: [
         { value: "Same car", label: "All days" },
         { value: "Your days", label: "Not a package trap" },

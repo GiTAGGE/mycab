@@ -1,4 +1,4 @@
-import type { Place } from "@/types";
+import type { Place, ServiceKind } from "@/types";
 import { cities, localities, routes } from "@/lib/data";
 
 export function airportPlaceId(citySlug: string): string {
@@ -113,15 +113,118 @@ export function getPlace(id: string | null | undefined): Place | undefined {
   return undefined;
 }
 
-export function placesForPicker(preferredCity?: string): Place[] {
-  const places = allPlaces();
-  if (!preferredCity) return places;
-  return [...places].sort((a, b) => {
-    const aMatch = a.citySlug === preferredCity ? 0 : 1;
-    const bMatch = b.citySlug === preferredCity ? 0 : 1;
-    if (aMatch !== bMatch) return aMatch - bMatch;
-    return a.label.localeCompare(b.label);
-  });
+export type PlacePickerQuery = {
+  citySlug?: string;
+  mode?: ServiceKind;
+  side?: "from" | "to";
+};
+
+function isLocalHours(place: Place) {
+  return place.id.startsWith("local:");
+}
+
+function isRouteDestination(place: Place) {
+  return place.id.startsWith("destination:");
+}
+
+function isCityHub(place: Place) {
+  return place.id.startsWith("city:");
+}
+
+function isArea(place: Place) {
+  return place.kind === "locality" && !isLocalHours(place);
+}
+
+export function placesForPicker(query?: PlacePickerQuery | string): Place[] {
+  const options: PlacePickerQuery =
+    typeof query === "string" || query === undefined ? { citySlug: query } : query;
+  const citySlug = options.citySlug;
+  const mode = options.mode;
+  const side = options.side;
+  const all = allPlaces();
+  const liveSlugs = new Set(cities.map((city) => city.slug));
+  const destsFromOrigin = new Set(
+    routes
+      .filter((route) => !citySlug || route.originCitySlug === citySlug)
+      .map((route) => route.destinationSlug),
+  );
+
+  const keep = (place: Place) => {
+    if (mode === "local") {
+      if (!citySlug) return isCityHub(place) || isLocalHours(place);
+      if (place.citySlug !== citySlug) return false;
+      if (side === "from") return isArea(place) || isCityHub(place);
+      return isArea(place) || isCityHub(place) || isLocalHours(place);
+    }
+
+    if (mode === "airport") {
+      if (!citySlug) return place.kind === "airport" || isCityHub(place);
+      return (
+        place.citySlug === citySlug &&
+        (isArea(place) || place.kind === "airport" || isCityHub(place))
+      );
+    }
+
+    if (
+      mode === "outstation" ||
+      mode === "one-way" ||
+      mode === "round-trip" ||
+      mode === "tours" ||
+      mode === "tempo" ||
+      mode === "car-rental"
+    ) {
+      if (side === "from") {
+        if (!citySlug) return isCityHub(place) || place.kind === "airport";
+        if (isLocalHours(place) || isRouteDestination(place)) return false;
+        if (place.citySlug === citySlug) {
+          return isArea(place) || isCityHub(place) || place.kind === "airport";
+        }
+        return isCityHub(place);
+      }
+      if (isLocalHours(place) || isArea(place)) return false;
+      if (isCityHub(place) && place.citySlug !== citySlug) return true;
+      if (place.kind === "airport" && place.citySlug !== citySlug) return true;
+      if (isRouteDestination(place) && destsFromOrigin.has(place.citySlug)) return true;
+      return false;
+    }
+
+    if (!citySlug) {
+      return isCityHub(place) || place.kind === "airport" || isRouteDestination(place);
+    }
+    if (side === "from") {
+      if (isLocalHours(place) || isRouteDestination(place)) return false;
+      if (place.citySlug === citySlug) {
+        return isArea(place) || isCityHub(place) || place.kind === "airport";
+      }
+      return isCityHub(place);
+    }
+    if (isArea(place)) return false;
+    if (isLocalHours(place)) return place.citySlug === citySlug;
+    if (isCityHub(place) || place.kind === "airport") return true;
+    if (isRouteDestination(place) && destsFromOrigin.has(place.citySlug)) return true;
+    return false;
+  };
+
+  const seen = new Set<string>();
+  return all
+    .filter(keep)
+    .filter((place) => {
+      if (seen.has(place.id)) return false;
+      seen.add(place.id);
+      return true;
+    })
+    .sort((a, b) => {
+      const rank = (place: Place) => {
+        if (citySlug && place.citySlug === citySlug && isArea(place)) return 0;
+        if (citySlug && place.citySlug === citySlug) return 1;
+        if (liveSlugs.has(place.citySlug) && isCityHub(place)) return 2;
+        if (place.kind === "airport") return 3;
+        return 4;
+      };
+      const diff = rank(a) - rank(b);
+      if (diff !== 0) return diff;
+      return a.label.localeCompare(b.label);
+    });
 }
 
 function titleCity(slug: string): string {
