@@ -13,7 +13,7 @@ function guide(
 export const routeGuides: Record<string, PageGuide> = {
   "hbl-belgaum": guide(
     "How Hubli to Belgaum actually feels",
-    "About 90 km north on the Pune–Bengaluru corridor. Business, not beach. Kittur, sugarcane, then Camp trees — not Unkal lake and not Gokarna.",
+    "About 90 km north on the Pune–Bengaluru corridor. Business run: Kittur, sugarcane, then Camp trees.",
     [
       {
         name: "The road",
@@ -21,7 +21,7 @@ export const routeGuides: Record<string, PageGuide> = {
       },
       {
         name: "Who books it",
-        body: "Meetings in Camp or Autonagar, a wedding in Tilakwadi, a drop at IXG. North Karnataka work, not a weekend brochure.",
+        body: "Meetings in Camp or Autonagar, a wedding in Tilakwadi, a drop at IXG.",
       },
       {
         name: "Food that belongs here",
@@ -32,7 +32,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Out of Hubli without the lake",
         kind: "Start",
-        body: "Vidyanagar to the bypass. Do not plan Unkal as a sightseeing stop — you are going to Belagavi.",
+        body: "Vidyanagar to the bypass, then the north road. Keep Unkal for a local-hours loop.",
       },
       {
         title: "Kittur",
@@ -63,11 +63,11 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "hbl-dharwad": guide(
     "How Hubli to Dharwad actually feels",
-    "Twenty kilometres and a different town. Twin-city fare, not a Hubli local renamed. Pedha is the errand. Unkal is the other direction.",
+    "Twenty kilometres and a different town. Twin-city fare. Pedha is the usual errand.",
     [
       {
         name: "The hop",
-        body: "Flyover, then Dharwad lanes. Forty minutes if Gokul Road has not already eaten the start. Door to door, not a highway fantasy.",
+        body: "Flyover, then Dharwad lanes. Forty minutes if Gokul Road has not already eaten the start. Door to door, not highway-only time.",
       },
       {
         name: "Pins that matter",
@@ -99,7 +99,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "hbl-goa": guide(
     "How Hubli to Goa actually feels",
-    "Ghats, then salt. About four hours if the forest road is kind. This is not Belgaum’s straight highway and not a Hubli local.",
+    "Ghats, then salt. About four hours if the forest road is kind.",
     [
       {
         name: "The road",
@@ -171,7 +171,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "hbl-hampi": guide(
     "How Hubli to Hampi actually feels",
-    "Stone, heat, a coconut. About three hours. Hospet is the town. The ruins are the point. Not a coast page.",
+    "Stone, heat, a coconut. About three hours. Hospet is the town. The ruins are the point.",
     [
       {
         name: "The run",
@@ -212,7 +212,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "hbl-gokarna": guide(
     "How Hubli to Gokarna actually feels",
-    "Ghat, then the smell of salt. About four hours. Beach drop, temple town, juice before the sand. Not Belgaum, not Unkal.",
+    "Ghat, then the smell of salt. About four hours. Beach drop, temple town, juice before the sand.",
     [
       {
         name: "The road",
@@ -240,9 +240,9 @@ export const routeGuides: Record<string, PageGuide> = {
         body: "Mahabaleshwar temple is a town drop. Om beach is a further lane. One WhatsApp line saves twenty minutes of reversing.",
       },
       {
-        title: "Anjuna is not this page",
-        kind: "Not Goa",
-        body: "If you meant Goa, open Hubli to Goa. Gokarna is a different coast and a quieter night.",
+        title: "Gokarna, not North Goa",
+        kind: "Coast",
+        body: "Temple town and Kudle or Om beach. Calangute is a different booking — Hubli to Goa.",
       },
     ],
   ),
@@ -320,7 +320,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "hbl-hospet": guide(
     "How Hubli to Hospet actually feels",
-    "The town drop for Hampi. Station, hotel, or a night before the ruins. Not the boulder page unless you continue.",
+    "The town drop for Hampi. Station, hotel, or a night before the ruins. Continue to the boulders only if you asked for Hampi.",
     [
       {
         name: "The town",
@@ -359,14 +359,14 @@ export const routeGuides: Record<string, PageGuide> = {
       },
       {
         name: "The drop",
-        body: "Beach, INS, or a homestay. Say which. Karwar is not Gokarna’s temple street.",
+        body: "Beach, INS, or a homestay. Send the pin — those last kilometres differ.",
       },
     ],
     [
       {
         title: "Forest then a different fork",
         kind: "Ghat",
-        body: "Yellapur tea still happens. Then you do not take the Goa ghat. That is the whole point of this page.",
+        body: "Yellapur tea still happens. Then the Karwar fork, not Anmod into Goa.",
       },
       {
         title: "First look at the sea",
@@ -405,9 +405,9 @@ export const routeGuides: Record<string, PageGuide> = {
         body: "Town temple. He waits. You walk. Festival days need an earlier start.",
       },
       {
-        title: "Sirsi is not Jog",
-        kind: "Guidance",
-        body: "If you want the falls, open Hubli to Jog Falls. This page is the town.",
+        title: "Town, not the falls",
+        kind: "Pin",
+        body: "Marikamba and family houses. Jog Falls is a separate day with a viewpoint wait.",
       },
     ],
   ),
@@ -452,7 +452,7 @@ export const routeGuides: Record<string, PageGuide> = {
       },
       {
         name: "Not a town drop",
-        body: "If you only wanted Sirsi, open that page. Jog is the water.",
+        body: "Sirsi is the town. This booking is the falls and the wait at the viewpoint.",
       },
     ],
     [
@@ -513,7 +513,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Out of the campus",
         kind: "Start",
-        body: "University gate, then the highway. No Unkal, no Gokul Road poem.",
+        body: "University gate, then the highway. You skip Hubli town traffic.",
       },
       {
         title: "Kittur",
@@ -529,7 +529,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "dwd-goa": guide(
     "How Dharwad to Goa actually feels",
-    "Coast run without routing you through a Hubli sightseeing page. Ghats, then salt.",
+    "Direct from Dharwad. Forest, then the Anmod ghat, then salt.",
     [
       {
         name: "The road",
@@ -618,7 +618,7 @@ export const routeGuides: Record<string, PageGuide> = {
       },
       {
         name: "The coast",
-        body: "Panaji, Calangute, or a quieter south pin. Say the hotel. This is not a Karwar page.",
+        body: "Panaji, Calangute, or a quieter south pin. Say the hotel. Karwar is a different drop.",
       },
     ],
     [
@@ -673,7 +673,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "bgm-kolhapur": guide(
     "How Belgaum to Kolhapur actually feels",
-    "Maharashtra border. Temple, business, jaggery, spicy thali. Not a Karnataka beach page.",
+    "Maharashtra border. Temple, business, jaggery, spicy thali — not a beach run.",
     [
       {
         name: "The road",
@@ -771,9 +771,9 @@ export const routeGuides: Record<string, PageGuide> = {
     ],
     [
       {
-        title: "Not the Goa ghat",
+        title: "Temple town, not Calangute",
         kind: "Fork",
-        body: "If you wanted Anjuna, open Belgaum to Goa. This page is Gokarna’s temple and Kudle.",
+        body: "Mahabaleshwar temple and Kudle or Om beach. Goa is a different ghat from Belagavi.",
       },
       {
         title: "Juice before sand",
@@ -789,7 +789,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "blr-mysore": guide(
     "How Bangalore to Mysore actually feels",
-    "The most booked Bengaluru outstation. Palace, weekend, family drop. Maddur, filter coffee, then the chamundi skyline — not Hubli, not Unkal.",
+    "The most booked Bengaluru outstation. Palace, weekend, family drop. Maddur, filter coffee, then the chamundi skyline.",
     [
       {
         name: "The road",
@@ -819,7 +819,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Chamundi on the skyline",
         kind: "Arrival",
-        body: "If you want the hill, say so — it is an extra loop, not automatic. Most drops are palace-side, railway, or a house in Vijayanagar.",
+        body: "Chamundi hill is an extra loop if you ask. Most drops are palace-side, railway, or a house in Vijayanagar.",
       },
       {
         title: "Palace parking wait",
@@ -1039,7 +1039,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "The long first half",
         kind: "Highway",
-        body: "This is not Belgaum’s short ghat. You earn the coast.",
+        body: "A long highway sit before the ghat. Leave overnight or at dawn.",
       },
       {
         title: "Ghat then salt",
@@ -1135,7 +1135,7 @@ export const routeGuides: Record<string, PageGuide> = {
     [
       {
         name: "The road",
-        body: "NH66 north. Surathkal, then Udupi. Windows down. This is not Bangalore–Mysore and not Hubli–Belgaum.",
+        body: "NH66 north. Surathkal, then Udupi. Windows down when the road shows the sea.",
       },
     ],
     [
@@ -1152,7 +1152,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Udupi meal",
         kind: "Food",
-        body: "The plate this road is for. Ghee roast can still happen in Mangalore before you leave. Do not mix the two towns’ pride.",
+        body: "Udupi meal after darshan. Ghee roast is easier in Mangaluru before you start.",
       },
       {
         title: "Malpe if you asked",
@@ -1248,7 +1248,7 @@ export const routeGuides: Record<string, PageGuide> = {
     [
       {
         name: "The sit",
-        body: "About seven hours. You pass Udupi. This page is not the Udupi temple drop.",
+        body: "About seven hours. You pass Udupi; the booking is Goa.",
       },
     ],
     [
@@ -1260,7 +1260,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Karwar glance",
         kind: "Town",
-        body: "You may see it. You are not dropping here unless you change the trip.",
+        body: "You may see it. The drop is Goa unless you asked for Karwar.",
       },
       {
         title: "Goa hotel pin",
@@ -1282,7 +1282,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "South, not Udupi",
         kind: "Direction",
-        body: "If you wanted temple town north, you opened the wrong page. This is Kerala.",
+        body: "South of Mangaluru, into Kerala. Udupi sits the other way on NH66.",
       },
       {
         title: "Bekal fort if you said so",
@@ -1309,7 +1309,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Past the temple town",
         kind: "Coast",
-        body: "If you only wanted Krishna matha, open Udupi. Kundapur is further, quieter, river-side.",
+        body: "You pass the temple town. Kundapur is further, quieter, river-side.",
       },
       {
         title: "Kundapur town pin",

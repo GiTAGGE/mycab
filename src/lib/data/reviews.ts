@@ -162,7 +162,7 @@ export const featuredReviews: Review[] = [
     photo: "/reviews/m6.jpg",
     rating: 5,
     date: "Sep 2026",
-    body: "Twin-city fare, not a Hubli price with the name swapped. Useful when you actually start in Dharwad.",
+    body: "Twin-city fare from Dharwad, priced separately from Hubli local. Useful when you actually start in Dharwad.",
     routeId: "dwd-hubli",
     service: "outstation",
   },

@@ -42,15 +42,17 @@ function enrichRouteGuide(route: Route, guide: PageGuide): PageGuide {
   const article = [
     `A ${origin} to ${dest} cab is ${route.distanceKm} km and usually about ${time} door to door. Published sedan fares start ${inrFrom(route.sedanFare)}; fuel and driver sit in that number, and tolls on this ${origin}–${dest} taxi run are called out before you pay. ${guide.lead}`,
     typeProse
-      ? `${typeProse} That is the ${origin} to ${dest} taxi people actually sit in — not a brochure copied from another corridor.`
-      : `${route.why} Book a ${origin} to ${dest} one way cab or a return on the same published fare family.`,
+      ? typeProse
+      : `${route.why} One way and return are both booked on the same ${origin} to ${dest} cab fare family.`,
     stopList.length > 0
-      ? `Along this road the pauses that belong here are ${stopList.join(", ")}. ${stopProse}`
-      : `If this is not the trip, open an outstation cab from ${origin} and pick the destination that matches the road you will actually sit.`,
+      ? `Usual pauses on this road: ${stopList.join(", ")}. ${stopProse}`
+      : "",
     otherCabs.length > 0
-      ? `A different road is a different page: ${otherCabs.join("; ")}. ${serviceMentions.length > 0 ? `In town, use ${serviceMentions.join(" or ")}.` : ""} Each phrase goes to that exact taxi booking, not a generic Hubli brochure.`
+      ? `Also from ${origin}: ${otherCabs.join(", ")}.${
+          serviceMentions.length > 0 ? ` In the city: ${serviceMentions.join(", ")}.` : ""
+        }`
       : serviceMentions.length > 0
-        ? `For hours in town or the airport run, open ${serviceMentions.join(" or ")}.`
+        ? `In the city: ${serviceMentions.join(", ")}.`
         : "",
   ].filter(Boolean);
 
@@ -129,7 +131,7 @@ export function guideFaqs(routeId: string): Faq[] {
       routeId,
       service: null,
       question: `How long is ${origin} to ${dest} by cab?`,
-      answer: `A ${origin} to ${dest} cab is usually about ${time} door to door for ${route.distanceKm} km — traffic and rain can add time. We quote the full pin-to-pin window, not a highway-only fantasy.`,
+      answer: `A ${origin} to ${dest} cab is usually about ${time} door to door for ${route.distanceKm} km — traffic and rain can add time. We quote the full pin-to-pin window, not highway-only time.`,
     },
     {
       id: `g-${routeId}-fare`,

@@ -3,7 +3,7 @@ import type { PageGuide } from "./types";
 export const cityGuides: Record<string, PageGuide> = {
   hubli: {
     title: "How Hubballi actually moves",
-    lead: "Vidyanagar, Gokul Road, Unkal, HBX — not a brochure of beaches you are not driving to today.",
+    lead: "Vidyanagar, Gokul Road, Unkal, HBX — the pins people in Hubballi actually use.",
     types: [
       {
         name: "Local hours",
@@ -15,7 +15,7 @@ export const cityGuides: Record<string, PageGuide> = {
       },
       {
         name: "Twin city",
-        body: "Dharwad is 20 km and a different pin. Pedha on the way back is a real stop, not a joke on the fare card. We do not sell it as a Hubli local.",
+        body: "Dharwad is 20 km and a different pin. Pedha on the way back is a real stop if you ask. Twin-city fares are published separately from Hubli local hours.",
       },
     ],
     stopsHeading: "Around Hubballi",
@@ -48,7 +48,7 @@ export const cityGuides: Record<string, PageGuide> = {
       {
         title: "Dharwad pedha on the way home",
         kind: "Food · twin city",
-        body: "Box on the seat, smell till Vidyanagar. Only if you are actually going to Dharwad — not pasted onto a Belgaum page.",
+        body: "Box on the seat, smell till Vidyanagar. A twin-city errand on the way home.",
       },
     ],
   },
@@ -66,7 +66,7 @@ export const cityGuides: Record<string, PageGuide> = {
       },
       {
         name: "Twin city",
-        body: "Hubli is next door, not a renamed Dharwad fare. CBT, then the flyover. You start from this pin.",
+        body: "Hubli is next door. CBT, then the flyover. Pickup starts from your Dharwad pin.",
       },
     ],
     stopsHeading: "Around Dharwad",
@@ -112,7 +112,7 @@ export const cityGuides: Record<string, PageGuide> = {
       },
       {
         name: "Food in town",
-        body: "Kunda, thali, a tea on the cantonment stretch. Local hours cover the fort and lunch. Goa ghat tea belongs on the Goa page.",
+        body: "Kunda, thali, a tea on the cantonment stretch. Local hours cover the fort and lunch. The Goa ghat is a separate outstation booking.",
       },
     ],
     stopsHeading: "Around Belagavi",
@@ -130,7 +130,7 @@ export const cityGuides: Record<string, PageGuide> = {
       {
         title: "Kunda for the road",
         kind: "Sweet · takeaway",
-        body: "A tin on the seat if you are leaving town. This is a Belgaum habit, not a Hubli copy.",
+        body: "A tin on the seat if you are leaving town. Buy it in Camp or Tilakwadi before the highway.",
       },
       {
         title: "Tilakwadi to IXG",
@@ -158,7 +158,7 @@ export const cityGuides: Record<string, PageGuide> = {
       },
       {
         name: "City food",
-        body: "Filter coffee before a meeting, a darshini breakfast, chaat after the last pin. Local hours include the wait. This is not North Karnataka copy.",
+        body: "Filter coffee before a meeting, a darshini breakfast, chaat after the last pin. Local hours include the wait.",
       },
     ],
     stopsHeading: "Around Bengaluru",
@@ -197,7 +197,7 @@ export const cityGuides: Record<string, PageGuide> = {
   },
   mangalore: {
     title: "How Mangaluru actually moves",
-    lead: "Laterite, drizzle, Kadri bells, then ghee roast. The coast does not hide, and it is not Hubballi.",
+    lead: "Laterite, drizzle, Kadri bells, then ghee roast.",
     types: [
       {
         name: "Local hours",
@@ -232,7 +232,7 @@ export const cityGuides: Record<string, PageGuide> = {
       {
         title: "Panambur evening",
         kind: "Beach · juice",
-        body: "Kids sandy, juice stall, shake off at the door. Only if this is the local loop — not pasted onto an Udupi highway page.",
+        body: "Kids sandy, juice stall, shake off at the door. A local-hours detour, not an Udupi drop.",
       },
       {
         title: "IXE drizzle",

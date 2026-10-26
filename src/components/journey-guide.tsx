@@ -53,7 +53,7 @@ export function JourneyGuide(query: GuideQuery) {
 
       {guide.links && guide.links.length > 0 ? (
         <KeywordLinks
-          title="Routes and city cabs people also search"
+          title="Related trips"
           links={guide.links}
         />
       ) : null}
@@ -65,10 +65,6 @@ function KeywordLinks({ title, links }: { title: string; links: SiteLink[] }) {
   return (
     <div className="mt-12">
       <h3 className="display text-2xl">{title}</h3>
-      <p className="mt-2 max-w-2xl text-sm text-ink-soft">
-        Internal links to the exact taxi page — same network, different road or
-        a local / airport pin in that city.
-      </p>
       <ul className="mt-5 flex flex-wrap gap-2">
         {links.map((link) => (
           <li key={`${link.href}-${link.label}`}>
