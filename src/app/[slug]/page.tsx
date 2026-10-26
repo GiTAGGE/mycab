@@ -65,7 +65,7 @@ export async function generateMetadata({
   }
   const network = isNetworkServiceSlug(slug) ? getService(slug) : undefined;
   if (network) {
-    const title = `${network.name} in Karnataka — SeeCabs`;
+    const title = `${network.name} in Karnataka`;
     const description = `${network.description} Live in ${liveCities().map((item) => item.name).join(", ")}.`;
     return {
       title,

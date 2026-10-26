@@ -1,13 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Place } from "@/types";
 import { readAttribution } from "@/lib/attribution";
 import type { ServiceKind } from "@/types";
-import { getVehicle, vehicles } from "@/lib/data";
+import { getVehicle, localitiesInCity, vehicles } from "@/lib/data";
 import { quoteTrip } from "@/lib/fare";
 import { inr, prettyDate, tomorrowISO } from "@/lib/format";
-import { getPlace, localPlaceId, placesForPicker } from "@/lib/places";
+import {
+  airportPlaceId,
+  cityPlaceId,
+  getPlace,
+  localPlaceId,
+  localityPlaceId,
+  placesForPicker,
+} from "@/lib/places";
 import { tripTitle } from "@/lib/trip-intent";
 import { CallLink } from "@/components/call-link";
 import { PlacePicker } from "@/components/place-picker";
@@ -116,6 +124,16 @@ export function TripBuilder({
             }`
       }
     >
+      {citySlug ? (
+        <Suspense fallback={null}>
+          <FromQuerySync
+            citySlug={citySlug}
+            mode={mode}
+            onFrom={setFromId}
+            onTo={setToId}
+          />
+        </Suspense>
+      ) : null}
       {embedded ? null : <BrandRibbon />}
       {embedded || ready ? null : (
         <p className="text-sm font-medium text-muted">Plan your ride — choose from and to</p>
@@ -321,6 +339,34 @@ function PlaceButton({
       </span>
     </button>
   );
+}
+
+function FromQuerySync({
+  citySlug,
+  mode,
+  onFrom,
+  onTo,
+}: {
+  citySlug: string;
+  mode?: ServiceKind;
+  onFrom: (id: string) => void;
+  onTo: (id: string) => void;
+}) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const fromQuery = searchParams.get("from");
+    if (!fromQuery) return;
+    if (fromQuery === "airport") {
+      onFrom(airportPlaceId(citySlug));
+      onTo(cityPlaceId(citySlug));
+      return;
+    }
+    const locality = localitiesInCity(citySlug).find((item) => item.slug === fromQuery);
+    if (!locality) return;
+    onFrom(localityPlaceId(locality.id));
+    if (mode === "airport") onTo(airportPlaceId(citySlug));
+  }, [citySlug, mode, onFrom, onTo, searchParams]);
+  return null;
 }
 
 function Toggle({

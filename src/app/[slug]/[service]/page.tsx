@@ -27,13 +27,15 @@ import {
 import { inrFrom } from "@/lib/format";
 import { serviceFaqsFor, serviceLinkGroups } from "@/lib/guides";
 import { serviceLandingCopy, serviceSeo } from "@/lib/landing-copy";
-import { airportPlaceId, cityPlaceId, localityPlaceId } from "@/lib/places";
+import { airportPlaceId, cityPlaceId } from "@/lib/places";
 import { breadcrumbJsonLd, faqJsonLd, taxiServiceJsonLd } from "@/lib/seo";
 import type { ServiceKind } from "@/types";
 import { absoluteUrl } from "@/lib/site";
 import { servicePath } from "@/lib/urls";
 
 type Params = { slug: string; service: string };
+
+export const dynamic = "force-static";
 
 export function generateStaticParams() {
   return cities.flatMap((city) =>
@@ -75,22 +77,15 @@ function builderMode(kind: ServiceKind): ServiceKind | undefined {
 
 export default async function ServicePage({
   params,
-  searchParams,
 }: {
   params: Promise<Params>;
-  searchParams: Promise<{ from?: string }>;
 }) {
   const { slug, service: serviceSlug } = await params;
-  const query = await searchParams;
   const city = getCity(slug);
   const service = getService(serviceSlug);
   if (!city || !service) notFound();
 
-  const pickups = localitiesInCity(city.slug);
-  const fromLocality = pickups.find((item) => item.slug === query.from);
-  const initialFromId = fromLocality
-    ? localityPlaceId(fromLocality.id)
-    : cityPlaceId(city.slug);
+  const initialFromId = cityPlaceId(city.slug);
   const initialToId = service.kind === "airport" ? airportPlaceId(city.slug) : undefined;
   const serviceFaqs = serviceFaqsFor(city.slug, service.kind);
   const allCityReviews = reviewsForCity(city.slug);
@@ -114,12 +109,8 @@ export default async function ServicePage({
       <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
         <TripBuilder
           citySlug={city.slug}
-          initialFromId={
-            query.from === "airport" ? airportPlaceId(city.slug) : initialFromId
-          }
-          initialToId={
-            query.from === "airport" ? cityPlaceId(city.slug) : initialToId
-          }
+          initialFromId={initialFromId}
+          initialToId={initialToId}
           mode={builderMode(service.kind)}
           initialPassengers={service.kind === "tempo" ? 8 : 2}
           heading={
