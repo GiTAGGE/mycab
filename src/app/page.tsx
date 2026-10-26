@@ -4,11 +4,11 @@ import { PageHero } from "@/components/page-hero";
 import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import {
-  hubliLeisureRoutes,
   liveCities,
   localPackageFrom,
   networkReviews,
   networkRoutes,
+  networkServices,
   publicServices,
   reviewsForCity,
   reviewStats,
@@ -71,22 +71,24 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">
-        <h2 className="display text-3xl">From Hubli</h2>
+        <h2 className="display text-3xl">Trip types, every city</h2>
         <p className="mt-2 text-ink-soft">
-          Dandeli, Gokarna, Murudeshwar, Hampi, Hospet — the North Karnataka runs
-          people actually book.
+          Local hours, airport, outstation, car rental, tours and tempo traveller —
+          the same booking in Bangalore, Hubli, Dharwad, Belgaum and Mangalore.
         </p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {hubliLeisureRoutes().map((route) => (
-            <RouteCard key={route.id} route={route} />
+          {networkServices().map((service) => (
+            <Link
+              key={service.id}
+              href={`/${service.slug}`}
+              className="rounded-2xl border border-line bg-card p-5 transition hover:border-accent/30"
+            >
+              <p className="text-sm text-muted">{service.journey}</p>
+              <p className="mt-1 text-xl font-semibold">{service.name}</p>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">{service.description}</p>
+            </Link>
           ))}
         </div>
-        <Link
-          href="/hubli/outstation-cabs"
-          className="mt-6 inline-block text-sm text-accent underline decoration-accent/40 underline-offset-4"
-        >
-          All Hubli outstation trips
-        </Link>
       </section>
 
       <ReviewRail title="Reviews across the network" reviews={reviews} preview={6} />

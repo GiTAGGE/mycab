@@ -1,10 +1,16 @@
 import type { MetadataRoute } from "next";
-import { cities, routes, services } from "@/lib/data";
+import { cities, networkServices, routes, services } from "@/lib/data";
+import { SITE_URL } from "@/lib/site";
 
-const site = process.env.NEXT_PUBLIC_SITE_URL || "https://seacab.netlify.app";
+const site = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ["", "/cities", "/book"].map((path) => ({
+  const staticPages = [
+    "",
+    "/cities",
+    "/book",
+    ...networkServices().map((service) => `/${service.slug}`),
+  ].map((path) => ({
     url: `${site}${path || "/"}`,
     lastModified: new Date(),
   }));

@@ -1,12 +1,8 @@
 import { brand } from "@/lib/brand";
 import type { Review } from "@/lib/data/reviews";
 import { reviewStats } from "@/lib/data/reviews";
+import { absoluteUrl } from "@/lib/site";
 import type { City } from "@/types";
-
-function absoluteUrl(path: string): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://seacab.netlify.app";
-  return `${base.replace(/\/$/, "")}${path}`;
-}
 
 export function taxiServiceJsonLd(city: City, reviews: Review[], path: string) {
   const stats = reviewStats(reviews);

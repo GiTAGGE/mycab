@@ -2,11 +2,17 @@ import Link from "next/link";
 import { resolveGuide, type GuideQuery } from "@/lib/guides";
 import type { SiteLink } from "@/lib/guides";
 
-export function JourneyGuide(query: GuideQuery) {
-  const guide = resolveGuide(query);
+export function JourneyGuide(
+  query: GuideQuery & { hideLinks?: boolean; omitHrefs?: string[] },
+) {
+  const { hideLinks, omitHrefs, ...guideQuery } = query;
+  const guide = resolveGuide(guideQuery);
   if (!guide) return null;
   const stopsHeading = guide.stopsHeading ?? "Along the road";
   const heading = guide.seoHeading ?? guide.title;
+  const chipLinks = hideLinks
+    ? []
+    : (guide.links ?? []).filter((link) => !omitHrefs?.includes(link.href));
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
@@ -51,11 +57,8 @@ export function JourneyGuide(query: GuideQuery) {
         </>
       ) : null}
 
-      {guide.links && guide.links.length > 0 ? (
-        <KeywordLinks
-          title="Related trips"
-          links={guide.links}
-        />
+      {chipLinks.length > 0 ? (
+        <KeywordLinks title="Related trips" links={chipLinks} />
       ) : null}
     </section>
   );

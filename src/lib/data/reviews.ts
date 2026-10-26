@@ -456,8 +456,7 @@ export function reviewsForCity(citySlug: string): Review[] {
 export function reviewsForService(citySlug: string, service?: ServiceKind): Review[] {
   const city = reviewsForCity(citySlug);
   if (!service) return city;
-  const matched = city.filter((review) => review.service === service);
-  return matched.length >= 3 ? matched : city;
+  return city.filter((review) => review.service === service);
 }
 
 export function reviewStats(list: Review[]): { count: number; average: number } {

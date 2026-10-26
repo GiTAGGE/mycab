@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { CallLink } from "@/components/call-link";
 import { Wordmark } from "@/components/wordmark";
-import { liveCities, networkRoutes, publicServices } from "@/lib/data";
-import { routePath, servicePath } from "@/lib/urls";
+import { liveCities, networkRoutes, networkServices } from "@/lib/data";
+import { networkServicePath, routePath } from "@/lib/urls";
 
 export function Footer() {
   const cities = liveCities();
   const routes = networkRoutes(1);
+  const tripTypes = networkServices();
 
   return (
     <footer className="mt-auto border-t border-line bg-paper">
@@ -36,24 +37,13 @@ export function Footer() {
         <div>
           <p className="text-sm text-muted">Trip types</p>
           <ul className="mt-3 space-y-2 text-sm">
-            {[...publicServices(), ...["car-rental", "tours", "tempo-traveller"]].map((service) => {
-              const slug = typeof service === "string" ? service : service.slug;
-              const name =
-                typeof service === "string"
-                  ? service === "car-rental"
-                    ? "Car rental"
-                    : service === "tours"
-                      ? "Tours"
-                      : "Tempo traveller"
-                  : service.name;
-              return (
-                <li key={slug}>
-                  <Link className="hover:underline" href={servicePath("hubli", slug)}>
-                    {name}
-                  </Link>
-                </li>
-              );
-            })}
+            {tripTypes.map((service) => (
+              <li key={service.slug}>
+                <Link className="hover:underline" href={networkServicePath(service)}>
+                  {service.name}
+                </Link>
+              </li>
+            ))}
           </ul>
           <ul className="mt-6 space-y-2 text-sm text-ink-soft">
             {routes.map((route) => (

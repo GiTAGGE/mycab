@@ -3,9 +3,9 @@ import { durationLabel, inrFrom } from "@/lib/format";
 import { cityName } from "@/lib/trip-intent";
 import type { Faq, Route, ServiceKind } from "@/types";
 import { cityGuides } from "./city-guides";
-import { linksForCity, linksForRoute, linksForService } from "./internal-links";
+import { composeServiceGuide } from "./compose-service";
+import { linksForCity, linksForRoute } from "./internal-links";
 import { routeGuides } from "./route-guides";
-import { serviceGuides } from "./service-guides";
 import type { PageGuide } from "./types";
 
 export type GuideQuery = {
@@ -88,13 +88,8 @@ export function resolveGuide(query: GuideQuery): PageGuide | null {
 
   const service = mapService(query.service);
   if (query.citySlug && service) {
-    const keyed = serviceGuides[`${query.citySlug}:${service}`];
-    if (keyed) {
-      return {
-        ...keyed,
-        links: linksForService(query.citySlug, service),
-      };
-    }
+    const composed = composeServiceGuide(query.citySlug, service);
+    if (composed) return composed;
   }
 
   if (query.citySlug && cityGuides[query.citySlug]) {
