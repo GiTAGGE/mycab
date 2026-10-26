@@ -44,7 +44,7 @@ export const faqs: Faq[] = [
     service: null,
     question: "How long is Bangalore to Mysore by cab?",
     answer:
-      "Usually about 3 hours 15 minutes, depending on the Mysore Road traffic. We quote a door-to-door window, not a highway-only fantasy.",
+      "Usually about 3 hours 15 minutes, depending on the Mysore Road traffic. We quote a door-to-door window, not highway-only time.",
   },
   {
     id: "f6",
@@ -62,7 +62,7 @@ export const faqs: Faq[] = [
     service: "airport",
     question: "Can I book Whitefield to the airport?",
     answer:
-      "Yes. Choose Whitefield as pickup on the airport page. The fare is higher than a Hebbal pickup because it is a longer run — we show that up front.",
+      "Yes. Choose Whitefield as pickup for the airport transfer. The fare is higher than a Hebbal pickup because it is a longer run — we show that up front.",
   },
   {
     id: "f8",
@@ -71,7 +71,7 @@ export const faqs: Faq[] = [
     service: "airport",
     question: "Does Dharwad have its own airport?",
     answer:
-      "No. Flights use Hubballi Airport (HBX). We price Dharwad → HBX as a real transfer, not a Hubli fare with the name swapped.",
+      "No. Flights use Hubballi Airport (HBX). We price Dharwad → HBX as a dedicated transfer.",
   },
   {
     id: "f9",
@@ -89,7 +89,7 @@ export const faqs: Faq[] = [
     service: null,
     question: "How long is Belgaum to Goa?",
     answer:
-      "Usually about 3 hours 30 minutes, depending on the ghat stretch. We quote door-to-door, not a highway-only fantasy.",
+      "Usually about 3 hours 30 minutes, depending on the ghat stretch. We quote door-to-door, not highway-only time.",
   },
   {
     id: "f11",
@@ -116,7 +116,7 @@ export const faqs: Faq[] = [
     service: null,
     question: "Do you cover Murudeshwara as well as Murudeshwar?",
     answer:
-      "Same place. Temple, beach, and the statue. The page is /hubli-to-murudeshwar-cab — the extra ‘a’ in Murudeshwara still lands here.",
+      "Same place. Temple, beach, and the statue. Murudeshwar and Murudeshwara are the same trip and the same fare.",
   },
   {
     id: "f14",
@@ -134,7 +134,7 @@ export const faqs: Faq[] = [
     service: "car-rental",
     question: "Is Hubli car rental self-drive?",
     answer:
-      "No. The car comes with a driver. If you searched “Hubli car rental”, this is the page — not a self-drive counter.",
+      "No. The car comes with a driver — sedan through tempo traveller. This is not a self-drive counter.",
   },
   {
     id: "f16",
@@ -143,7 +143,7 @@ export const faqs: Faq[] = [
     service: "tours",
     question: "Do you sell fixed Hubli tour packages?",
     answer:
-      "We run the days you name — Dandeli, Gokarna, Murudeshwar, Hampi — with the same car. We do not lock you into a brochure itinerary.",
+      "We run the days you name — Dandeli, Gokarna, Murudeshwar, Hampi — with the same car. No fixed package unless you ask for one.",
   },
   {
     id: "f17",
@@ -161,7 +161,7 @@ export const faqs: Faq[] = [
     service: "car-rental",
     question: "Can I book a Dharwad taxi from a Hubli search?",
     answer:
-      "Yes, but start on the Dharwad page if pickup is Dharwad. Twin-city fare to Hubli is published. Airport is still Hubballi.",
+      "Yes. If pickup is Dharwad, book from Dharwad. Twin-city fare to Hubli is published. Airport is still Hubballi.",
   },
   {
     id: "f19",

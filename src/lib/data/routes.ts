@@ -394,7 +394,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 2999,
     status: "live",
-    why: "Direct coast run without routing you through a Bangalore page.",
+    why: "Direct coast run from Dharwad. Forest, then the Anmod ghat, then salt.",
   },
   {
     id: "dwd-bangalore",

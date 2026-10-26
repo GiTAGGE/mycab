@@ -30,19 +30,19 @@ export function cityLandingCopy(city: City): LandingCopy {
 const LOCAL_LEAD: Record<string, { title: string; lead: string }> = {
   bangalore: {
     title: "Hours in Bengaluru — Koramangala, Whitefield, the same sedan.",
-    lead: "4 or 8 hours across Koramangala, Indiranagar, HSR and Whitefield. Filter coffee, a client, a house. Not a Hubli page with the name swapped.",
+    lead: "4 or 8 hours across Koramangala, Indiranagar, HSR and Whitefield. Filter coffee, a client, a house. Same driver for the day.",
   },
   hubli: {
     title: "Hours in Hubballi — Gokul Road, Unkal, Keshwapur.",
-    lead: "4 or 8 hours with the same driver. Clinic, college gate, Unkal pause. This is not an outstation to Belgaum or Gokarna.",
+    lead: "4 or 8 hours with the same driver. Clinic, college gate, Unkal pause. Belgaum and Gokarna are outstation bookings.",
   },
   dharwad: {
-    title: "Hours in Dharwad — university lanes, not a renamed Hubli local.",
+    title: "Hours in Dharwad — university lanes, Saptapur, Malamaddi.",
     lead: "Saptapur, Malamaddi, University, a pedha stop. Narrow lanes. Same driver. HBX is a different booking.",
   },
   belgaum: {
     title: "Hours in Belagavi — Camp, Tilakwadi, Shahapur.",
-    lead: "Cantonment shade, fort, thali, a wedding house. The Goa ghat belongs on the Goa page.",
+    lead: "Cantonment shade, fort, thali, a wedding house. Outstation to Goa is a separate booking.",
   },
   mangalore: {
     title: "Hours in Mangaluru — Kadri, drizzle, ghee roast.",
@@ -59,8 +59,8 @@ const AIRPORT_LEAD: Record<string, string> = {
 };
 
 const OUTSTATION_LEAD: Record<string, string> = {
-  bangalore: "Mysore is the usual. Coorg and Ooty are hills. Tirupati is a temple dawn. Each route page is the real article — not a Hubli poem.",
-  hubli: "Belgaum is the north business road. Dandeli is forest. Gokarna is coast. Hampi is stone. Open the destination — do not read a generic Hubli brochure.",
+  bangalore: "Mysore is the usual. Coorg and Ooty are hills. Tirupati is a temple dawn. Fuel and driver included on published fares.",
+  hubli: "Belgaum is the north business road. Dandeli is forest. Gokarna is coast. Hampi is stone. Fuel and driver included.",
   dharwad: "Hubli next door, Belgaum shorter from this side, Hampi and Goa as full sits. The start pin is Dharwad.",
   belgaum: "Goa is the ghat. Hubli is the straight road. Kolhapur and Pune go north. Gokarna is a beach without changing cars in Hubli.",
   mangalore: "Udupi and Manipal are the short coast. Kasargod is Kerala. Coorg is hills. Bangalore and Goa are long sits.",
@@ -68,8 +68,8 @@ const OUTSTATION_LEAD: Record<string, string> = {
 
 const TOURS_LEAD: Record<string, string> = {
   bangalore: "Mysore–Coorg, Ooty with a night, or a temple circuit. Same car. You name the days.",
-  hubli: "Dandeli then Gokarna, or Hampi with a night in Hospet. One driver. No brochure you did not ask for.",
-  dharwad: "Campus to Hampi, or coast via Goa. Multi-day from this pin, not a Hubli stand.",
+  hubli: "Dandeli then Gokarna, or Hampi with a night in Hospet. Same car for the days you name.",
+  dharwad: "Campus to Hampi, or coast via Goa. Multi-day, starting from Dharwad.",
   belgaum: "Goa nights, or Gokarna, or a Kolhapur function. Same car from Camp.",
   mangalore: "Temple, Udupi, a beach, maybe Coorg. Same car. Ghee roast stays in town.",
 };
@@ -130,7 +130,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
         `Multi-stop trips from ${name}. Same driver for the days you want. See the fare before you confirm.`,
       stats: [
         { value: "Same car", label: "All days" },
-        { value: "Your days", label: "Not a package trap" },
+        { value: "Your days", label: "You name the stops" },
         { value: "Tempo", label: "If the group is large" },
       ],
     },

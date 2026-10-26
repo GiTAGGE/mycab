@@ -12,12 +12,12 @@ export default function CitiesPage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="display text-4xl sm:text-5xl">
-        Five live cities. Each one is real data — not a renamed Bangalore page.
+        Cab service in Bangalore, Hubli, Dharwad, Belgaum and Mangalore.
       </h1>
       <p className="mt-4 max-w-2xl text-lg text-ink-soft">
-        Hubli is not Bangalore. Dharwad flies from Hubballi Airport. Belgaum
-        has IXG and a Goa run. Mangalore has the coast. Local hours exist in
-        every live city.
+        Each city has its own airport, local hours and outstation routes.
+        Hubli and Dharwad share Hubballi Airport (HBX). Belgaum uses IXG.
+        Mangalore is the coast.
       </p>
       <div className="mt-8 grid gap-3 sm:grid-cols-2">
         {cities.map((city) => (

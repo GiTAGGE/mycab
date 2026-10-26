@@ -79,7 +79,7 @@ export const services: Service[] = [
     shortName: "Tours",
     journey: "I want a multi-stop trip",
     description:
-      "Same car for a coast, ruins or forest run. Tell us the days — we do not invent a brochure itinerary you did not ask for.",
+      "Same car for a coast, ruins or forest run. You name the days and the stops.",
     trust: ["Same driver all days", "Published route fares", "Tempo if the group is large"],
   },
   {

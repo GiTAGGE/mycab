@@ -14,8 +14,8 @@ export const serviceGuides: Record<string, PageGuide> = {
         body: "The full town loop. Vidyanagar morning, Unkal afternoon, Gokul Road when it jams. Same driver the whole time.",
       },
       {
-        name: "What we do not do",
-        body: "This is not an A-to-B taxi and not an outstation. Belgaum, Hampi and Gokarna have their own pages.",
+        name: "Inside the city",
+        body: "Local hours stay inside Hubballi. Belgaum, Hampi and Gokarna are outstation bookings.",
       },
     ],
     stopsHeading: "Useful Hubli pins",
@@ -56,7 +56,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Not BLR",
-        body: "If you landed in Bengaluru, that is a different city page. HBX is this airport.",
+        body: "Bengaluru landings use BLR. This transfer is Hubballi Airport (HBX).",
       },
     ],
     stopsHeading: "Airport notes",
@@ -80,11 +80,11 @@ export const serviceGuides: Record<string, PageGuide> = {
   },
   "hubli:outstation": {
     title: "Out of Hubballi, on a published fare",
-    lead: "Belgaum, Dharwad, Dandeli, Gokarna, Hampi, Murudeshwar — each road is different. Open the route. Do not read a generic Hubli poem.",
+    lead: "Belgaum, Dharwad, Dandeli, Gokarna, Hampi, Murudeshwar — published fares, fuel and driver included.",
     types: [
       {
         name: "Business runs",
-        body: "Belgaum is the straight north road. Dharwad is the twin-city hop. Both have their own fare cards.",
+        body: "Belgaum is the straight north road. Dharwad is the twin-city hop. Each has a published fare.",
       },
       {
         name: "Forest and coast",
@@ -92,16 +92,11 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Ruins",
-        body: "Hampi and Hospet share a corridor, not a page. Jog and Sirsi are Malnad days.",
+        body: "Hampi and Hospet share a corridor. Jog and Sirsi are Malnad days.",
       },
     ],
-    stopsHeading: "Pick the actual road",
+    stopsHeading: "What is included",
     stops: [
-      {
-        title: "Open the route page",
-        kind: "How to use this",
-        body: "Each destination below has tea stalls, ghats and drops that only belong there. The Belgaum page will not talk about Unkal lake.",
-      },
       {
         title: "Fuel and driver",
         kind: "Fare",
@@ -111,7 +106,7 @@ export const serviceGuides: Record<string, PageGuide> = {
   },
   "hubli:tours": {
     title: "A few days from Hubballi, one car",
-    lead: "Dandeli then Gokarna, or Hampi with a night in Hospet. You name the days. We do not invent a brochure you did not ask for.",
+    lead: "Dandeli then Gokarna, or Hampi with a night in Hospet. Same driver for the days you name.",
     types: [
       {
         name: "Forest + coast",
@@ -123,7 +118,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Tempo",
-        body: "If the group is 7–12, say so. A sedan is the wrong stubbornness.",
+        body: "If the group is 7–12, book a tempo traveller. A sedan will not fit bags and people.",
       },
     ],
     stopsHeading: "Tour notes from Hubli",
@@ -142,7 +137,7 @@ export const serviceGuides: Record<string, PageGuide> = {
   },
   "dharwad:local": {
     title: "Hours inside Dharwad",
-    lead: "University, Saptapur, Malamaddi, CBT. Narrow lanes. Same driver. Not a Hubli local with the name swapped.",
+    lead: "University, Saptapur, Malamaddi, CBT. Narrow lanes. Same driver for the afternoon.",
     types: [
       {
         name: "Campus day",
@@ -182,7 +177,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "From HBX",
-        body: "Nameboard. Then the twin-city road, not a Hubli drop pretending to be Dharwad.",
+        body: "Nameboard, then the twin-city road to Saptapur, University or Malamaddi.",
       },
     ],
     stopsHeading: "Airport from Dharwad",
@@ -209,21 +204,21 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Long",
-        body: "Bangalore wants an early start. Hampi is ruins. Goa is coast without a Hubli detour you did not ask for.",
+        body: "Bangalore wants an early start. Hampi is ruins. Goa is the coast run from this pin.",
       },
     ],
-    stopsHeading: "Open the route",
+    stopsHeading: "Usual runs",
     stops: [
       {
-        title: "Each road has its own tea",
-        kind: "Guidance",
-        body: "The Belgaum page talks Kittur. The Hampi page talks coconuts and stone. This page will not mix them.",
+        title: "Kittur on the Belgaum road",
+        kind: "North",
+        body: "A short fort pause if the meeting allows. Then Camp or IXG.",
       },
     ],
   },
   "belgaum:local": {
     title: "Hours inside Belagavi",
-    lead: "Camp, Tilakwadi, Shahapur, Vadgaon. Cantonment shade. Not a Goa ghat article.",
+    lead: "Camp, Tilakwadi, Shahapur, Vadgaon. Cantonment shade, fort, a thali in town.",
     types: [
       {
         name: "Town",
@@ -289,21 +284,21 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Maharashtra",
-        body: "Kolhapur temple and town. Pune is a full-day sit. We do not pretend these are Karnataka-only pages.",
+        body: "Kolhapur temple and town. Pune is a full-day sit into Maharashtra.",
       },
     ],
-    stopsHeading: "Pick the road",
+    stopsHeading: "Ghat vs highway",
     stops: [
       {
-        title: "Ghat vs highway",
-        kind: "Feel",
-        body: "Goa and Gokarna need the ghat paragraph. Hubli does not. Open the right link.",
+        title: "West to Goa",
+        kind: "Hills",
+        body: "Mist, curves, a tea stall on the bend. SUV if bags and monsoon both show up.",
       },
     ],
   },
   "bangalore:local": {
     title: "Hours inside Bengaluru",
-    lead: "Koramangala, Indiranagar, HSR, Whitefield, MG Road — one driver, published 4 or 8 hours. Not Hubballi copy.",
+    lead: "Koramangala, Indiranagar, HSR, Whitefield, MG Road — one driver, published 4 or 8 hours.",
     types: [
       {
         name: "Inner city",
@@ -311,7 +306,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "ORR and IT",
-        body: "Whitefield, Marathahalli, Electronic City. An 8-hour from Whitefield is not the same day as one from Hebbal. We still price the package, not a fantasy.",
+        body: "Whitefield, Marathahalli, Electronic City. An 8-hour from Whitefield is not the same day as one from Hebbal. The package fare already assumes that.",
       },
       {
         name: "Errands that stick",
@@ -385,7 +380,7 @@ export const serviceGuides: Record<string, PageGuide> = {
   },
   "bangalore:outstation": {
     title: "Out of Bengaluru",
-    lead: "Mysore is the usual. Coorg and Ooty ask for hills. Tirupati is a temple dawn. Goa and Hyderabad are overnight sits. Each route page is the real article.",
+    lead: "Mysore is the usual. Coorg and Ooty ask for hills. Tirupati is a temple dawn. Goa and Hyderabad are overnight sits.",
     types: [
       {
         name: "Short and frequent",
@@ -400,17 +395,17 @@ export const serviceGuides: Record<string, PageGuide> = {
         body: "Hyderabad, Kochi, Goa, Pondicherry. Published fare, fuel and driver included. Tolls before you pay.",
       },
     ],
-    stopsHeading: "Do not mix the roads",
+    stopsHeading: "Usual corridors",
     stops: [
       {
-        title: "Open Mysore for Mysore",
-        kind: "Guidance",
-        body: "Maddur, filter coffee, palace road. That copy does not belong on Coorg or Hubli.",
+        title: "Mysore Road",
+        kind: "Palace",
+        body: "Maddur vada, filter coffee, then the chamundi skyline. The most booked Bengaluru outstation.",
       },
       {
-        title: "Hills get their own tea",
-        kind: "Ghat",
-        body: "Coorg, Ooty and Wayanad each have a different stall and a different fog. Use the route link.",
+        title: "Coorg, Ooty, Wayanad",
+        kind: "Hills",
+        body: "Each ghat has its own stall and fog. SUV if bags and hairpins are both real.",
       },
     ],
   },
@@ -424,7 +419,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Temple",
-        body: "Tirupati dawn, or a two-day mix you actually asked for. We do not pad with a brochure.",
+        body: "Tirupati dawn, or a two-day mix you name. Same car overnight.",
       },
     ],
     stopsHeading: "Tour notes",
@@ -508,12 +503,12 @@ export const serviceGuides: Record<string, PageGuide> = {
         body: "Coorg west from the coast. Bangalore is ghat then highway. Goa is a long NH66 day.",
       },
     ],
-    stopsHeading: "Open the coast or the ghat",
+    stopsHeading: "Coast vs long sit",
     stops: [
       {
-        title: "Udupi is not Goa",
-        kind: "Guidance",
-        body: "Temple town, 90 minutes. The Goa page is a different highway and a different night.",
+        title: "Udupi temple town",
+        kind: "Short",
+        body: "About ninety minutes north. Krishna matha, then a meal. NH66, not a Goa overnight.",
       },
     ],
   },
@@ -533,9 +528,9 @@ export const serviceGuides: Record<string, PageGuide> = {
     stopsHeading: "Tour notes",
     stops: [
       {
-        title: "Ghee roast is not a stop on the Coorg ghat",
+        title: "Eat in town, tea on the ghat",
         kind: "Food",
-        body: "Eat it in town. The hill road has its own tea. Different pages, different plates.",
+        body: "Ghee roast before you climb. The Coorg road has its own stall and mist.",
       },
     ],
   },
