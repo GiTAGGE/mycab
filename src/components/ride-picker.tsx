@@ -126,7 +126,7 @@ export function RideTrigger({
           <ChevronIcon className="h-3.5 w-3.5" />
         </span>
       </span>
-      <span className="mt-2.5 flex items-center gap-3">
+      <span className="mt-2 flex items-center gap-3 sm:mt-2.5">
         <span className="ride-option-glyph" aria-hidden>
           <CarIcon className="h-4 w-4" />
         </span>

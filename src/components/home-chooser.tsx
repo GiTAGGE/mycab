@@ -29,7 +29,7 @@ export function HomeChooser({
 
   return (
     <section
-      className={`book-card rounded-[28px] border border-line bg-card p-4 transition sm:p-7 ${
+      className={`book-card rounded-[22px] border border-line bg-card p-3.5 transition sm:rounded-[28px] sm:p-7 ${
         citySlug && (trip === "local" || trip === "airport") ? "book-card-ready" : ""
       }`}
     >
@@ -58,7 +58,7 @@ export function HomeChooser({
         <CitySelect cities={cities} value={citySlug} onChange={setCitySlug} />
       </div>
 
-      <div className="mt-6 border-t border-line pt-6">
+      <div className="mt-4 border-t border-line pt-4 sm:mt-6 sm:pt-6">
         <TripBuilder
           key={`${citySlug ?? "any"}-${trip}`}
           embedded
