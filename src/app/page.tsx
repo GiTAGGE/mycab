@@ -1,42 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HomeChooser } from "@/components/home-chooser";
+import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
-import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import {
   liveCities,
   localPackageFrom,
-  networkReviews,
   networkRoutes,
   networkServices,
   publicServices,
-  reviewsForCity,
-  reviewStats,
 } from "@/lib/data";
 import { inrFrom } from "@/lib/format";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { servicePath } from "@/lib/urls";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  description:
+    "Local cabs, airport transfers, car rentals and outstation trips from Hubli, Dharwad, Belgaum, Bangalore and Mangalore. Starting fares, then confirm on the phone or WhatsApp.",
+};
 
 export default function HomePage() {
   const cities = liveCities();
   const popular = networkRoutes(2);
   const tripTypes = publicServices();
-  const reviews = networkReviews(2);
-  const stats = reviewStats(cities.flatMap((city) => reviewsForCity(city.slug)));
 
   return (
     <>
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <PageHero
         compact
-        rating={stats.average}
-        reviewCount={stats.count}
         copy={{
           eyebrow: "Karnataka cabs",
           title: "A cab in Karnataka — fare first.",
-          lead: "Local cabs, airport transfers, car rentals and outstation trips from Hubli, Dharwad, Belgaum, Bangalore and Mangalore. See the fare before you confirm.",
+          lead: "Local cabs, airport transfers, car rentals and outstation trips from Hubli, Dharwad, Belgaum, Bangalore and Mangalore. See a starting fare, then confirm on the phone or WhatsApp.",
           stats: [
             { value: "5", label: "Live cities" },
-            { value: "24×7", label: "Booking" },
-            { value: "WhatsApp", label: "To confirm" },
+            { value: "Call", label: "Or WhatsApp" },
+            { value: "From", label: "A starting fare" },
           ],
         }}
       >
@@ -90,8 +92,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
-      <ReviewRail title="Reviews across the network" reviews={reviews} preview={6} />
 
       <section className="mx-auto max-w-6xl px-4 pb-20">
         <h2 className="display text-3xl">Across the network</h2>

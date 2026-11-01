@@ -4,6 +4,9 @@ import { liveCities, publicServices } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Plan your ride",
+  description: "Same trip chooser as the homepage. This address is not a separate fare list.",
+  alternates: { canonical: "/book" },
+  robots: { index: false, follow: true },
 };
 
 export default function BookPage() {

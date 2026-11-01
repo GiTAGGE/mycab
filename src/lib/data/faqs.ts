@@ -17,16 +17,16 @@ export const faqs: Faq[] = [
     service: "airport",
     question: "Will the driver wait if my flight is delayed?",
     answer:
-      "Yes — share the flight number when you confirm. We track the landing and adjust pickup. Waiting for delays is included on airport trips.",
+      "Yes — share the flight number when you confirm. We track the landing and adjust pickup. Waiting beyond the time you agree is confirmed before you pay.",
   },
   {
     id: "f3",
     citySlug: "bangalore",
     routeId: null,
     service: "outstation",
-    question: "Is the published fare the fare?",
+    question: "Is the fare on the page the final fare?",
     answer:
-      "Yes. The number you see is the fare for that trip — we do not split it into one-way and return. Tolls on the route are called out before confirmation.",
+      "It is a starting fare for that direction. Fuel and the driver are in the base. A return is separate unless you arrange it. Tolls, parking and waiting are confirmed before you pay.",
   },
   {
     id: "f4",
@@ -35,7 +35,7 @@ export const faqs: Faq[] = [
     service: "local",
     question: "What if I go over the hours or kilometres?",
     answer:
-      "Extra time and kilometres are billed at a published rate. We tell you that rate when you pick the package — not after the ride.",
+      "Extra time and kilometres are billed at a rate we tell you when you pick the package — not after the ride.",
   },
   {
     id: "f5",
@@ -53,7 +53,7 @@ export const faqs: Faq[] = [
     service: null,
     question: "Why are fares shown as a starting price?",
     answer:
-      "Pickup point and time of day can change the last rupees. The published fare is the fare; we confirm tolls before you pay.",
+      "Pickup point and time of day can change the last rupees. The figure is a starting fare. On intercity trips, fuel and the driver are in that base. Tolls, parking and waiting are confirmed before you pay. It is not an all-inclusive total.",
   },
   {
     id: "f7",
@@ -80,7 +80,7 @@ export const faqs: Faq[] = [
     service: "local",
     question: "Can I keep a car for a few hours in Hubli?",
     answer:
-      "Yes. Local is a 4-hour or 8-hour package with the same driver — not a one-drop city taxi. Extra kilometres are published before you confirm.",
+      "Yes. Local is a 4-hour or 8-hour package with the same driver — not a one-drop city taxi. Extra kilometres are quoted before you confirm.",
   },
   {
     id: "f10",
@@ -107,7 +107,7 @@ export const faqs: Faq[] = [
     service: null,
     question: "Is Hubli to Dandeli usually a same-day trip?",
     answer:
-      "Usually yes. Most groups raft and come back the same evening. The published fare is the fare either way — tell us the stay on WhatsApp.",
+      "Usually yes. Most groups raft and come back the same evening. The page shows a starting fare. Tell us if you are staying over — a return or a halt is confirmed on WhatsApp, and tolls are confirmed before you pay.",
   },
   {
     id: "f13",
@@ -161,7 +161,7 @@ export const faqs: Faq[] = [
     service: "car-rental",
     question: "Can I book a Dharwad taxi from a Hubli search?",
     answer:
-      "Yes. If pickup is Dharwad, book from Dharwad. Twin-city fare to Hubli is published. Airport is still Hubballi.",
+      "Yes. If pickup is Dharwad, book from Dharwad. The twin-city fare to Hubli is a starting fare on that route. Airport is still Hubballi.",
   },
   {
     id: "f19",

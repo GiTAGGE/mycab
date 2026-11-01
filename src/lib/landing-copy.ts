@@ -20,7 +20,7 @@ export function cityLandingCopy(city: City): LandingCopy {
     title: city.hero,
     lead: cityServicesLead(city.name),
     stats: [
-      { value: "24×7", label: "Booking" },
+      { value: "Call", label: "Or WhatsApp" },
       { value: local ? inrFrom(local.amount) : "Fare first", label: local ? "Local / 8 hr" : "On the card" },
       { value: city.airport?.code ?? "City", label: city.airport ? "Airport" : "Live" },
     ],
@@ -59,7 +59,7 @@ const AIRPORT_LEAD: Record<string, string> = {
 };
 
 const OUTSTATION_LEAD: Record<string, string> = {
-  bangalore: "Mysore is the usual. Coorg and Ooty are hills. Tirupati is a temple dawn. Fuel and driver included on published fares.",
+  bangalore: "Mysore is the usual. Coorg and Ooty are hills. Tirupati is a temple dawn. Fuel and driver included on starting fares.",
   hubli: "Belgaum is the north business road. Dandeli is forest. Gokarna is coast. Hampi is stone. Fuel and driver included.",
   dharwad: "Hubli next door, Belgaum shorter from this side, Hampi and Goa as full sits. The start pin is Dharwad.",
   belgaum: "Goa is the ghat. Hubli is the straight road. Kolhapur and Pune go north. Gokarna is a beach without changing cars in Hubli.",
@@ -67,7 +67,7 @@ const OUTSTATION_LEAD: Record<string, string> = {
 };
 
 const TEMPO_LEAD: Record<string, string> = {
-  bangalore: "BLR lots, Mysore family runs, wedding vans. 12 seats, one driver, published fare.",
+  bangalore: "BLR lots, Mysore family runs, wedding vans. 12 seats, one driver, starting fare.",
   hubli: "HBX lots, Dandeli and Gokarna groups, function houses. 12 seats from Hubballi.",
   dharwad: "Campus groups and the HBX transfer with bags. Tempo fares start from the Dharwad pin.",
   belgaum: "IXG lots, Goa groups, Kolhapur functions. One van from Camp.",
@@ -77,7 +77,7 @@ const TEMPO_LEAD: Record<string, string> = {
 const RENTAL_LEAD: Record<string, string> = {
   bangalore: "Sedan to tempo with a driver. Whitefield days, BLR, Mysore — pick the vehicle on the card.",
   hubli: "Sedan to tempo with a driver. Local hours, HBX, and North Karnataka roads.",
-  dharwad: "A car with a driver from Saptapur or University. Twin-city and HBX use the same fleet.",
+  dharwad: "A car with a driver from Saptapur or University. Twin-city and HBX use the vehicle you choose.",
   belgaum: "Sedan to tempo from Camp. IXG, Goa, function week.",
   mangalore: "Sedan to tempo in drizzle. Kadri hours, IXE, Udupi roads.",
 };
@@ -105,7 +105,7 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
       stats: [
         { value: city.airport?.code ?? "—", label: "Airport" },
         { value: "Tracked", label: "On delay" },
-        { value: "24×7", label: "Pickup" },
+        { value: "Flight no.", label: "When you confirm" },
       ],
     },
     local: {
@@ -123,9 +123,9 @@ export function serviceLandingCopy(city: City, service: Service): LandingCopy {
       title: `Outstation from ${city.name}.`,
       lead: OUTSTATION_LEAD[city.slug] ?? `Intercity cabs from ${name}. Fuel and driver included. See the fare before you confirm.`,
       stats: [
-        { value: "Published", label: "Fare" },
+        { value: "From", label: "A starting fare" },
         { value: "Fuel + driver", label: "Included" },
-        { value: "24×7", label: "Booking" },
+        { value: "Call", label: "Or WhatsApp" },
       ],
     },
     "car-rental": {
@@ -184,7 +184,7 @@ export function serviceSeo(city: City, service: Service): { title: string; descr
     tours: `Tours from ${city.name} — same car, your days`,
     local: `${city.name} local taxi — 4 hr and 8 hr packages`,
     airport: `${city.name} airport taxi${city.airport ? ` ${city.airport.code}` : ""} — door to door`,
-    outstation: `Outstation cab from ${city.name} — published taxi fares`,
+    outstation: `Outstation cab from ${city.name} — starting sedan fares`,
   };
   return {
     title: byKind[service.kind] ?? copy.eyebrow,
@@ -198,7 +198,7 @@ export function routeLandingLead(origin: string, destination: string, why: strin
     title: `${origin} to ${destination} taxi.`,
     lead: `${why} See the ${origin} to ${destination} cab fare before you confirm.`,
     stats: [
-      { value: "Published", label: "Taxi fare" },
+      { value: "From", label: "A starting fare" },
       { value: "Fuel + driver", label: "Included" },
       { value: "WhatsApp", label: "To confirm" },
     ],

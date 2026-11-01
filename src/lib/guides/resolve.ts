@@ -40,10 +40,10 @@ function enrichRouteGuide(route: Route, guide: PageGuide): PageGuide {
     .slice(0, 3)
     .map((link) => link.label);
   const article = [
-    `A ${origin} to ${dest} cab is ${route.distanceKm} km and usually about ${time} door to door. Published sedan fares start ${inrFrom(route.sedanFare)}; fuel and driver sit in that number, and tolls on this ${origin}–${dest} taxi run are called out before you pay. ${guide.lead}`,
+    `A ${origin} to ${dest} cab is ${route.distanceKm} km and usually about ${time} door to door. Sedan fares start ${inrFrom(route.sedanFare)}; fuel and driver sit in that number, and tolls on this ${origin}–${dest} taxi run are called out before you pay. ${guide.lead}`,
     typeProse
       ? typeProse
-      : `${route.why} One way and return are both booked on the same ${origin} to ${dest} cab fare family.`,
+      : `${route.why} The starting fare is one way. A return is confirmed when you book.`,
     stopList.length > 0
       ? `Usual pauses on this road: ${stopList.join(", ")}. ${stopProse}`
       : "",
@@ -134,7 +134,7 @@ export function guideFaqs(routeId: string): Faq[] {
       routeId,
       service: null,
       question: `What is the taxi fare from ${origin} to ${dest}?`,
-      answer: `Published sedan fares for a ${origin} to ${dest} taxi start ${inrFrom(route.sedanFare)}. Fuel and driver are included. Tolls on this route are confirmed before you pay. SUV, Innova and tempo are listed on the same card when the trip allows them.`,
+      answer: `Starting sedan fares for a ${origin} to ${dest} taxi start ${inrFrom(route.sedanFare)}. Fuel and driver are included. Tolls on this route are confirmed before you pay. SUV, Innova and tempo are listed on the same card when the trip allows them.`,
     },
     {
       id: `g-${routeId}-oneway`,

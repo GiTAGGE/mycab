@@ -52,13 +52,13 @@ export function intentCopy(kind: TripKind): { title: string; trust: string[] } {
     case "local":
       return {
         title: "Local rental",
-        trust: ["Same driver for the package", "4 hr or 8 hr", "Extra km published"],
+        trust: ["Same driver for the package", "4 hr or 8 hr", "Extra km told up front"],
       };
     case "outstation-round-trip":
     default:
       return {
         title: "Intercity taxi",
-        trust: ["Published fare", "Fuel & driver included", "24×7 booking"],
+        trust: ["Starting fare", "Fuel and driver in the base", "Tolls confirmed before you pay"],
       };
   }
 }

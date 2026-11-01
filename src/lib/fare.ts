@@ -10,7 +10,7 @@ import {
   tripTitle,
 } from "@/lib/trip-intent";
 
-const OUTSTATION_INCLUDES = ["Fuel", "Driver", "Published fare"];
+const OUTSTATION_INCLUDES = ["Fuel", "Driver", "Tolls extra"];
 const AIRPORT_INCLUDES = ["Fuel", "Driver", "Door-to-door"];
 const LOCAL_INCLUDES = ["Fuel", "Driver", "Package hours"];
 
@@ -42,7 +42,7 @@ export function quoteTrip(
         return {
           vehicleId: vehicle.id,
           amount,
-          label: "Estimated fare",
+          label: "Starting",
           includes: OUTSTATION_INCLUDES,
         } satisfies VehicleQuote;
       });

@@ -27,7 +27,7 @@ export function buildWhatsAppUrl(options: {
     lines.push(`Car: ${options.vehicleName}`);
   }
   if (options.fare) {
-    lines.push(`Estimated ${inr(options.fare)}`);
+    lines.push(`Starting fare ${inr(options.fare)}`);
   }
   if (options.leadId) {
     lines.push("", `Ref: ${options.leadId}`);

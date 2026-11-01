@@ -21,7 +21,7 @@ export function CallLink({
           <span className="call-form-kicker">Call to book</span>
           <span className="call-form-number">{international}</span>
         </span>
-        <span className="call-form-hours">24×7</span>
+        <span className="call-form-hours">Phone</span>
       </a>
     );
   }
