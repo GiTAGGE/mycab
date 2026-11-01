@@ -26,12 +26,12 @@ export const cities: City[] = [
     },
     tagline: "Airport, local hours and outstation — one trip builder.",
     hero: "A cab in Bangalore — fare first.",
-    trustLine: "Airport, local hours and outstation across Bengaluru, 24×7.",
+    trustLine: "Airport, local hours and outstation across Bengaluru.",
     popularDestinationSlugs: ["mysore", "coorg", "chennai", "ooty"],
     availableServiceIds: [...fullServices],
     seoTitle: "Cab service in Bangalore — taxi, airport and outstation",
     seoDescription:
-      "Book a Bangalore cab. Airport taxi to BLR, local hours, and outstation to Mysore, Coorg and Chennai. Published fare, then WhatsApp.",
+      "Book a Bangalore cab. Airport taxi to BLR, local hours, and outstation to Mysore, Coorg and Chennai. Starting fare, then WhatsApp.",
   },
   {
     id: "hubli",
@@ -83,7 +83,7 @@ export const cities: City[] = [
     availableServiceIds: [...fullServices],
     seoTitle: "Cab service in Dharwad — taxi booking and Hubballi airport",
     seoDescription:
-      "Book a Dharwad taxi. Twin-city fare to Hubli, transfers to Hubballi Airport, local hours and outstation. Published fare, then WhatsApp.",
+      "Book a Dharwad taxi. Twin-city fare to Hubli, transfers to Hubballi Airport, local hours and outstation. Starting fare, then WhatsApp.",
   },
   {
     id: "belgaum",
@@ -106,7 +106,7 @@ export const cities: City[] = [
     availableServiceIds: [...fullServices],
     seoTitle: "Cab service in Belgaum — taxi, airport and outstation",
     seoDescription:
-      "Book a Belgaum cab. IXG airport taxi, local hours, and outstation to Goa, Hubli and Kolhapur. Published fare, then WhatsApp.",
+      "Book a Belgaum cab. IXG airport taxi, local hours, and outstation to Goa, Hubli and Kolhapur. Starting fare, then WhatsApp.",
   },
   {
     id: "mangalore",
@@ -129,7 +129,7 @@ export const cities: City[] = [
     availableServiceIds: [...fullServices],
     seoTitle: "Cab service in Mangalore — taxi, airport and outstation",
     seoDescription:
-      "Book a Mangalore cab. IXE airport taxi, local hours, and outstation to Udupi, Manipal and Bangalore. Published fare, then WhatsApp.",
+      "Book a Mangalore cab. IXE airport taxi, local hours, and outstation to Udupi, Manipal and Bangalore. Starting fare, then WhatsApp.",
   },
   {
     id: "hyderabad",

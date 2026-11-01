@@ -1,16 +1,12 @@
 import { brand } from "@/lib/brand";
-import type { Review } from "@/lib/data/reviews";
-import { reviewStats } from "@/lib/data/reviews";
 import { absoluteUrl } from "@/lib/site";
 import type { City } from "@/types";
 
-export function taxiServiceJsonLd(city: City, reviews: Review[], path: string) {
-  const stats = reviewStats(reviews);
-  const samples = reviews.filter((review) => review.body.length > 40).slice(0, 8);
+export function taxiServiceJsonLd(city: City, path: string) {
   return {
     "@context": "https://schema.org",
     "@type": "TaxiService",
-    name: `${brand.name} ${city.name}`,
+    name: `${brand.name} — ${city.name}`,
     description: city.seoDescription,
     url: absoluteUrl(path),
     areaServed: {
@@ -19,25 +15,33 @@ export function taxiServiceJsonLd(city: City, reviews: Review[], path: string) {
       containedInPlace: { "@type": "State", name: city.state },
     },
     telephone: `+${brand.phoneNumber}`,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: stats.average.toFixed(1),
-      reviewCount: stats.count,
-      bestRating: 5,
-      worstRating: 1,
+    provider: {
+      "@type": "Organization",
+      name: brand.name,
+      url: absoluteUrl("/"),
+      telephone: `+${brand.phoneNumber}`,
     },
-    review: samples.map((review) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: review.name },
-      datePublished: review.date,
-      reviewBody: review.body,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: review.rating,
-        bestRating: 5,
-        worstRating: 1,
-      },
-    })),
+  };
+}
+
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: brand.name,
+    url: absoluteUrl("/"),
+    telephone: `+${brand.phoneNumber}`,
+    description: brand.tagline,
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: brand.name,
+    url: absoluteUrl("/"),
+    description: brand.tagline,
   };
 }
 
@@ -79,7 +83,7 @@ export function routeServiceJsonLd(
       "@type": "Offer",
       priceCurrency: "INR",
       price: details.fare,
-      description: `${originCity.name} to ${destination} taxi, ${details.distanceKm} km`,
+      description: `Starting sedan fare. About ${details.distanceKm} km. Fuel and the driver are in the base. Tolls, parking and waiting are confirmed before you pay.`,
     },
   };
 }

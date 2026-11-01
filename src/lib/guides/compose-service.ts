@@ -54,7 +54,7 @@ function jobs(city: City) {
       airportJob: city.airport ? `${city.airport.code} lots` : "airport lots",
       groupJob: "group outstation runs",
       tourJob: "the days you name",
-      rentalJob: "hours in town and a published outstation",
+      rentalJob: "hours in town and an outstation trip",
     }
   );
 }
@@ -100,8 +100,8 @@ function fallbackTempo(city: City): { types: GuideBlock[]; stops: GuideStop[]; s
       {
         name: "Group outstation",
         body: dests.length
-          ? `${dests.join(", ")} — published tempo fares on those roads, fuel and driver included.`
-          : "Published tempo fares on the outstation roads from this city.",
+          ? `${dests.join(", ")} — tempo fares on those roads, fuel and driver included.`
+          : "Tempo fares on the outstation roads from this city start on each route.",
       },
     ],
     stopsHeading: `When people book a tempo in ${city.name}`,
@@ -135,13 +135,13 @@ function fallbackRental(city: City): { types: GuideBlock[]; stops: GuideStop[]; 
       },
       {
         name: "Local hours",
-        body: `4 or 8 hours around ${job.pins}. Same driver. Extra kilometres published before you start.`,
+        body: `4 or 8 hours around ${job.pins}. Same driver. Extra kilometres quoted before you start.`,
       },
       {
         name: "Outstation and airport",
         body: city.airport
-          ? `${city.airport.code} transfers and intercity runs use the same fleet. You pick the vehicle on the fare card.`
-          : "Intercity runs use the same fleet. You pick the vehicle on the fare card.",
+          ? `${city.airport.code} transfers and intercity runs use the vehicle you choose. You pick the vehicle on the fare card.`
+          : "Intercity runs use the vehicle you choose. You pick the vehicle on the fare card.",
       },
     ],
     stopsHeading: `How rental is used in ${city.name}`,
@@ -172,7 +172,7 @@ function fallbackTours(city: City): { types: GuideBlock[]; stops: GuideStop[]; s
       {
         name: "Usual corridors",
         body: dests.length
-          ? `${dests.join(", ")} — published route fares, night halt yours.`
+          ? `${dests.join(", ")} — starting route fares. A night halt is yours.`
           : "You name the pins. We keep the driver.",
       },
       {
@@ -195,7 +195,7 @@ function articleFor(city: City, kind: ServiceKind): string[] {
   const name = city.name;
   const place = official(city);
   const dests = destNames(city, 4);
-  const destPhrase = dests.length ? dests.join(", ") : "published destinations";
+  const destPhrase = dests.length ? dests.join(", ") : "listed destinations";
   const others = otherLive(city)
     .map((item) => item.name)
     .slice(0, 4);
@@ -207,7 +207,7 @@ function articleFor(city: City, kind: ServiceKind): string[] {
   if (kind === "tempo") {
     return [
       `A tempo traveller in ${name} is a 12-seater with a driver. Use it for ${job.airportJob}, family functions, and group trips toward ${destPhrase}.`,
-      `${tempoFare ? `Published tempo fares on these roads start ${inrFrom(tempoFare)}. ` : ""}Fuel and driver are included. Tolls are called out before you pay. Sedan and Innova run out of room around seven people with bags — one van is the honest booking.`,
+      `${tempoFare ? `Tempo fares on these roads start ${inrFrom(tempoFare)}. ` : ""}Fuel and driver are included. Tolls are called out before you pay. Sedan and Innova run out of room around seven people with bags — one van is the honest booking.`,
       `Hours inside ${place} are a ${name} local taxi. A sedan drop to another city is an outstation cab from ${name}. Several days with the same car is a tour. Tempo traveller in ${otherPhrase} follows the same 12-seat logic with that city’s airport and roads.`,
     ];
   }
@@ -215,7 +215,7 @@ function articleFor(city: City, kind: ServiceKind): string[] {
   if (kind === "car-rental") {
     return [
       `Car rental in ${name} is a car with a driver in ${place} — sedan, SUV, Innova or tempo traveller.`,
-      `Local hours cover ${job.pins}. Airport transfers${code ? ` at ${code}` : ""} and outstation to ${destPhrase} use the same fleet on published fares.`,
+      `Local hours cover ${job.pins}. Airport transfers${code ? ` at ${code}` : ""} and outstation to ${destPhrase} use the vehicle you choose on starting fares.`,
       `Need only a few hours? Book a ${name} local taxi. A 12-seater group is a tempo traveller in ${name}. Intercity sedan drops live on outstation cab from ${name}.`,
     ];
   }
@@ -223,7 +223,7 @@ function articleFor(city: City, kind: ServiceKind): string[] {
   if (kind === "tours") {
     return [
       `Tours from ${name} keep one car and one driver for the days you name. Typical circuits: ${job.tourJob}.`,
-      `Usual pins include ${destPhrase}. Night halt is yours. Fuel and driver sit in the published route fares; extra days are confirmed on WhatsApp.`,
+      `Usual pins include ${destPhrase}. Night halt is yours. Fuel and the driver sit in the starting route fares; extra days are confirmed on WhatsApp.`,
       `A single drop is an outstation cab from ${name}. A 12-seater group should open tempo traveller in ${name}. Hours in town stay on ${name} local taxi.`,
     ];
   }
@@ -231,7 +231,7 @@ function articleFor(city: City, kind: ServiceKind): string[] {
   if (kind === "local") {
     return [
       `A ${name} local taxi is 4 or 8 hours with the same driver around ${job.pins}.`,
-      `This is not an outstation drop. Extra kilometres are published before you start. Airport runs${code ? ` to ${code}` : ""} are a separate ${name} airport taxi booking.`,
+      `This is not an outstation drop. Extra kilometres are quoted before you start. Airport runs${code ? ` to ${code}` : ""} are a separate ${name} airport taxi booking.`,
       `Leaving town toward ${destPhrase} is an outstation cab from ${name}. A group of 7–12 should see tempo traveller in ${name}.`,
     ];
   }
@@ -239,15 +239,15 @@ function articleFor(city: City, kind: ServiceKind): string[] {
   if (kind === "airport") {
     return [
       `${code ? `${code} ` : ""}airport taxi in ${name} is door to door.`,
-      `Fares follow the neighbourhood, not a surge slider. Share the flight number. Waiting on delay is part of the transfer.`,
+      `Fares follow the neighbourhood, not a surge slider. Share the flight number. Extra waiting is confirmed before you pay.`,
       `Hours after you land are a ${name} local taxi. A group arrival is often a tempo traveller in ${name}. Outstation the same day is an outstation cab from ${name}.`,
     ];
   }
 
   if (kind === "outstation") {
     return [
-      `Outstation cabs from ${name} run to ${destPhrase} on published fares.`,
-      `Fuel and driver are included. Tolls are called out before you pay. One way and return sit in the same fare family for that road.`,
+      `Outstation cabs from ${name} run to ${destPhrase} on starting fares.`,
+      `Fuel and driver are included. Tolls are called out before you pay. The starting fare is one way. A return is confirmed with the trip.`,
       `Hours in ${place} stay on ${name} local taxi. ${code ? `Flights use ${name} airport taxi (${code}). ` : ""}A 12-seater group uses tempo traveller in ${name}. Same car for several days is a tour from ${name}.`,
     ];
   }

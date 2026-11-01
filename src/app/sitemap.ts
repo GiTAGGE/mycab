@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { trustLinks } from "@/components/prose-page";
 import { cities, networkServices, routes, services } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 
@@ -8,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     "",
     "/cities",
-    "/book",
+    ...trustLinks.map((item) => item.href),
     ...networkServices().map((service) => `/${service.slug}`),
   ].map((path) => ({
     url: `${site}${path || "/"}`,

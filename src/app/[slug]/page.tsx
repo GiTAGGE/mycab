@@ -6,7 +6,6 @@ import { JourneyGuide } from "@/components/journey-guide";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
 import { RelatedNav } from "@/components/related-nav";
-import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import { TripBuilder } from "@/components/trip-builder";
 import {
@@ -18,13 +17,11 @@ import {
   liveCities,
   localitiesInCity,
   networkServices,
-  reviewStats,
-  reviewsForCity,
   routes,
   routesFromCity,
   services,
 } from "@/lib/data";
-import { durationLabel, inrFrom } from "@/lib/format";
+import { durationLabel, inr, inrFrom } from "@/lib/format";
 import { guideFaqs, serviceLinkGroups } from "@/lib/guides";
 import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
@@ -77,8 +74,8 @@ export async function generateMetadata({
   const route = getRouteByPageSlug(slug);
   if (route) {
     const origin = cityName(route.originCitySlug);
-    const title = `${origin} to ${route.destinationName} cab — taxi fare, time`;
-    const description = `Book a ${origin} to ${route.destinationName} taxi. ${route.distanceKm} km, ${durationLabel(route.durationMinutes)}, sedan ${inrFrom(route.sedanFare)}. Fuel and driver included. ${route.why}`;
+    const title = `${origin} to ${route.destinationName} taxi — sedan from ${inr(route.sedanFare)}`;
+    const description = `${origin} to ${route.destinationName} by cab, about ${route.distanceKm} km, typically ${durationLabel(route.durationMinutes)} depending on traffic. Sedan from ${inr(route.sedanFare)}. Fuel and driver in the base. Tolls confirmed before you pay.`;
     return {
       title,
       description,
@@ -162,15 +159,13 @@ function CityLanding({ citySlug }: { citySlug: string }) {
       city.availableServiceIds.includes(service.id) &&
       !["one-way", "round-trip"].includes(service.id),
   );
-  const cityReviews = reviewsForCity(city.slug);
-  const stats = reviewStats(cityReviews);
   const copy = cityLandingCopy(city);
   const cityFaqs = faqsFor({ citySlug: city.slug });
   const faqSchema = faqJsonLd(cityFaqs);
 
   return (
     <>
-      <JsonLd data={taxiServiceJsonLd(city, cityReviews, `/${city.slug}`)} />
+      <JsonLd data={taxiServiceJsonLd(city, `/${city.slug}`)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -178,7 +173,7 @@ function CityLanding({ citySlug }: { citySlug: string }) {
         ])}
       />
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
-      <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
+      <PageHero copy={copy}>
         <TripBuilder
           citySlug={city.slug}
           initialFromId={cityPlaceId(city.slug)}
@@ -232,7 +227,6 @@ function CityLanding({ citySlug }: { citySlug: string }) {
         </section>
       ) : null}
 
-      <ReviewRail title={`Reviews in ${city.name}`} reviews={cityReviews} />
       <JourneyGuide citySlug={city.slug} hideLinks />
       <RelatedNav
         groups={serviceLinkGroups(city.slug, null).filter((group) => group.title === "Other cities")}
@@ -250,15 +244,11 @@ function RouteLanding({ routeId }: { routeId: string }) {
   const toId = destinationPlaceId(route.id);
   const related = routesFromCity(route.originCitySlug).filter((item) => item.id !== route.id).slice(0, 6);
   const originCity = getCity(route.originCitySlug);
-  const cityReviews = reviewsForCity(route.originCitySlug);
-  const matched = cityReviews.filter((review) => review.routeId === route.id);
-  const rail = matched.length > 0 ? matched : cityReviews;
-  const stats = reviewStats(cityReviews);
   const copy = {
     ...routeLandingLead(origin, route.destinationName, route.why),
     stats: [
       { value: inrFrom(route.sedanFare), label: "Sedan from" },
-      { value: durationLabel(route.durationMinutes), label: "Door to door" },
+      { value: durationLabel(route.durationMinutes), label: "Typical time" },
       { value: `${route.distanceKm} km`, label: "Distance" },
     ],
   };
@@ -277,7 +267,6 @@ function RouteLanding({ routeId }: { routeId: string }) {
     <>
       {originCity ? (
         <>
-          <JsonLd data={taxiServiceJsonLd(originCity, cityReviews, `/${route.pageSlug}`)} />
           <JsonLd
             data={routeServiceJsonLd(originCity, route.destinationName, `/${route.pageSlug}`, {
               distanceKm: route.distanceKm,
@@ -296,7 +285,7 @@ function RouteLanding({ routeId }: { routeId: string }) {
         </>
       ) : null}
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
-      <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
+      <PageHero copy={copy}>
         <TripBuilder
           citySlug={route.originCitySlug}
           initialFromId={fromId}
@@ -319,7 +308,6 @@ function RouteLanding({ routeId }: { routeId: string }) {
           </div>
         </section>
       ) : null}
-      <ReviewRail title={`${origin} to ${route.destinationName} cab reviews`} reviews={rail} />
       <JourneyGuide
         routeId={route.id}
         omitHrefs={related.map((item) => routePath(item))}

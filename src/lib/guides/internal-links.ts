@@ -124,7 +124,7 @@ export function linksForRoute(route: Route): SiteLink[] {
     links.push({
       href: servicePath(originCity, "outstation-cabs"),
       label: `outstation cab from ${origin}`,
-      hint: "All published routes",
+      hint: "All routes",
     });
     links.push({
       href: servicePath(originCity, "local-cabs"),

@@ -6,7 +6,6 @@ import { JourneyGuide } from "@/components/journey-guide";
 import { JsonLd } from "@/components/json-ld";
 import { PageHero } from "@/components/page-hero";
 import { RelatedNav } from "@/components/related-nav";
-import { ReviewRail } from "@/components/review-rail";
 import { RouteCard } from "@/components/route-card";
 import { TripBuilder } from "@/components/trip-builder";
 import { TrustPills } from "@/components/trust-pills";
@@ -16,9 +15,6 @@ import {
   getService,
   leisureRoutesFrom,
   localitiesInCity,
-  reviewStats,
-  reviewsForCity,
-  reviewsForService,
   routesFromCity,
   services,
   tempoRoutesFrom,
@@ -88,16 +84,13 @@ export default async function ServicePage({
   const initialFromId = cityPlaceId(city.slug);
   const initialToId = service.kind === "airport" ? airportPlaceId(city.slug) : undefined;
   const serviceFaqs = serviceFaqsFor(city.slug, service.kind);
-  const allCityReviews = reviewsForCity(city.slug);
-  const cityReviews = reviewsForService(city.slug, service.kind);
-  const stats = reviewStats(allCityReviews);
   const faqSchema = faqJsonLd(serviceFaqs);
   const copy = serviceLandingCopy(city, service);
   const path = `/${city.slug}/${service.slug}`;
 
   return (
     <>
-      <JsonLd data={taxiServiceJsonLd(city, allCityReviews, path)} />
+      <JsonLd data={taxiServiceJsonLd(city, path)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -106,7 +99,7 @@ export default async function ServicePage({
         ])}
       />
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
-      <PageHero copy={copy} rating={stats.average} reviewCount={stats.count}>
+      <PageHero copy={copy}>
         <TripBuilder
           citySlug={city.slug}
           initialFromId={initialFromId}
@@ -149,7 +142,6 @@ export default async function ServicePage({
 
       <RelatedNav groups={serviceLinkGroups(city.slug, service.kind)} />
 
-      <ReviewRail title={`${service.name} reviews in ${city.name}`} reviews={cityReviews} />
       <FaqList items={serviceFaqs} />
     </>
   );

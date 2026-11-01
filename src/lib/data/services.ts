@@ -9,11 +9,11 @@ export const services: Service[] = [
     shortName: "Airport",
     journey: "I’m landing or flying out",
     description:
-      "Door-to-door airport transfers with flight-aware pickup. No terminal guessing, no surge after you confirm.",
+      "Door-to-door airport transfers. Share the flight number when you confirm. The starting fare depends on the pickup area.",
     trust: [
       "Flight tracking on request",
       "Driver assigned before pickup",
-      "Meet & greet at arrivals",
+      "Fare confirmed before you pay",
     ],
   },
   {
@@ -24,8 +24,8 @@ export const services: Service[] = [
     shortName: "Outstation",
     journey: "I’m going to another city",
     description:
-      "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
-    trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
+      "Intercity cabs. The figure is a starting fare. Fuel and the driver are in that base. Tolls are confirmed before you pay.",
+    trust: ["Starting fare", "Fuel & driver included", "Tolls confirmed before you pay"],
   },
   {
     id: "local",
@@ -46,8 +46,8 @@ export const services: Service[] = [
     shortName: "One way",
     journey: "I’m going to another city",
     description:
-      "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
-    trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
+      "Intercity cabs. The figure is a starting fare. Fuel and the driver are in that base. Tolls are confirmed before you pay.",
+    trust: ["Starting fare", "Fuel & driver included", "Tolls confirmed before you pay"],
   },
   {
     id: "round-trip",
@@ -57,8 +57,8 @@ export const services: Service[] = [
     shortName: "Return",
     journey: "I’m going to another city",
     description:
-      "Intercity cabs with a clear fare before you book. The published price is the fare — fuel and driver included.",
-    trust: ["Published fare", "Fuel & driver included", "Professional drivers"],
+      "Intercity cabs. The figure is a starting fare. Fuel and the driver are in that base. Tolls are confirmed before you pay.",
+    trust: ["Starting fare", "Fuel & driver included", "Tolls confirmed before you pay"],
   },
   {
     id: "car-rental",
@@ -68,8 +68,8 @@ export const services: Service[] = [
     shortName: "Car rental",
     journey: "I need a car with a driver",
     description:
-      "Car rental with a driver — not a self-drive desk. Sedan to tempo traveller. The published fare is the fare.",
-    trust: ["Driver included", "Sedan to tempo", "Published fare"],
+      "Car rental with a driver — not a self-drive desk. Sedan to tempo traveller. The figure you see is a starting fare.",
+    trust: ["Driver included", "Sedan to tempo", "Starting fare"],
   },
   {
     id: "tours",
@@ -80,7 +80,7 @@ export const services: Service[] = [
     journey: "I want a multi-stop trip",
     description:
       "Same car for a coast, ruins or forest run. You name the days and the stops.",
-    trust: ["Same driver all days", "Published route fares", "Tempo if the group is large"],
+    trust: ["Same driver all days", "Starting route fares", "Tempo if the group is large"],
   },
   {
     id: "tempo",

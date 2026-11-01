@@ -30,7 +30,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 3799,
     status: "live",
-    why: "Hill roads, extra luggage, often an SUV. Stay over or come back — same published fare.",
+    why: "Hill roads, extra luggage, often an SUV. Stay over or come back — same starting fare.",
   },
   {
     id: "blr-chennai",
@@ -44,7 +44,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 5999,
     status: "live",
-    why: "A full-day intercity drive. Published fare, fuel and driver included.",
+    why: "A full-day intercity drive. Starting sedan fare. Fuel and the driver are in the base. Tolls are confirmed before you pay.",
   },
   {
     id: "blr-ooty",
@@ -72,7 +72,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 4999,
     status: "live",
-    why: "Weekend drop. Stay over or come back the same night — same published fare.",
+    why: "Weekend drop. Stay over or come back the same night — same starting fare.",
   },
   {
     id: "blr-wayanad",
@@ -142,7 +142,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 5299,
     status: "live",
-    why: "Business drop or family travel on a published fare.",
+    why: "Business drop or family travel on a starting fare.",
   },
   {
     id: "blr-kochi",
@@ -184,7 +184,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 499,
     status: "live",
-    why: "The twin-city hop at the published ₹1,400 sedan fare. Meetings, college drops, evening returns.",
+    why: "The twin-city hop. The starting sedan fare is on this page. Meetings, college drops, evening returns.",
   },
   {
     id: "hbl-belgaum",
@@ -198,7 +198,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 1899,
     status: "live",
-    why: "North Karnataka business run. Published fare, fuel and driver included.",
+    why: "North Karnataka business run. Starting sedan fare. Fuel and the driver are in the base. Tolls are confirmed before you pay.",
   },
   {
     id: "hbl-goa",
@@ -240,7 +240,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 2499,
     status: "live",
-    why: "Ruin weekend. Come back the same day or stay — same published fare.",
+    why: "Ruin weekend. Come back the same day or stay — same starting fare.",
   },
   {
     id: "hbl-gokarna",
@@ -408,7 +408,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 6699,
     status: "live",
-    why: "Early start recommended. Published fare for the run.",
+    why: "Early start recommended. Starting fare for the run.",
   },
   {
     id: "dwd-hampi",
@@ -422,7 +422,7 @@ const routeRecords: Route[] = [
     vehicleIds: ["sedan", "suv", "innova", "tempo"],
     sedanFare: 2699,
     status: "live",
-    why: "Campus to ruins. Come back at night or stay — same published fare.",
+    why: "Campus to ruins. Come back at night or stay — same starting fare.",
   },
   {
     id: "bgm-goa",
@@ -548,7 +548,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 5499,
     status: "live",
-    why: "Ghat-and-highway mix. Published fare, fuel and driver included.",
+    why: "Ghat-and-highway mix. Starting sedan fare. Fuel and the driver are in the base. Tolls are confirmed before you pay.",
   },
   {
     id: "mlr-coorg",
@@ -590,7 +590,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 1199,
     status: "live",
-    why: "Kerala border drop. Short, frequent, and better as a published fare.",
+    why: "Kerala border drop. Short, frequent, and better as a starting fare.",
   },
   {
     id: "mlr-kundapur",
@@ -604,7 +604,7 @@ const routeRecords: Route[] = [
     vehicleIds: cars,
     sedanFare: 1899,
     status: "live",
-    why: "North coastal run past Udupi. Same published fare either way.",
+    why: "North coastal run past Udupi. Same starting fare either way.",
   },
 ];
 

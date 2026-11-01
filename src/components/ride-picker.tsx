@@ -1,7 +1,7 @@
 "use client";
 
 import { getVehicle } from "@/lib/data";
-import { inr } from "@/lib/format";
+import { inrFrom } from "@/lib/format";
 import type { VehicleQuote } from "@/types";
 import { CarIcon, CheckIcon, ChevronIcon, UsersIcon } from "@/components/icons";
 import { OverlaySheet } from "@/components/overlay-sheet";
@@ -80,7 +80,7 @@ export function RidePicker({
                 </span>
                 <span className="flex shrink-0 flex-col items-end gap-1.5">
                   <span className="text-lg font-semibold tabular-nums leading-none text-accent">
-                    {inr(item.amount)}
+                    {inrFrom(item.amount)}
                   </span>
                   {active ? (
                     <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-accent text-white">
@@ -139,7 +139,7 @@ export function RideTrigger({
             {vehicle.seats} passengers · {quote.label}
           </span>
         </span>
-        <span className="text-lg font-semibold tabular-nums text-accent">{inr(quote.amount)}</span>
+        <span className="text-lg font-semibold tabular-nums text-accent">{inrFrom(quote.amount)}</span>
       </span>
     </button>
   );

@@ -7,7 +7,7 @@ import { readAttribution } from "@/lib/attribution";
 import type { ServiceKind } from "@/types";
 import { getVehicle, localitiesInCity, vehicles } from "@/lib/data";
 import { quoteTrip } from "@/lib/fare";
-import { inr, prettyDate, tomorrowISO } from "@/lib/format";
+import { inr, inrFrom, prettyDate, tomorrowISO } from "@/lib/format";
 import {
   airportPlaceId,
   cityPlaceId,
@@ -181,7 +181,7 @@ export function TripBuilder({
           <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-ink-soft sm:mt-3">
             {shownFare ? (
               <span className="font-semibold text-accent">
-                {inr(shownFare)}*
+                {inrFrom(shownFare)}
                 {selectedVehicleName ? (
                   <span className="ml-1.5 font-medium text-ink-soft">{selectedVehicleName}</span>
                 ) : null}
@@ -266,21 +266,18 @@ export function TripBuilder({
             ready ? "confirm-book" : "ready-book"
           }`}
         >
-          <span className="ready-live" aria-hidden>
-            <span className="ready-live-core" />
-          </span>
           {ready
             ? submitting
               ? "Opening WhatsApp…"
-              : "Check fare & availability"
-            : "Ready to book • Cab waiting"}
+              : "Confirm on WhatsApp"
+            : "Check the fare"}
         </button>
         <CallLink variant="form" />
         {ready && selectedVehicle ? (
           <p className="mt-2 hidden text-center text-sm tracking-wide text-muted sm:mt-3 sm:block">
             {tripTitle(from as Place, to as Place)} · {prettyDate(date)} ·{" "}
             {vehicles.find((item) => item.id === selectedVehicle.vehicleId)?.name} ·{" "}
-            {inr(selectedVehicle.amount)}
+            from {inr(selectedVehicle.amount)}
           </p>
         ) : null}
       </div>

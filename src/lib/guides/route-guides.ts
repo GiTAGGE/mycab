@@ -292,7 +292,7 @@ export const routeGuides: Record<string, PageGuide> = {
       },
       {
         name: "Darshan",
-        body: "He waits. You walk. No circling, no horn. Same published fare if you also want a beach twenty minutes.",
+        body: "He waits. You walk. No circling, no horn. Same starting fare if you also want a beach twenty minutes.",
       },
     ],
     [
@@ -604,7 +604,7 @@ export const routeGuides: Record<string, PageGuide> = {
       {
         title: "Back at night if you want",
         kind: "Return",
-        body: "Same published fare family. Tell us if elders prefer a Hospet night.",
+        body: "Starting fare. Tell us if you are coming back. Tell us if elders prefer a Hospet night.",
       },
     ],
   ),
@@ -797,7 +797,7 @@ export const routeGuides: Record<string, PageGuide> = {
       },
       {
         name: "Who sits this",
-        body: "Palace, a wedding in Nazarbad, a drop at the zoo for parents, a return the same night. Same published fare family.",
+        body: "Palace, a wedding in Nazarbad, a drop at the zoo for parents, a return the same night. Starting fare. Tell us if you are coming back.",
       },
     ],
     [
@@ -920,7 +920,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "blr-pondicherry": guide(
     "How Bangalore to Pondicherry actually feels",
-    "Weekend drop. Promenade, filter coffee of a French-Tamil kind, then the sea wall. Same published fare to stay or return.",
+    "Weekend drop. Promenade, filter coffee of a French-Tamil kind, then the sea wall. Same starting fare to stay or return.",
     [
       {
         name: "The sit",
@@ -1190,7 +1190,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "mlr-bangalore": guide(
     "How Mangalore to Bangalore actually feels",
-    "Ghat-and-highway mix. Charmadi or the chosen ghat, then the plateau, then flyovers. Published fare, fuel and driver included.",
+    "Ghat-and-highway mix. Charmadi or the chosen ghat, then the plateau, then flyovers. Starting sedan fare. Fuel and the driver are in the base. Tolls are confirmed before you pay.",
     [
       {
         name: "The day",
@@ -1271,7 +1271,7 @@ export const routeGuides: Record<string, PageGuide> = {
   ),
   "mlr-kasargod": guide(
     "How Mangalore to Kasargod actually feels",
-    "Kerala border drop. Short, frequent, published. Bekal if you asked. Not Udupi north — this is south.",
+    "Kerala border drop. Short and frequent. The starting sedan fare is on this page. Bekal if you asked. Not Udupi north — this is south.",
     [
       {
         name: "The hop",

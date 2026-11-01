@@ -7,7 +7,7 @@ export const serviceGuides: Record<string, PageGuide> = {
     types: [
       {
         name: "4 hours",
-        body: "Two or three pins and a wait. Clinic, bank, a relative. Extra km is published before you start.",
+        body: "Two or three pins and a wait. Clinic, bank, a relative. Extra km is quoted before you start.",
       },
       {
         name: "8 hours",
@@ -64,7 +64,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       {
         title: "Navanagar hop",
         kind: "Short",
-        body: "Often the fastest pin to HBX. Still a published fare, not a meter argument.",
+        body: "Often the fastest pin to HBX. Still a starting fare, not a meter argument.",
       },
       {
         title: "Vidyanagar morning",
@@ -79,12 +79,12 @@ export const serviceGuides: Record<string, PageGuide> = {
     ],
   },
   "hubli:outstation": {
-    title: "Out of Hubballi, on a published fare",
-    lead: "Belgaum, Dharwad, Dandeli, Gokarna, Hampi, Murudeshwar — published fares, fuel and driver included.",
+    title: "Out of Hubballi, on a starting fare",
+    lead: "Belgaum, Dharwad, Dandeli, Gokarna, Hampi, Murudeshwar — starting fares, fuel and driver included.",
     types: [
       {
         name: "Business runs",
-        body: "Belgaum is the straight north road. Dharwad is the twin-city hop. Each has a published fare.",
+        body: "Belgaum is the straight north road. Dharwad is the twin-city hop. Each has a starting fare.",
       },
       {
         name: "Forest and coast",
@@ -100,7 +100,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       {
         title: "Fuel and driver",
         kind: "Fare",
-        body: "Included on the published number. Tolls are called out before you pay.",
+        body: "Included on the starting fare. Tolls are called out before you pay.",
       },
     ],
   },
@@ -298,7 +298,7 @@ export const serviceGuides: Record<string, PageGuide> = {
   },
   "bangalore:local": {
     title: "Hours inside Bengaluru",
-    lead: "Koramangala, Indiranagar, HSR, Whitefield, MG Road — one driver, published 4 or 8 hours.",
+    lead: "Koramangala, Indiranagar, HSR, Whitefield, MG Road — one driver, 4 or 8 hour packages.",
     types: [
       {
         name: "Inner city",
@@ -310,7 +310,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Errands that stick",
-        body: "Clinic, school, Lalbagh, a second office. Same sedan. Extra km published up front.",
+        body: "Clinic, school, Lalbagh, a second office. Same sedan. Extra km quoted up front.",
       },
     ],
     stopsHeading: "Bengaluru local notes",
@@ -392,7 +392,7 @@ export const serviceGuides: Record<string, PageGuide> = {
       },
       {
         name: "Long",
-        body: "Hyderabad, Kochi, Goa, Pondicherry. Published fare, fuel and driver included. Tolls before you pay.",
+        body: "Hyderabad, Kochi, Goa, Pondicherry. Starting sedan fare. Fuel and the driver are in the base. Tolls are confirmed before you pay.",
       },
     ],
     stopsHeading: "Usual corridors",

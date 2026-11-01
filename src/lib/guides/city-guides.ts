@@ -15,7 +15,7 @@ export const cityGuides: Record<string, PageGuide> = {
       },
       {
         name: "Twin city",
-        body: "Dharwad is 20 km and a different pin. Pedha on the way back is a real stop if you ask. Twin-city fares are published separately from Hubli local hours.",
+        body: "Dharwad is 20 km and a different pin. Pedha on the way back is a real stop if you ask. Twin-city fares are listed separately from Hubli local hours.",
       },
     ],
     stopsHeading: "Around Hubballi",

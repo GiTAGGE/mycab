@@ -15,7 +15,7 @@ function destNames(city: City, limit = 3): string[] {
 function generated(city: City, kind: ServiceKind): Faq[] {
   const name = city.name;
   const dests = destNames(city);
-  const destPhrase = dests.join(", ") || "published destinations";
+  const destPhrase = dests.join(", ") || "listed destinations";
   const code = city.airport?.code;
   const base = {
     citySlug: city.slug,
@@ -43,7 +43,7 @@ function generated(city: City, kind: ServiceKind): Faq[] {
         id: `${city.slug}-tempo-airport`,
         question: `Can I take a tempo traveller to the airport from ${name}?`,
         answer: code
-          ? `Yes. ${code} lots are a usual tempo job from ${name}. Share the flight number. The fare is the published tempo transfer, not a sedan price with extra people squeezed in.`
+          ? `Yes. ${code} lots are a usual tempo job from ${name}. Share the flight number. The fare is a starting tempo price, not a sedan price with extra people squeezed in.`
           : `Yes, if this city has an airport transfer. Share the flight number.`,
       },
     ];
@@ -61,7 +61,7 @@ function generated(city: City, kind: ServiceKind): Faq[] {
         ...base,
         id: `${city.slug}-rental-vs-local`,
         question: `How is car rental different from a ${name} local taxi?`,
-        answer: `Local is a 4-hour or 8-hour city package. Car rental is the wider fleet: local hours, airport, and outstation with the vehicle you pick. Same published-fare rule.`,
+        answer: `Local is a 4-hour or 8-hour city package. Car rental is the wider set of vehicles: local hours, airport, and outstation with the vehicle you pick. Same starting-fare rule.`,
       },
     ];
   }
@@ -89,7 +89,7 @@ function generated(city: City, kind: ServiceKind): Faq[] {
         ...base,
         id: `${city.slug}-local-hours`,
         question: `Can I keep a car for a few hours in ${name}?`,
-        answer: `Yes. Local is a 4-hour or 8-hour package with the same driver — not a one-drop city taxi. Extra kilometres are published before you confirm.`,
+        answer: `Yes. Local is a 4-hour or 8-hour package with the same driver — not a one-drop city taxi. Extra kilometres are quoted before you confirm.`,
       },
     ];
   }
@@ -101,8 +101,8 @@ function generated(city: City, kind: ServiceKind): Faq[] {
         id: `${city.slug}-airport-wait`,
         question: `Will the driver wait if my ${name} flight is delayed?`,
         answer: code
-          ? `Yes. Share the flight number. We track the landing into ${code} and adjust pickup. Waiting for delays is included on airport trips.`
-          : `Yes. Share the flight number. Waiting for delays is included on airport trips.`,
+          ? `Yes. Share the flight number. We track the landing into ${code} and adjust pickup. Waiting beyond the time you agree is confirmed before you pay.`
+          : `Yes. Share the flight number. Waiting beyond the time you agree is confirmed before you pay.`,
       },
     ];
   }
@@ -112,8 +112,8 @@ function generated(city: City, kind: ServiceKind): Faq[] {
       {
         ...base,
         id: `${city.slug}-outstation-fare`,
-        question: `Is the published outstation fare from ${name} the fare?`,
-        answer: `Yes. The number you see for ${destPhrase} is the fare for that trip — fuel and driver included. Tolls are called out before confirmation.`,
+        question: `Is the outstation figure from ${name} the final fare?`,
+        answer: `It is a starting fare for that direction. Fuel and the driver are in the base. Tolls, parking and waiting are confirmed before you pay.`,
       },
     ];
   }
