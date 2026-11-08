@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist } from "next/font/google";
 import { AttributionTracker } from "@/components/attribution-tracker";
-import { ConsentBar } from "@/components/consent-bar";
+import { Measurement } from "@/components/measurement";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { brand } from "@/lib/brand";
@@ -77,7 +77,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <ConsentBar gtmId={gtmId} pixelId={pixelId} />
+        <Measurement gtmId={gtmId} pixelId={pixelId} />
       </body>
     </html>
   );

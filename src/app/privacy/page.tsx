@@ -36,9 +36,8 @@ export default function PrivacyPage() {
       </ProseSection>
       <ProseSection title="Google and Meta">
         <p>
-          If measurement tags are configured, a bar asks before Google or Meta scripts run.
-          Accept allows those services to receive the page, the fare on screen, and the ad click id.
-          Reject keeps the scripts off. When the accounts are configured, the server can still send
+          Google's tag loads with the page and can receive the page, the fare on screen, and the ad click id.
+          Meta loads when a pixel id is set. When the accounts are configured, the server can still send
           the lead event itself, with the same event id, so a blocked browser does not drop the booking signal.
           The site does not send a phone number or email to those services, because it does not collect them.
         </p>

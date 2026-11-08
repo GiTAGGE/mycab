@@ -1,5 +1,3 @@
-import { readConsent } from "@/lib/consent";
-
 type DataLayer = unknown[] & { push: (...items: unknown[]) => number };
 
 function dataLayer(): DataLayer {
@@ -20,7 +18,6 @@ function gtag(...args: unknown[]) {
 
 export function trackEvent(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
-  if (readConsent() === "denied") return;
   dataLayer().push({ event, ...params });
   gtag("event", event, params);
 }
