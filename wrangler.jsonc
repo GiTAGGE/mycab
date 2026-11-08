@@ -1,0 +1,45 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "seecabs",
+  "account_id": "54a9782831318868def802c85a998da0",
+  "main": "./custom-worker.ts",
+  "compatibility_date": "2026-11-08",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "upload_source_maps": true,
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "not_found_handling": "none",
+    "run_worker_first": ["/api/*", "/ops", "/ops/*"]
+  },
+  "routes": [
+    { "pattern": "seecabs.com", "custom_domain": true },
+    { "pattern": "www.seecabs.com", "custom_domain": true }
+  ],
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://seecabs.com",
+    "NEXT_PUBLIC_WHATSAPP_NUMBER": "919900112233",
+    "NEXT_PUBLIC_PHONE_NUMBER": "919900112233",
+    "NEXT_PUBLIC_GTM_ID": "",
+    "NEXT_PUBLIC_META_PIXEL_ID": "",
+    "NEXT_PUBLIC_GOOGLE_ADS_ID": "",
+    "NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL": "",
+    "INDEXABLE": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "seecabs",
+      // Replace with the id from `npx wrangler d1 create seecabs` before the first remote deploy.
+      "database_id": "00000000-0000-4000-8000-000000000001",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": ["15 3 * * *"]
+  }
+}

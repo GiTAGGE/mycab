@@ -99,7 +99,14 @@ export default async function ServicePage({
         ])}
       />
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
-      <PageHero copy={copy}>
+      <PageHero
+        copy={copy}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: city.name, path: `/${city.slug}` },
+          { name: service.name, path },
+        ]}
+      >
         <TripBuilder
           citySlug={city.slug}
           initialFromId={initialFromId}

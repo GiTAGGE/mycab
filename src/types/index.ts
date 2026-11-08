@@ -122,6 +122,9 @@ export type Attribution = {
   lastTouchCampaign: string | null;
   gclid: string | null;
   fbclid: string | null;
+  gbraid: string | null;
+  wbraid: string | null;
+  msclkid: string | null;
   utmSource: string | null;
   utmCampaign: string | null;
   utmContent: string | null;
@@ -171,6 +174,40 @@ export type Lead = {
   campaign: string | null;
   keyword: string | null;
   gclid: string | null;
+  fbclid: string | null;
+  gbraid: string | null;
+  wbraid: string | null;
+  notes: string | null;
+  updatedAt: string;
   attribution: Attribution;
   whatsappUrl: string;
+};
+
+export type ConversionDestination = "ga4" | "meta";
+export type ConversionStatus = "pending" | "sent" | "failed" | "skipped";
+
+export type ConversionEvent = {
+  id: string;
+  leadId: string;
+  destination: ConversionDestination;
+  eventName: string;
+  eventId: string;
+  status: ConversionStatus;
+  payloadJson: string;
+  error: string | null;
+  createdAt: string;
+};
+
+export type LeadStats = {
+  last7: number;
+  last30: number;
+  byStatus: Array<{ key: string; count: number }>;
+  bySource: Array<{ key: string; count: number }>;
+  failedConversions: number;
+};
+
+export type LeadFilters = {
+  status?: string;
+  source?: string;
+  query?: string;
 };

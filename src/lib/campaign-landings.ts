@@ -1,4 +1,5 @@
 import { liveCities } from "@/lib/data";
+import { SITE_URL } from "@/lib/site";
 import { servicePath } from "@/lib/urls";
 
 export type CampaignLanding = {
@@ -75,4 +76,18 @@ export function campaignLandingMap(): CampaignLanding[] {
   );
 
   return rows;
+}
+
+export function taggedCampaignUrl(path: string, source: "google" | "meta", keyword: string): string {
+  const url = new URL(path, SITE_URL);
+  const slug = keyword
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 48);
+  url.searchParams.set("utm_source", source === "google" ? "google" : "meta");
+  url.searchParams.set("utm_medium", source === "google" ? "cpc" : "paid");
+  url.searchParams.set("utm_campaign", slug || "campaign");
+  url.searchParams.set("utm_content", path.replace(/^\//, "") || "home");
+  return url.toString();
 }

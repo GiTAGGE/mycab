@@ -1,15 +1,18 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
-
-const site = SITE_URL;
+import { isIndexable, SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
+  if (!isIndexable()) {
+    return {
+      rules: { userAgent: "*", disallow: "/" },
+    };
+  }
   return {
     rules: {
       userAgent: "*",
       allow: "/",
       disallow: ["/ops", "/api"],
     },
-    sitemap: `${site}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

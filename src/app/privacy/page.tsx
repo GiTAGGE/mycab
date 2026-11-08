@@ -24,7 +24,9 @@ export default function PrivacyPage() {
           The browser stores a small note of how you arrived, under the key{" "}
           <span className="text-ink">{ATTR_STORAGE_KEY}</span>. That can include
           the landing path, a referrer, and advertising parameters if they were
-          in the link (utm source, campaign, content, gclid, fbclid). It is used
+          in the link (utm source, campaign, content, gclid, gbraid, wbraid, fbclid, msclkid).
+          The same note is stored in a cookie named sc_attr for 90 days, and a random client id
+          in sc_cid, so the booking can still be matched if site storage is limited. It is used
           to know which page the booking started on. You can clear it by
           clearing site data for this domain in your browser.
         </p>
@@ -32,8 +34,21 @@ export default function PrivacyPage() {
       <ProseSection title="What we do not collect here">
         <p>No account password, no payment card, and no review profile. We do not sell a review widget or publish ratings from this data.</p>
       </ProseSection>
+      <ProseSection title="Google and Meta">
+        <p>
+          If measurement tags are configured, a bar asks before Google or Meta scripts run.
+          Accept allows those services to receive the page, the fare on screen, and the ad click id.
+          Reject keeps the scripts off. When the accounts are configured, the server can still send
+          the lead event itself, with the same event id, so a blocked browser does not drop the booking signal.
+          The site does not send a phone number or email to those services, because it does not collect them.
+        </p>
+      </ProseSection>
       <ProseSection title="How long it is kept">
-        <p>Lead records are kept so a booking can be matched to the WhatsApp conversation, including a reference id sent in that chat. This page does not promise a fixed deletion window we do not run. To ask about a request you started, use the number on the contact page and the reference in the WhatsApp message.</p>
+        <p>
+          Lead records, including the page and the click id, are deleted after 24 months.
+          A reference id is still sent in the WhatsApp message so a booking can be matched.
+          To ask about a request you started, use the number on the contact page and that reference.
+        </p>
       </ProseSection>
     </ProsePage>
   );

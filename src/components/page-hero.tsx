@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StarRating } from "@/components/star-rating";
 import type { LandingCopy } from "@/lib/landing-copy";
 
@@ -8,12 +9,14 @@ export function PageHero({
   reviewCount,
   children,
   compact = false,
+  crumbs,
 }: {
   copy: LandingCopy;
   rating?: number;
   reviewCount?: number;
   children?: ReactNode;
   compact?: boolean;
+  crumbs?: Array<{ name: string; path: string }>;
 }) {
   return (
     <section className="hero-wash">
@@ -21,6 +24,7 @@ export function PageHero({
         <div className="hero-layout">
           <div className="hero-copy">
             <div className="hero-intro">
+              {crumbs && crumbs.length > 0 ? <Breadcrumbs items={crumbs} /> : null}
               <div className={`hero-kicker ${compact ? "hero-kicker-one" : ""}`}>
                 <p className="hero-eyebrow">{copy.eyebrow}</p>
                 {reviewCount ? (

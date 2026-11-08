@@ -1,16 +1,33 @@
 import { NextResponse } from "next/server";
-import { emptyAttribution, sourceLabel } from "@/lib/attribution";
-import { createLead } from "@/lib/db/store";
-import { quoteTrip, startingFare } from "@/lib/fare";
-import { getPlace } from "@/lib/places";
+import { randomUUID } from "crypto";
+import {
+  attributionFromCookie,
+  CLIENT_ID_COOKIE,
+  emptyAttribution,
+  mergeAttribution,
+  readRequestCookie,
+  sourceLabel,
+} from "@/lib/attribution";
+import { allowLead, createLead, setLeadWhatsApp } from "@/lib/db/store";
 import { getVehicle } from "@/lib/data";
+import { quoteTrip, startingFare } from "@/lib/fare";
+import { leadPageUrl, recordLeadConversions } from "@/lib/measure/deliver";
+import { getPlace } from "@/lib/places";
+import { runtimeEnv } from "@/lib/runtime-env";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import type { Attribution } from "@/types";
 
 export const runtime = "nodejs";
 
+function noStore(body: unknown, status = 200, extraHeaders?: HeadersInit) {
+  return NextResponse.json(body, {
+    status,
+    headers: { "Cache-Control": "private, no-store", ...Object.fromEntries(new Headers(extraHeaders)) },
+  });
+}
+
 export async function POST(request: Request) {
-  const body = (await request.json()) as {
+  const body = (await request.json().catch(() => null)) as {
     fromId?: string;
     toId?: string;
     date?: string | null;
@@ -19,13 +36,23 @@ export async function POST(request: Request) {
     vehicleId?: string | null;
     landingPage?: string | null;
     localUnit?: "4hr" | "8hr";
+    company?: string | null;
     attribution?: Attribution;
-  };
+  } | null;
+
+  if (!body) return noStore({ error: "Choose from and to" }, 400);
+  if (typeof body.company === "string" && body.company.trim()) {
+    return noStore({ error: "Could not start WhatsApp" }, 400);
+  }
+
+  if (!(await allowLead(request))) {
+    return noStore({ error: "Too many fare checks from this network. Try again in an hour." }, 429);
+  }
 
   const from = getPlace(body.fromId);
   const to = getPlace(body.toId);
   if (!from || !to) {
-    return NextResponse.json({ error: "Choose from and to" }, { status: 400 });
+    return noStore({ error: "Choose from and to" }, 400);
   }
 
   const passengers = body.passengers ?? 2;
@@ -33,12 +60,17 @@ export async function POST(request: Request) {
     localUnit: body.localUnit,
   });
   const selected =
-    quote.vehicles.find((item) => item.vehicleId === body.vehicleId) ??
-    quote.vehicles[0];
-  const attribution = { ...emptyAttribution(), ...body.attribution };
+    quote.vehicles.find((item) => item.vehicleId === body.vehicleId) ?? quote.vehicles[0];
+  const cookieHeader = request.headers.get("cookie");
+  const attribution = mergeAttribution(
+    mergeAttribution(emptyAttribution(), attributionFromCookie(cookieHeader)),
+    body.attribution,
+  );
   const vehicle = selected ? getVehicle(selected.vehicleId) : undefined;
+  const eventId = randomUUID();
+  const clientId = readRequestCookie(cookieHeader, CLIENT_ID_COOKIE) || randomUUID();
 
-  const draftLead = {
+  const lead = await createLead({
     originLabel: from.label,
     destinationLabel: to.label,
     date: body.date ?? null,
@@ -54,9 +86,7 @@ export async function POST(request: Request) {
     gclid: attribution.gclid,
     attribution,
     whatsappUrl: "",
-  };
-
-  const lead = await createLead(draftLead);
+  });
   const whatsappUrl = buildWhatsAppUrl({
     from,
     to,
@@ -68,6 +98,18 @@ export async function POST(request: Request) {
     leadId: lead.id,
   });
   lead.whatsappUrl = whatsappUrl;
+  await setLeadWhatsApp(lead.id, whatsappUrl);
 
-  return NextResponse.json({ leadId: lead.id, whatsappUrl, intent: quote.intent });
+  const env = await runtimeEnv();
+  await recordLeadConversions({
+    lead,
+    eventId,
+    env,
+    clientId,
+    pageUrl: leadPageUrl(lead.landingPage, env),
+    ip: request.headers.get("cf-connecting-ip"),
+    userAgent: request.headers.get("user-agent"),
+  });
+
+  return noStore({ leadId: lead.id, whatsappUrl, eventId, intent: quote.intent });
 }
