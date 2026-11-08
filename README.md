@@ -80,14 +80,10 @@ Set `NEXT_PUBLIC_WHATSAPP_NUMBER` to your business number, country code, no plus
 
 The site runs on the OpenNext Cloudflare adapter, which ships the real `next build`. `npm run build` reads public vars from `wrangler.jsonc` before Next starts, so canonicals and tag ids match the Worker.
 
+The D1 database `seecabs` is `bf8270fc-ea2f-4730-85b0-a0ab5c9db19c` in `wrangler.jsonc`. The `seecabs.com` zone is already on this account.
+
 ```bash
 npx wrangler login
-npx wrangler d1 create seecabs
-```
-
-Put the database id into `wrangler.jsonc` (`d1_databases[0].database_id`), then:
-
-```bash
 npx wrangler d1 migrations apply seecabs --remote
 npx wrangler secret put OPS_PASSWORD
 npx wrangler secret put OPS_SESSION_SECRET
