@@ -5,7 +5,8 @@ import { ConsentBar } from "@/components/consent-bar";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { brand } from "@/lib/brand";
-import { consentDefaultScript } from "@/lib/consent-script";
+import { consentDefaultScript, gtmBootstrapScript } from "@/lib/consent-script";
+import { runtimeEnv } from "@/lib/runtime-env";
 import { isIndexable, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -45,11 +46,13 @@ export const metadata: Metadata = {
     : { index: false, follow: false },
 };
 
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "";
-const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "";
-const measurementEnabled = Boolean(gtmId || pixelId);
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const env = await runtimeEnv();
+  const gtmId = env.gtmId;
+  const pixelId = env.metaPixelId;
+  const gtmBoot = gtmBootstrapScript(gtmId);
+  const measurementEnabled = Boolean(gtmBoot || pixelId);
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-IN"
@@ -58,6 +61,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col bg-paper text-ink">
         {measurementEnabled ? (
           <script dangerouslySetInnerHTML={{ __html: consentDefaultScript() }} />
+        ) : null}
+        {gtmBoot ? <script dangerouslySetInnerHTML={{ __html: gtmBoot }} /> : null}
+        {gtmBoot ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
         ) : null}
         <AttributionTracker />
         <Header />

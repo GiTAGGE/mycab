@@ -28,7 +28,7 @@ export function ConsentBar({ gtmId, pixelId }: { gtmId: string; pixelId: string 
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-card/95 px-4 py-3 shadow-[0_-12px_30px_-20px_rgba(28,20,16,0.5)] backdrop-blur">
       <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-ink-soft">
-          We use Google and Meta tags only after you accept, so ad clicks and fare checks can be measured. Reject keeps those tags off.
+          Google's tag is on this page with cookies off until you accept. Meta stays off until you accept. Reject keeps the cookies off.
         </p>
         <div className="flex shrink-0 gap-2">
           <button
