@@ -1,7 +1,7 @@
 const GTM_CONTAINER = /^GTM-[A-Z0-9]+$/;
 
 export function consentDefaultScript(): string {
-  return `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});`;
+  return `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});`;
 }
 
 export function gtmBootstrapScript(id: string): string | null {

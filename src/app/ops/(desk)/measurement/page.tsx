@@ -19,7 +19,7 @@ export default async function OpsMeasurementPage() {
   return (
     <>
       <p className="max-w-2xl text-sm text-ink-soft">
-        The site loads the Meta Pixel itself when the pixel id is set, after consent, and sends the same event id as the server. Do not add a second Pixel tag in GTM. In GTM, fire the Google Ads conversion on the generate_lead event. Use one conversion source for bidding: the browser tag, or the booked-click CSV below, and keep the event id if both fire.
+        The site loads the Meta Pixel itself when the pixel id is set, and sends the same event id as the server. Do not add a second Pixel tag in GTM. In GTM, fire the Google Ads conversion on the generate_lead event. Use one conversion source for bidding: the browser tag, or the booked-click CSV below, and keep the event id if both fire.
       </p>
       <ul className="mt-4 divide-y divide-line rounded-2xl border border-line bg-card text-sm">
         {rows.map(([label, value]) => (
