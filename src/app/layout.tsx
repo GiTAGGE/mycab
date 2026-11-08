@@ -25,7 +25,7 @@ const display = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${brand.name} — fare first`,
+    default: `${brand.name} — ${brand.tagline.replace(/\.$/, "")}`,
     template: `%s · ${brand.name}`,
   },
   description:
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: brand.name,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${brand.name} — fare first` }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${brand.name} — ${brand.tagline}` }],
   },
   twitter: {
     card: "summary_large_image",

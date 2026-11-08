@@ -424,6 +424,35 @@ h2,
   font-weight: 560;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .logo-route {
+    stroke-dasharray: 1.8 2.4;
+    animation: logo-route-flow 2.4s linear infinite;
+  }
+
+  .logo-pin {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: logo-pin-pulse 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes logo-route-flow {
+  to {
+    stroke-dashoffset: -11.2;
+  }
+}
+
+@keyframes logo-pin-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
 .wordmark-see {
   color: var(--ready);
 }

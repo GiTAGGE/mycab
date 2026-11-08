@@ -33,7 +33,7 @@ export default function HomePage() {
         compact
         copy={{
           eyebrow: "Karnataka cabs",
-          title: "A cab in Karnataka — fare first.",
+          title: "A cab in Karnataka — Find Your Ride.",
           lead: "Local cabs, airport transfers, car rentals and outstation trips from Hubli, Dharwad, Belgaum, Bangalore and Mangalore. See a starting fare, then confirm on the phone or WhatsApp.",
           stats: [
             { value: "5", label: "Live cities" },
