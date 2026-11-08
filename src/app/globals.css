@@ -425,7 +425,9 @@ h2,
 }
 
 .logo-mark {
-  overflow: visible;
+  aspect-ratio: 232 / 176;
+  width: auto;
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -465,7 +467,7 @@ h2,
   }
 
   .logo-prism {
-    animation: logo-prism-turn 28s linear infinite;
+    animation: logo-prism-turn 16s linear infinite;
   }
 
   .logo-persp {
@@ -499,19 +501,19 @@ h2,
 @keyframes logo-breathe {
   0%,
   100% { transform: scale(1); }
-  50% { transform: scale(1.025); }
+  50% { transform: scale(1.06); }
 }
 
 @keyframes logo-lens-pulse {
   0%,
   100% { transform: scale(1); }
-  50% { transform: scale(1.035); }
+  50% { transform: scale(1.08); }
 }
 
 @keyframes logo-glow {
   0%,
-  100% { opacity: 0.42; }
-  50% { opacity: 0.85; }
+  100% { opacity: 0.16; }
+  50% { opacity: 0.55; }
 }
 
 @keyframes logo-spin {
@@ -520,9 +522,9 @@ h2,
 
 @keyframes logo-prism-turn {
   0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(90deg) scale(1.14); }
+  25% { transform: rotate(90deg) scale(1.35); }
   50% { transform: rotate(180deg) scale(1); }
-  75% { transform: rotate(270deg) scale(1.14); }
+  75% { transform: rotate(270deg) scale(1.35); }
   100% { transform: rotate(360deg) scale(1); }
 }
 
@@ -532,14 +534,14 @@ h2,
 
 @keyframes logo-scan {
   0%,
-  100% { opacity: 0.1; transform: translateY(-4px); }
-  50% { opacity: 0.6; transform: translateY(4px); }
+  100% { opacity: 0.25; transform: translateY(-5px); }
+  50% { opacity: 1; transform: translateY(5px); }
 }
 
 @keyframes logo-float {
   0%,
-  100% { transform: translate(0, 0); opacity: 0.22; }
-  50% { transform: translate(1.5px, -3px); opacity: 0.7; }
+  100% { transform: translate(0, 0); opacity: 0.35; }
+  50% { transform: translate(3px, -6px); opacity: 1; }
 }
 
 .wordmark-see {
