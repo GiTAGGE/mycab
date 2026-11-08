@@ -94,7 +94,7 @@ Optional secrets, only when the accounts exist: `GA4_MEASUREMENT_ID`, `GA4_API_S
 
 The public site is `https://seecabs.com`. `www.seecabs.com` redirects to that host. `INDEXABLE` is `true`, so the canonical host is indexable. `https://seecabs.seecabs99.workers.dev` stays `noindex` (the worker sends `X-Robots-Tag` and a disallow-all `robots.txt` on every other hostname). Submit `https://seecabs.com/sitemap.xml` in Search Console after the custom domain is live. One host only.
 
-`wrangler.jsonc` attaches `seecabs.com` and `www.seecabs.com` as Worker custom domains. The DNS zone has to be on this Cloudflare account before `npm run deploy`, or the deploy stops at the domain step. Add the zone (change the registrar nameservers to Cloudflare), then deploy. Disconnect the old Netlify site so it cannot keep publishing.
+`wrangler.jsonc` attaches `seecabs.com` and `www.seecabs.com` as Worker custom domains. The DNS zone has to be on this Cloudflare account before `npm run deploy`, or the deploy stops at the domain step. Add the zone (change the registrar nameservers to Cloudflare), then deploy.
 
 GitHub Actions deploys `main` when `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` are set.
 
