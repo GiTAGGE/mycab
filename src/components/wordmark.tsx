@@ -9,25 +9,19 @@ export function Wordmark({
   href?: string;
   size?: "md" | "lg";
 }) {
-  const mark = size === "lg" ? "h-11 w-11" : "h-8 w-8 sm:h-9 sm:w-9";
-  const letters =
-    size === "lg"
-      ? "text-[1.7rem] sm:text-[1.9rem]"
-      : "text-[1.2rem] sm:text-[1.4rem]";
-  const tagline =
-    size === "lg" ? "mt-1 text-sm" : "mt-0.5 text-[10px] sm:text-[11px]";
+  const mark = size === "lg" ? "h-12 w-12" : "h-9 w-9 sm:h-10 sm:w-10";
+  const letters = size === "lg" ? "text-[1.85rem] sm:text-[2rem]" : "text-[1.2rem] sm:text-[1.45rem]";
+  const tagline = size === "lg" ? "mt-1.5 text-xs" : "mt-1 text-[9px] sm:text-[10px]";
 
   const lockup = (
-    <span className={`flex min-w-0 items-center ${size === "lg" ? "gap-3" : "gap-2 sm:gap-2.5"}`}>
+    <span className={`logo-lockup flex min-w-0 items-center ${size === "lg" ? "gap-3.5" : "gap-2.5"}`}>
       <LogoMark className={`${mark} shrink-0`} />
       <span className="min-w-0">
-        <span className={`wordmark block leading-none tracking-[-0.03em] ${letters}`}>
+        <span className={`wordmark flex items-baseline leading-none ${letters}`}>
           <span className="wordmark-see">See</span>
           <span className="wordmark-cabs">Cabs</span>
         </span>
-        <span className={`block truncate font-medium tracking-[0.04em] text-muted ${tagline}`}>
-          {brand.tagline}
-        </span>
+        <span className={`wordmark-tag block truncate ${tagline}`}>{brand.tagline}</span>
       </span>
     </span>
   );
