@@ -3,7 +3,7 @@ import { CallLink } from "@/components/call-link";
 import { ProsePage, ProseSection } from "@/components/prose-page";
 import { brand } from "@/lib/brand";
 import { internationalPhone } from "@/lib/format";
-import { rawWhatsAppUrl } from "@/lib/whatsapp";
+import { WhatsAppLink } from "@/components/whatsapp-link";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -28,12 +28,13 @@ export default function ContactPage() {
           <CallLink variant="footer" />
         </p>
         <p>
-          <a
+          <WhatsAppLink
+            source="contact"
+            label="Open WhatsApp"
             className="text-accent underline decoration-accent/40 underline-offset-4"
-            href={rawWhatsAppUrl()}
           >
             Open WhatsApp
-          </a>
+          </WhatsAppLink>
         </p>
       </ProseSection>
       <ProseSection title="What to send">
