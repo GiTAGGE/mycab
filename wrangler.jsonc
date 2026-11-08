@@ -34,8 +34,7 @@
     {
       "binding": "DB",
       "database_name": "seecabs",
-      // Replace with the id from `npx wrangler d1 create seecabs` before the first remote deploy.
-      "database_id": "00000000-0000-4000-8000-000000000001",
+      "database_id": "bf8270fc-ea2f-4730-85b0-a0ab5c9db19c",
       "migrations_dir": "migrations"
     }
   ],
