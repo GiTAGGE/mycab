@@ -1,55 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <defs>
-    <radialGradient id="fillL" cx="38%" cy="34%" r="70%">
-      <stop offset="0%" stop-color="#5eead4" stop-opacity=".85"/>
-      <stop offset="45%" stop-color="#14b8a6" stop-opacity=".35"/>
-      <stop offset="100%" stop-color="#0b1220" stop-opacity=".9"/>
-    </radialGradient>
-    <radialGradient id="fillR" cx="38%" cy="34%" r="70%">
-      <stop offset="0%" stop-color="#c084fc" stop-opacity=".85"/>
-      <stop offset="45%" stop-color="#8b5cf6" stop-opacity=".35"/>
-      <stop offset="100%" stop-color="#0b1220" stop-opacity=".9"/>
-    </radialGradient>
-    <linearGradient id="ringL" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5eead4"/>
-      <stop offset="100%" stop-color="#0d9488" stop-opacity=".45"/>
-    </linearGradient>
-    <linearGradient id="ringR" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#c084fc"/>
-      <stop offset="100%" stop-color="#7e22ce" stop-opacity=".45"/>
-    </linearGradient>
-    <linearGradient id="bridge" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#5eead4"/>
-      <stop offset="50%" stop-color="#e2e8f0"/>
-      <stop offset="100%" stop-color="#c084fc"/>
-    </linearGradient>
-    <linearGradient id="prismGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5eead4"/>
-      <stop offset="50%" stop-color="#f0f9ff"/>
-      <stop offset="100%" stop-color="#c084fc"/>
-    </linearGradient>
-    <radialGradient id="mixGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#a5f3fc" stop-opacity=".55"/>
-      <stop offset="55%" stop-color="#c4b5fd" stop-opacity=".22"/>
-      <stop offset="100%" stop-color="#c4b5fd" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="400" height="400" rx="88" fill="#08080f"/>
-  <g fill="none" stroke-width="1" opacity=".2">
-    <line x1="200" y1="200" x2="46" y2="70" stroke="#5eead4"/>
-    <line x1="200" y1="200" x2="354" y2="70" stroke="#c084fc"/>
-    <line x1="200" y1="200" x2="46" y2="330" stroke="#5eead4"/>
-    <line x1="200" y1="200" x2="354" y2="330" stroke="#c084fc"/>
-    <line x1="200" y1="200" x2="200" y2="26" stroke="#94a3b8"/>
-    <line x1="200" y1="200" x2="200" y2="374" stroke="#94a3b8"/>
-  </g>
-  <circle cx="200" cy="200" r="96" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 12" opacity=".35"/>
-  <circle cx="155" cy="200" r="58" fill="none" stroke="url(#ringL)" stroke-width="3"/>
-  <circle cx="155" cy="200" r="50" fill="url(#fillL)" opacity=".5"/>
-  <circle cx="245" cy="200" r="58" fill="none" stroke="url(#ringR)" stroke-width="3"/>
-  <circle cx="245" cy="200" r="50" fill="url(#fillR)" opacity=".5"/>
-  <ellipse cx="200" cy="200" rx="24" ry="48" fill="url(#mixGlow)" opacity=".8"/>
-  <path d="M178 158Q200 146 222 158" fill="none" stroke="url(#bridge)" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M200 184L214 200L200 216L186 200Z" fill="url(#prismGrad)"/>
-  <circle cx="200" cy="200" r="2.6" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#1b1512"/>
+  <circle cx="22" cy="33" r="13" fill="#ef4444"/>
+  <circle cx="42" cy="33" r="13" fill="#8b3a2a"/>
+  <circle cx="22" cy="33" r="13" fill="none" stroke="#7f1d1d" stroke-width="1.4"/>
+  <circle cx="42" cy="33" r="13" fill="none" stroke="#5c2418" stroke-width="1.4"/>
+  <path d="M30 22.5Q32 19.5 34 22.5" fill="none" stroke="#d4a24a" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M32 28.4 35 33 32 37.6 29 33Z" fill="#d4a24a"/>
 </svg>

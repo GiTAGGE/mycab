@@ -11,22 +11,18 @@ export function Wordmark({
 }) {
   const letters =
     size === "lg"
-      ? "text-[2.15rem] leading-none sm:text-[2.45rem]"
-      : "text-[1.45rem] leading-none sm:text-[2rem]";
-  const mark =
-    size === "lg"
-      ? "mx-1.5 h-[4.5rem] sm:h-20"
-      : "mx-1 h-14 sm:mx-1.5 sm:h-[4.5rem]";
+      ? "text-[1.85rem] sm:text-[2.15rem]"
+      : "text-[1.42rem] sm:text-[1.7rem]";
 
   const lockup = (
     <span className="flex min-w-0 flex-col">
-      <span className={`wordmark flex items-center ${letters}`}>
+      <span className={`wordmark flex items-center leading-none tracking-[-0.03em] ${letters}`}>
         <span className="wordmark-see">S</span>
-        <LogoMark className={mark} />
-        <span className="wordmark-cabs ml-[0.2em]">Cabs</span>
+        <LogoMark className="mx-[0.05em] h-[1.08em]" />
+        <span className="wordmark-cabs">Cabs</span>
       </span>
       <span
-        className={`block truncate font-medium tracking-wide text-muted ${
+        className={`block truncate font-medium tracking-[0.01em] text-muted ${
           size === "lg" ? "mt-1 text-sm" : "mt-0.5 text-[11px] sm:text-xs"
         }`}
       >
