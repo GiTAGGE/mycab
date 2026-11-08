@@ -18,7 +18,7 @@ const geistSans = Geist({
 const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  style: ["normal"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
