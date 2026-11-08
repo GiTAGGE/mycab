@@ -55,6 +55,7 @@ export function loadMeasurement(ids: { gtmId: string; pixelId: string }) {
 
 function loadGtm(id: string) {
   if (document.getElementById("gtm-loader")) return;
+  if (document.querySelector("script[src*='googletagmanager.com/gtm.js']")) return;
   dataLayer().push({ "gtm.start": Date.now(), event: "gtm.js" });
   const script = document.createElement("script");
   script.id = "gtm-loader";
