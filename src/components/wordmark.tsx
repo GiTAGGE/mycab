@@ -11,7 +11,7 @@ export function Wordmark({
 }) {
   const lockup = (
     <span className={`flex min-w-0 items-center ${size === "lg" ? "gap-2.5" : "gap-2"}`}>
-      <LogoMark className={size === "lg" ? "h-10 w-10 shrink-0" : "h-8 w-8 shrink-0 sm:h-9 sm:w-9"} />
+      <LogoMark className={size === "lg" ? "h-12 w-12 shrink-0" : "h-9 w-9 shrink-0 sm:h-10 sm:w-10"} />
       <span className="min-w-0 text-left">
         <span
           className={`wordmark block tracking-tight ${
