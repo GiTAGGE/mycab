@@ -8,10 +8,20 @@ function dataLayer(): DataLayer {
   return target.dataLayer;
 }
 
+function gtag(...args: unknown[]) {
+  const target = window as Window & { gtag?: (...items: unknown[]) => void };
+  if (typeof target.gtag === "function") {
+    target.gtag(...args);
+    return;
+  }
+  dataLayer().push(args);
+}
+
 export function trackEvent(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
   if (readConsent() === "denied") return;
   dataLayer().push({ event, ...params });
+  gtag("event", event, params);
 }
 
 export function trackGenerateLead(params: {
