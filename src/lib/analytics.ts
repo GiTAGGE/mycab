@@ -10,11 +10,12 @@ function dataLayer(): DataLayer {
 
 function gtag(...args: unknown[]) {
   const target = window as Window & { gtag?: (...items: unknown[]) => void };
-  if (typeof target.gtag === "function") {
-    target.gtag(...args);
-    return;
+  if (typeof target.gtag !== "function") {
+    target.gtag = function send() {
+      dataLayer().push(arguments);
+    };
   }
-  dataLayer().push(args);
+  target.gtag(...args);
 }
 
 export function trackEvent(event: string, params: Record<string, unknown> = {}) {
@@ -44,10 +45,6 @@ export function trackGenerateLead(params: {
 }
 
 function grantConsent() {
-  const layer = dataLayer() as DataLayer & { push: (...items: unknown[]) => number };
-  function gtag(...args: unknown[]) {
-    layer.push(args);
-  }
   gtag("consent", "update", {
     analytics_storage: "granted",
     ad_storage: "granted",
