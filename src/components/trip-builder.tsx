@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { Place } from "@/types";
+import { trackEvent, trackGenerateLead } from "@/lib/analytics";
 import { readAttribution } from "@/lib/attribution";
 import type { ServiceKind } from "@/types";
 import { getVehicle, localitiesInCity, vehicles } from "@/lib/data";
@@ -64,6 +65,7 @@ export function TripBuilder({
   const [rideOpen, setRideOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [company, setCompany] = useState("");
 
   const from = getPlace(fromId);
   const to = getPlace(toId);
@@ -80,6 +82,19 @@ export function TripBuilder({
     ? getVehicle(selectedVehicle.vehicleId)?.name
     : undefined;
   const shownFare = selectedVehicle?.amount ?? null;
+  const fareKey =
+    quote && shownFare != null ? `${quote.intent}:${fromId}:${toId}:${shownFare}:${localUnit}` : "";
+
+  useEffect(() => {
+    if (!fareKey || shownFare == null) return;
+    trackEvent("view_fare", {
+      value: shownFare,
+      currency: "INR",
+      intent: fareKey.split(":")[0] ?? "",
+      city: citySlug ?? "",
+      path: window.location.pathname,
+    });
+  }, [fareKey, shownFare, citySlug]);
 
   async function continueWhatsApp() {
     if (!from || !to) return;
@@ -99,14 +114,27 @@ export function TripBuilder({
           vehicleId: selectedVehicle?.vehicleId ?? null,
           landingPage: window.location.pathname,
           localUnit: isLocal ? localUnit : undefined,
+          company,
           attribution,
         }),
       });
-      const payload = (await response.json()) as { whatsappUrl?: string; error?: string };
+      const payload = (await response.json()) as {
+        whatsappUrl?: string;
+        error?: string;
+        eventId?: string;
+      };
       if (!response.ok || !payload.whatsappUrl) {
         throw new Error(payload.error || "Could not start WhatsApp");
       }
-      window.open(payload.whatsappUrl, "_self");
+      trackGenerateLead({
+        eventId: payload.eventId,
+        value: shownFare,
+        intent: quote?.intent,
+        path: window.location.pathname,
+      });
+      const tagsLive = Boolean(document.getElementById("gtm-loader") || document.getElementById("meta-pixel"));
+      if (tagsLive) await new Promise((resolve) => setTimeout(resolve, 400));
+      window.location.assign(payload.whatsappUrl);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not start WhatsApp");
     } finally {
@@ -250,6 +278,16 @@ export function TripBuilder({
           no need to guess a price we don’t have yet.
         </p>
       ) : null}
+
+      <label className="sr-only">
+        Company
+        <input
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(event) => setCompany(event.target.value)}
+        />
+      </label>
 
       <div className="book-actions">
         <button

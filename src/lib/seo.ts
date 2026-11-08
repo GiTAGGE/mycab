@@ -32,6 +32,17 @@ export function organizationJsonLd() {
     url: absoluteUrl("/"),
     telephone: `+${brand.phoneNumber}`,
     description: brand.tagline,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: `+${brand.phoneNumber}`,
+      contactType: "customer service",
+      areaServed: "IN",
+      availableLanguage: "en",
+    },
+    areaServed: {
+      "@type": "State",
+      name: "Karnataka",
+    },
   };
 }
 

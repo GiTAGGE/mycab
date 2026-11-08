@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FaqList } from "@/components/faq-list";
 import { JourneyGuide } from "@/components/journey-guide";
 import { JsonLd } from "@/components/json-ld";
@@ -21,9 +22,9 @@ import {
   routesFromCity,
   services,
 } from "@/lib/data";
-import { durationLabel, inr, inrFrom } from "@/lib/format";
+import { durationLabel, inrFrom } from "@/lib/format";
 import { guideFaqs, serviceLinkGroups } from "@/lib/guides";
-import { cityLandingCopy, routeLandingLead } from "@/lib/landing-copy";
+import { cityLandingCopy, routeLandingLead, routeSeo } from "@/lib/landing-copy";
 import { cityPlaceId, destinationPlaceId } from "@/lib/places";
 import { breadcrumbJsonLd, faqJsonLd, routeServiceJsonLd, taxiServiceJsonLd } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
@@ -74,8 +75,9 @@ export async function generateMetadata({
   const route = getRouteByPageSlug(slug);
   if (route) {
     const origin = cityName(route.originCitySlug);
-    const title = `${origin} to ${route.destinationName} taxi — sedan from ${inr(route.sedanFare)}`;
-    const description = `${origin} to ${route.destinationName} by cab, about ${route.distanceKm} km, typically ${durationLabel(route.durationMinutes)} depending on traffic. Sedan from ${inr(route.sedanFare)}. Fuel and driver in the base. Tolls confirmed before you pay.`;
+    const seo = routeSeo(origin, route);
+    const title = seo.title;
+    const description = seo.description;
     return {
       title,
       description,
@@ -113,6 +115,12 @@ function NetworkServiceLanding({ serviceSlug }: { serviceSlug: string }) {
           { name: "Home", path: "/" },
           { name: service.name, path: networkServicePath(service) },
         ])}
+      />
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: service.name, path: networkServicePath(service) },
+        ]}
       />
       <p className="text-sm text-muted">SeeCabs network</p>
       <h1 className="display mt-2 text-4xl sm:text-5xl">{service.name} in Karnataka</h1>
@@ -173,7 +181,13 @@ function CityLanding({ citySlug }: { citySlug: string }) {
         ])}
       />
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
-      <PageHero copy={copy}>
+      <PageHero
+        copy={copy}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: city.name, path: `/${city.slug}` },
+        ]}
+      >
         <TripBuilder
           citySlug={city.slug}
           initialFromId={cityPlaceId(city.slug)}
@@ -285,7 +299,14 @@ function RouteLanding({ routeId }: { routeId: string }) {
         </>
       ) : null}
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
-      <PageHero copy={copy}>
+      <PageHero
+        copy={copy}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: origin, path: `/${route.originCitySlug}` },
+          { name: `${origin} to ${route.destinationName} cab`, path: `/${route.pageSlug}` },
+        ]}
+      >
         <TripBuilder
           citySlug={route.originCitySlug}
           initialFromId={fromId}

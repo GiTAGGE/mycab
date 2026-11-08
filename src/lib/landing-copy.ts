@@ -1,6 +1,6 @@
-import type { City, Service, ServiceKind } from "@/types";
+import type { City, Route, Service, ServiceKind } from "@/types";
 import { localPackageFrom } from "@/lib/data";
-import { inrFrom } from "@/lib/format";
+import { durationLabel, inr, inrFrom } from "@/lib/format";
 
 export type LandingCopy = {
   eyebrow: string;
@@ -189,6 +189,13 @@ export function serviceSeo(city: City, service: Service): { title: string; descr
   return {
     title: byKind[service.kind] ?? copy.eyebrow,
     description: copy.lead,
+  };
+}
+
+export function routeSeo(origin: string, route: Route): { title: string; description: string } {
+  return {
+    title: `${origin} to ${route.destinationName} taxi — sedan from ${inr(route.sedanFare)}`,
+    description: `${origin} to ${route.destinationName} by cab, about ${route.distanceKm} km, typically ${durationLabel(route.durationMinutes)} depending on traffic. Sedan from ${inr(route.sedanFare)}. Fuel and driver in the base. Tolls confirmed before you pay.`,
   };
 }
 
