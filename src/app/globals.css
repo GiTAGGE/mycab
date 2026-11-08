@@ -425,58 +425,11 @@ h2,
 }
 
 .logo-mark {
-  aspect-ratio: 52 / 32;
-  width: auto;
-  overflow: visible;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .logo-breathe {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: logo-breathe 5.5s ease-in-out infinite;
-  }
-
-  .logo-lens-l,
-  .logo-lens-r,
-  .logo-prism {
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  .logo-lens-l {
-    animation: logo-lens-pulse 4.8s ease-in-out infinite;
-  }
-
-  .logo-lens-r {
-    animation: logo-lens-pulse 4.8s ease-in-out infinite 0.8s;
-  }
-
-  .logo-prism {
-    animation: logo-prism-turn 14s linear infinite;
-  }
-}
-
-@keyframes logo-breathe {
-  0%,
-  100% { transform: scale(1); }
-  50% { transform: scale(1.035); }
-}
-
-@keyframes logo-lens-pulse {
-  0%,
-  100% { transform: scale(1); }
-  50% { transform: scale(1.045); }
-}
-
-@keyframes logo-prism-turn {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.12); }
-  100% { transform: rotate(360deg) scale(1); }
+  display: block;
 }
 
 .wordmark-see {
-  color: var(--ready);
+  color: var(--ink);
 }
 
 .wordmark-cabs {
