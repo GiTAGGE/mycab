@@ -31,7 +31,7 @@ export function organizationJsonLd() {
     name: brand.name,
     url: absoluteUrl("/"),
     telephone: `+${brand.phoneNumber}`,
-    description: brand.tagline,
+    description: `${brand.tagline} Starting fares for cabs in Karnataka, confirmed on the phone or WhatsApp.`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: `+${brand.phoneNumber}`,
@@ -52,7 +52,7 @@ export function websiteJsonLd() {
     "@type": "WebSite",
     name: brand.name,
     url: absoluteUrl("/"),
-    description: brand.tagline,
+    description: `${brand.tagline} Starting fares for cabs in Karnataka, confirmed on the phone or WhatsApp.`,
   };
 }
 
