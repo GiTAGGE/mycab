@@ -1,13 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="9" fill="#1B1512"/>
-  <circle cx="11" cy="18.5" r="6.15" fill="#F7F6F4"/>
-  <circle cx="21" cy="18.5" r="6.15" fill="#F7F6F4"/>
-  <rect x="7.4" y="10.15" width="17.2" height="3.35" rx="1.55" fill="#F7F6F4"/>
-  <path d="M12.1 11.8h7.8" fill="none" stroke="#D4A24A" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M8.15 18.15h5.7l.3 1.7H7.85z" fill="#1B1512"/>
-  <path d="M9.25 18.15 9.9 16.55h2.25l.65 1.6z" fill="#1B1512"/>
-  <circle cx="9.35" cy="19.85" r="0.78" fill="#F7F6F4"/>
-  <circle cx="12.7" cy="19.85" r="0.78" fill="#F7F6F4"/>
-  <path d="M21 14.7c1.35 0 2.35 1 2.35 2.35 0 1.65-2.35 4.3-2.35 4.3s-2.35-2.65-2.35-4.3c0-1.35 1-2.35 2.35-2.35z" fill="#8B3A2A"/>
-  <circle cx="21" cy="16.95" r="0.7" fill="#F7F6F4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="fillL" cx="38%" cy="34%" r="70%">
+      <stop offset="0%" stop-color="#5eead4" stop-opacity=".85"/>
+      <stop offset="45%" stop-color="#14b8a6" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#0b1220" stop-opacity=".9"/>
+    </radialGradient>
+    <radialGradient id="fillR" cx="38%" cy="34%" r="70%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity=".85"/>
+      <stop offset="45%" stop-color="#8b5cf6" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#0b1220" stop-opacity=".9"/>
+    </radialGradient>
+    <linearGradient id="ringL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#0d9488" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="ringR" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7e22ce" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="bridge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="prismGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <radialGradient id="mixGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#a5f3fc" stop-opacity=".55"/>
+      <stop offset="55%" stop-color="#c4b5fd" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#c4b5fd" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" rx="88" fill="#08080f"/>
+  <g fill="none" stroke-width="1" opacity=".2">
+    <line x1="200" y1="200" x2="46" y2="70" stroke="#5eead4"/>
+    <line x1="200" y1="200" x2="354" y2="70" stroke="#c084fc"/>
+    <line x1="200" y1="200" x2="46" y2="330" stroke="#5eead4"/>
+    <line x1="200" y1="200" x2="354" y2="330" stroke="#c084fc"/>
+    <line x1="200" y1="200" x2="200" y2="26" stroke="#94a3b8"/>
+    <line x1="200" y1="200" x2="200" y2="374" stroke="#94a3b8"/>
+  </g>
+  <circle cx="200" cy="200" r="96" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 12" opacity=".35"/>
+  <circle cx="155" cy="200" r="58" fill="none" stroke="url(#ringL)" stroke-width="3"/>
+  <circle cx="155" cy="200" r="50" fill="url(#fillL)" opacity=".5"/>
+  <circle cx="245" cy="200" r="58" fill="none" stroke="url(#ringR)" stroke-width="3"/>
+  <circle cx="245" cy="200" r="50" fill="url(#fillR)" opacity=".5"/>
+  <ellipse cx="200" cy="200" rx="24" ry="48" fill="url(#mixGlow)" opacity=".8"/>
+  <path d="M178 158Q200 146 222 158" fill="none" stroke="url(#bridge)" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M200 184L214 200L200 216L186 200Z" fill="url(#prismGrad)"/>
+  <circle cx="200" cy="200" r="2.6" fill="#ffffff"/>
 </svg>
