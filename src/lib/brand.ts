@@ -1,11 +1,11 @@
 export const brand = {
   name: "SeeCabs",
   tagline: "Find Your Ride.",
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919900112233",
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919187779987",
   phoneNumber:
     process.env.NEXT_PUBLIC_PHONE_NUMBER ||
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ||
-    "919900112233",
+    "919187779987",
   cityDefault: "bangalore",
 };
 
